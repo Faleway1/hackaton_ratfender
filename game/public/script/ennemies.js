@@ -1,4 +1,4 @@
-export class NormalRat{
+export class Rat{
     constructor(hp, type, name,id_tile, image, money) {
         this.hp = hp;
         this.type = type;
