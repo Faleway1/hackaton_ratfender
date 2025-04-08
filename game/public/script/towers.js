@@ -1,11 +1,10 @@
 export class Tower{
-    constructor(name, types, tiles, position, price) {
+    constructor(types, tiles, position, price) {
         this.stats = {
-            attack: 0,
-            shot_speed:0,
-            range:0
+            attack: 10,
+            shot_speed:5,
+            range:5
         }
-        this.name = name
         this.types = types;
         this.tiles = tiles;
         this.position = position;
@@ -53,8 +52,40 @@ export class Tower{
     getName() {
         return this.name;
     }
-}
 
-export class Tome extends Tower {
+    IncreaseLevel(id_upgrade) {
+        if (id_upgrade === 1) {
+            if (this.level.path1 === 3) {
+                console.log("deja niv max");
+            } else {
+                this.level.path1 += 1;
+                this.stats.attack +=5;
+            }
+        }
+        if (id_upgrade === 2) {
+            if (this.level.path2 === 3) {
+                console.log("deja niv max");
+            } else {
+                this.level.path2 += 1;
+                this.stats.shot_speed +=2;
+            }
+        }
+        if (id_upgrade === 3) {
+            if (this.level.path3 === 3) {
+                console.log("deja niv max");
+            } else {
+                this.level.path3 += 1;
+                this.stats.range +=1;
+            }
+        }
+    }
 
+    InRadius(rat) {
+        const fileRat = []
+        this.tiles.forEach(element => {
+            if (rat.position === element) {
+
+            }
+        });
+    }
 }
