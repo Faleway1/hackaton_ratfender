@@ -1,12 +1,14 @@
+import {game} from "./game.js"
+
 export class Tower{
-    constructor(types, tiles, position, price) {
+    constructor(types, position, price) {
         this.stats = {
             attack: 10,
             shot_speed:5,
-            range:5
+            range:2
         }
         this.types = types;
-        this.tiles = tiles;
+        this.tiles_seen = []
         this.position = position;
         this.price = price;
         this.level = {
@@ -22,14 +24,6 @@ export class Tower{
 
     getTypes() {
         return this.types;
-    }
-
-    setTiles(tiles) {
-        this.tiles = this.tiles.push(tiles);
-    }
-
-    getTiles() {
-        return this.tiles;
     }
 
     setPosition(position) {
@@ -80,12 +74,26 @@ export class Tower{
         }
     }
 
-    InRadius(rat) {
-        const fileRat = []
-        this.tiles.forEach(element => {
-            if (rat.position === element) {
-
-            }
+    TilesSeen() {
+        let tiles_around = [];
+        for (let y = -(this.stats.range); y < this.stats.range + 1; y++) {
+            for (let x = -(this.stats.range); x < this.stats.range + 1; x++) {
+                const cell = document.querySelector(`#cell-${this.position[0] + x}-${this.position[1] + y}`)
+                tiles_around.push(cell)
+            }            
+        }
+        console.log(tiles_around);
+        
+        tiles_around.forEach(e => {
+            game.path.forEach(element => {
+                if (e === element) {
+                    this.tiles_seen.push(e)
+                }
+            });
         });
+        console.log(this.tiles_seen);
+        
     }
 }
+
+
