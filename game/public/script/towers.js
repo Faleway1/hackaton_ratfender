@@ -1,34 +1,20 @@
 export class Tower{
-    constructor(atk, atk_speed, rng, types, tiles) {
-        this.atk = atk;
-        this.atk_speed = atk_speed;
-        this.rng = rng;
+    constructor(name, types, tiles, position, price) {
+        this.stats = {
+            attack: 0,
+            shot_speed:0,
+            range:0
+        }
+        this.name = name
         this.types = types;
         this.tiles = tiles;
-    }
-
-    setAtk(atk) {
-        this.atk = atk;
-    }
-
-    getAtk() {
-        return this.atk;
-    }
-
-    setAtkSpeed(atk_speed) {
-        this.atk_speed = atk_speed;
-    }
-
-    getAtkSpeed() {
-        return this.atk_speed;
-    }
-
-    setRng(rng) {
-        this.rng = rng;
-    }
-
-    getRng() {
-        return this.rng;
+        this.position = position;
+        this.price = price;
+        this.level = {
+            path1: 0,
+            path2: 0,
+            path3: 0
+        }
     }
 
     setTypes(types) {
@@ -46,4 +32,29 @@ export class Tower{
     getTiles() {
         return this.tiles;
     }
+
+    setPosition(position) {
+        this.position = position;
+    }
+    getPosition() {
+        return this.position;
+    }
+
+    setPrice(price) {
+        this.price = price;
+    }
+    getPrice() {
+        return this.price;
+    }
+
+    setName(name) {
+        this.name = name;
+    }
+    getName() {
+        return this.name;
+    }
+}
+
+export class Tome extends Tower {
+
 }
