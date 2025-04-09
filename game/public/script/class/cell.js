@@ -1,13 +1,14 @@
-import { game, TILEHEIGHT, TILEWIDTH } from "../game.js";
+import { game } from "../game.js";
+
 
 export class Cell {
     constructor(ligne, colonne, isOccupied = false) {
         this.x = ligne;
         this.y = colonne;
-        this.xmin = ligne * TILEWIDTH;
-        this.ymin = colonne * TILEHEIGHT;
-        this.xmax = ligne * TILEWIDTH + TILEWIDTH;
-        this.ymax = colonne * TILEHEIGHT + TILEHEIGHT;
+        this.xmin = ligne * game.tilewidth;
+        this.ymin = colonne * game.tileheight;
+        this.xmax = ligne * game.tilewidth + game.tilewidth;
+        this.ymax = colonne * game.tileheight + game.tileheight;
 
         this.isOccupied = isOccupied;
         this.ennemies = [];
@@ -22,7 +23,7 @@ export class Cell {
 
     highlight(color) {
         const cell = new PIXI.Graphics();
-        cell.rect(this.xmin, this.ymin, TILEWIDTH, TILEHEIGHT);
+        cell.rect(this.xmin, this.ymin, game.tilewidth, game.tileheight);
         cell.fill(color);
         cell.stroke({ width: 2, color: 0xfeeb77 });
         cell.name = `cell-${this.x}-${this.y}`;
@@ -30,7 +31,6 @@ export class Cell {
     }
 
     unhighlight() {
-        const graphicsList = game.app.stage.children.filter(child => child instanceof PIXI.Graphics);
         const monGraphics = game.app.stage.children.find(c => c.name === `cell-${this.x}-${this.y}`);
         monGraphics.clear();
     }
