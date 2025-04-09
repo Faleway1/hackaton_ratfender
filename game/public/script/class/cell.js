@@ -8,6 +8,11 @@ export class Cell {
         this.ennemies = [];
         this.towers = [];
         
+        this.element = document.createElement("div");
+        this.element.classList.add("grid-cell");
+        this.element.id = `cell-${this.x}-${this.y}`;
+        this.element.style.width = `${100 / game.gridWidth}%`;
+        this.element.style.height = "100%";
         game.cellsList.push(this);
     }
 

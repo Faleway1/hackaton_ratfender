@@ -1,5 +1,6 @@
 import { game, TILEHEIGHT, TILEWIDTH } from "./game.js";
 import { Cell } from "./class/cell.js";
+import { Tower } from "./towers.js";
 
 console.log(game)
 
@@ -34,4 +35,35 @@ function highlightPath() {
     });
 }
 
-// highlightPath();
+function moveEntity(entity) {
+    const entityPosition = game.path[entity.position];
+    if (entityPosition) {
+        const currentCell = findCell(entityPosition.x, entityPosition.y);
+        currentCell.unhighlightPath();
+    }
+
+    entity.position += 1
+    const nextPosition = game.path[entity.position];
+
+    if (nextPosition) {
+        const nextCell = findCell(nextPosition.x, nextPosition.y);
+        nextCell.highlightPath();
+    } else {
+        console.log("End of path reached.");
+        //FAIRE DISPARAITRE L'ENTITE
+    }
+}
+
+const entity = {
+    position: -1, // Starting position of the entity
+};
+
+document.querySelector(".moveEntity").addEventListener("click", () => {
+    moveEntity(entity);
+});
+
+createGrid();
+highlightPath();
+
+const test = new Tower("neutral",[8,2],15 )
+test.TilesSeen()
