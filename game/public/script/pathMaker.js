@@ -1,7 +1,8 @@
 import { game, TILEHEIGHT, TILEWIDTH } from "./game.js";
 import { Cell } from "./class/cell.js";
-import { Tower } from "./towers.js";
-import { Rat } from "./ennemies.js";
+import { Tower } from "./class/towers.js";
+import { Rat } from "./class/ennemies.js";
+import { findCell, createGrid } from "./gridManager.js";
 
 console.log(game)
 

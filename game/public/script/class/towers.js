@@ -1,5 +1,5 @@
-import {game} from "./game.js"
-import { findCell } from "./pathMaker.js";
+import {game} from "../game.js"
+import { findCell } from "../gridManager.js";
 
 export class Tower{
     constructor(types, position, price, image) {

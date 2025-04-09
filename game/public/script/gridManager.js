@@ -41,3 +41,5 @@ document.querySelector(".moveEntity").addEventListener("click", () => {
 });
 
 createGrid();
+
+export { findCell, createGrid, moveEntity };
