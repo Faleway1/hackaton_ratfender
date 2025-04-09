@@ -1,7 +1,7 @@
 export const game = {
-    grid: document.querySelector(".game-grid"),
-    gridWidth: 30,
-    gridHeight: 16,
+    grid : document.querySelector(".game-grid"),
+    gridWidth : 30,
+    gridHeight : 16,
     path: [
         { x: 7, y: 0 },
         { x: 7, y: 1 },
@@ -51,6 +51,16 @@ export const game = {
         { x: 10, y: 28 },
         { x: 10, y: 29 },
     ],
-    cellsList: [],
-    pathColor: "red",
+    cellsList : [],
+    pathColor : "red",
+    pdrPerRound : {
+        0 : 50,
+        10 : 100,
+        20 : 150,
+        30 : 200,
+        40 : 300,
+        50 : 400,
+        75 : 500,
+        100 : 1000,
+    }
 };

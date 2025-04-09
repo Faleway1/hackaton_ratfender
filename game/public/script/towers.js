@@ -2,14 +2,17 @@ import {game} from "./game.js"
 import { findCell } from "./pathMaker.js";
 
 export class Tower{
-    constructor(types, position, price) {
+    constructor(types, position, price, image) {
         this.stats = {
             attack: 10,
-            shot_speed:5,
-            range:2
+            shot_speed:3000,
+            range:2,
+            nb_shots: 1
         }
+        this.image = image
         this.types = types;
         this.tiles_seen = []
+        this.ennemieseen = []
         this.position = position;
         this.price = price;
         this.level = {
@@ -17,6 +20,10 @@ export class Tower{
             path2: 0,
             path3: 0
         }
+        this.element = document.createElement("img");
+        this.element.src = this.image;
+        this.element.classList.add("tower");
+        this.render();
     }
 
     setTypes(types) {
@@ -48,6 +55,16 @@ export class Tower{
         return this.name;
     }
 
+    render() {
+        const cell = document.querySelector(`#cell-${this.position[0]}-${this.position[1]}`);
+        if (cell) {
+            console.log("Cell found:", cell);
+            cell.appendChild(this.element);
+        } else {
+            console.warn(`Cell not found at: cell-${this.position[0]}-${this.position[1]}`);
+        }
+    }
+
     IncreaseLevel(id_upgrade) {
         if (id_upgrade === 1) {
             if (this.level.path1 === 3) {
@@ -62,7 +79,7 @@ export class Tower{
                 console.log("deja niv max");
             } else {
                 this.level.path2 += 1;
-                this.stats.shot_speed +=2;
+                this.stats.shot_speed -=500;
             }
         }
         if (id_upgrade === 3) {
@@ -86,7 +103,40 @@ export class Tower{
                 });
             }            
         }
-        return this.tiles_seen
+        console.log(this.tiles_seen);
+        
+    }
+
+    EnnemieSeen(entity) {
+        this.tiles_seen.forEach(element => {
+            console.log(entity.cell_position);
+            
+            if (entity.cell_position === element) {
+                this.ennemieseen.push(entity)
+            }
+        });
+        console.log(this.ennemieseen);
+        
+    }
+
+    EnnemiesUnseen(entity) {
+        this.tiles_seen.forEach(e => {
+            this.ennemieseen.forEach(element => {
+                if (element != e) {
+                    this.ennemieseen.pop(element)
+                }
+            })
+        })
+    }
+
+    TowerAttack() {
+        if (!this.ennemieseen) {
+            console.log("liste vide pas d'attaque");
+        } else {
+            for (let i = 0; i < this.stats.nb_shots; i++) {
+                this.ennemieseen[i].hp - this.stats.attack
+            }
+        }
     }
 }
 

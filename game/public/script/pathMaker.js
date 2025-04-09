@@ -1,6 +1,7 @@
 import { game } from "./game.js";
 import { Cell } from "./gridCell.js";
 import { Tower } from "./towers.js";
+import { Rat } from "./ennemies.js";
 
 console.log(game)
 
@@ -59,5 +60,7 @@ document.querySelector(".moveEntity").addEventListener("click", () => {
 createGrid();
 highlightPath();
 
-const test = new Tower("neutral",[8,2],15 )
+const test = new Tower("neutral",[8,2],15,"https://placehold.co/25" )
+const test2 = new Rat(15,"neutre", "https://placehold.co/25",15,[7,0])
 test.TilesSeen()
+test.EnnemieSeen(test2)
