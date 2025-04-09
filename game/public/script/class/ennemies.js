@@ -1,5 +1,5 @@
-import { game } from "./game.js";
-import { findCell } from "./pathMaker.js";
+import { game } from "../game.js";
+import { findCell } from "../gridManager.js";
 
 export class Rat{
     constructor(hp, type, image, money, position) {

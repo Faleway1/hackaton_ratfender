@@ -1,9 +1,7 @@
-import { Cell } from "./class/cell.js";
-
 export const GRIDWIDTH = 40;
-export const GRIDHEIGHT = 30;
+export const GRIDHEIGHT = 20;
 export const APPWIDTH = 800;
-export const APPHEIGHT = 600;
+export const APPHEIGHT = 400;
 export const TILEWIDTH = APPWIDTH / GRIDWIDTH;
 export const TILEHEIGHT = APPHEIGHT / GRIDHEIGHT;
 
