@@ -1,14 +1,13 @@
-import { game } from "./game.js";
+import { game, TILEHEIGHT, TILEWIDTH } from "../game.js";
 
 export class Cell {
-    constructor(ligne, colonne) {
+    constructor(ligne, colonne, isOccupied = false) {
         this.x = ligne;
         this.y = colonne;
-        this.element = document.createElement("div");
-        this.element.classList.add("grid-cell");
-        this.element.id = `cell-(${this.x}-${this.y})`;
-        this.element.style.width = `${100 / game.gridWidth}%`;
-        this.element.style.height = "100%";
+        this.isOccupied = isOccupied;
+        this.ennemies = [];
+        this.towers = [];
+        
         game.cellsList.push(this);
     }
 

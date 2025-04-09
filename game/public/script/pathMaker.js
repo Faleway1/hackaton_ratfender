@@ -1,25 +1,32 @@
-import { game } from "./game.js";
-import { Cell } from "./gridCell.js";
+import { game, TILEHEIGHT, TILEWIDTH } from "./game.js";
+import { Cell } from "./class/cell.js";
 
 console.log(game)
 
-function createGrid() {
-    for (let x = 0; x < game.gridHeight; x++) {
-        const row = document.createElement("div");
-        row.style.height = `${100 / game.gridHeight}%`;
-        row.classList.add("grid-row");
-        for (let y = 0; y < game.gridWidth; y++) {
-            const cell = new Cell(x, y);
-            cell.render(row);
-        }
-        game.grid.appendChild(row);
-    }
-}
+function createPath() {
+    const path = new PIXI.Graphics();
+    path.lineStyle(50, 0xffff00, 1);
 
-function findCell(x, y) {
-    return game.cellsList.find((cell) => cell.getPosition().x === x && cell.getPosition().y === y);
-}
+    console.log(game.path)
+    path.moveTo(game.path[0].x * TILEWIDTH, game.path[0].y * TILEHEIGHT);
+    game.path.forEach((cell) => {
+        console.log(cell)
+        path.lineTo(cell.col * TILEWIDTH, cell.lig * TILEHEIGHT);
+    });
+    path.stroke({ width: TILEWIDTH, color: 0xffd900 });
+    console.log(path)
+    game.app.stage.addChild(path);
 
+    // const path = new PIXI.Graphics();
+    // path.moveTo(50, 350);
+    // path.lineTo(250, 350);
+    // path.fill(0xff3300);
+    // path.stroke({ width: 4, color: 0xffd900 });
+
+    game.app.stage.addChild(path);
+
+}
+createPath()
 function highlightPath() {
     game.path.forEach((cell) => {
         const gridCell = findCell(cell.x, cell.y);
@@ -27,33 +34,4 @@ function highlightPath() {
     });
 }
 
-
-function moveEntity(entity) {
-    const entityPosition = game.path[entity.position];
-    if (entityPosition) {
-        const currentCell = findCell(entityPosition.x, entityPosition.y);
-        currentCell.unhighlightPath();
-    }
-
-    entity.position += 1
-    const nextPosition = game.path[entity.position];
-
-    if (nextPosition) {
-        const nextCell = findCell(nextPosition.x, nextPosition.y);
-        nextCell.highlightPath();
-    } else {
-        console.log("End of path reached.");
-        //FAIRE DISPARAITRE L'ENTITE
-    }
-}
-
-const entity = {
-    position: -1, // Starting position of the entity
-};
-
-document.querySelector(".moveEntity").addEventListener("click", () => {
-    moveEntity(entity);
-});
-
-createGrid();
-highlightPath();
+// highlightPath();
