@@ -1,15 +1,15 @@
-export const GRIDWIDTH = 40;
-export const GRIDHEIGHT = 20;
+export const TILES_PERROW = 40;
+export const TILES_PERCOL = 20;
 export const APPWIDTH = 800;
 export const APPHEIGHT = 400;
-export const TILEWIDTH = APPWIDTH / GRIDWIDTH;
-export const TILEHEIGHT = APPHEIGHT / GRIDHEIGHT;
+export const TILEWIDTH = APPWIDTH / TILES_PERROW;
+export const TILEHEIGHT = APPHEIGHT / TILES_PERCOL;
 
 
 export const game = {
     grid: document.querySelector(".game-grid"),
-    gridWidth: GRIDWIDTH,
-    gridHeight: GRIDHEIGHT,
+    gridWidth: TILES_PERROW,
+    gridHeight: TILES_PERCOL,
     path: [{ lig: 15, col: 0 },
     { lig: 15, col: 1 },
     { lig: 15, col: 2 },
