@@ -4,8 +4,10 @@ export class Cell {
     constructor(ligne, colonne, isOccupied = false) {
         this.x = ligne;
         this.y = colonne;
-        this.xmax = ligne * TILEWIDTH;
-        this.ymax = colonne * TILEHEIGHT;
+        this.xmin = ligne * TILEWIDTH;
+        this.ymin = colonne * TILEHEIGHT;
+        this.xmax = ligne * TILEWIDTH + TILEWIDTH;
+        this.ymax = colonne * TILEHEIGHT + TILEHEIGHT;
 
         this.isOccupied = isOccupied;
         this.ennemies = [];
@@ -15,27 +17,21 @@ export class Cell {
     }
 
     getPosition() {
-        return { x: this.x, y: this.y };
+        return { x: this.x, y: this.y, xmax: this.xmax, ymax: this.ymax };
     }
 
-    render(parent) {
-        parent.appendChild(this.element);
-    }
-
-    highlight() {
-        this.element.style.backgroundColor = game.pathColor;
-    }
-
-    highlightPath() {
-        this.element.style.backgroundColor = "green";
+    highlight(color) {
+        const cell = new PIXI.Graphics();
+        cell.rect(this.xmin, this.ymin, TILEWIDTH, TILEHEIGHT);
+        cell.fill(color);
+        cell.stroke({ width: 2, color: 0xfeeb77 });
+        cell.name = `cell-${this.x}-${this.y}`;
+        game.app.stage.addChild(cell);
     }
 
     unhighlight() {
-        this.element.style.backgroundColor = "transparent";
+        const graphicsList = game.app.stage.children.filter(child => child instanceof PIXI.Graphics);
+        const monGraphics = game.app.stage.children.find(c => c.name === `cell-${this.x}-${this.y}`);
+        monGraphics.clear();
     }
-
-    unhighlightPath() {
-        this.element.style.backgroundColor = "red";
-    }
-
 }

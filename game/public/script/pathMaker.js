@@ -10,10 +10,8 @@ function createPath() {
     const path = new PIXI.Graphics();
     path.lineStyle(50, 0xffff00, 1);
 
-    console.log(game.path)
     path.moveTo(game.path[0].x * TILEWIDTH, game.path[0].y * TILEHEIGHT);
     game.path.forEach((cell) => {
-        console.log(cell)
         path.lineTo(cell.col * TILEWIDTH, cell.lig * TILEHEIGHT);
     });
     path.stroke({ width: TILEWIDTH, color: 0xffd900 });
@@ -30,12 +28,6 @@ function createPath() {
 
 }
 createPath()
-function highlightPath() {
-    game.path.forEach((cell) => {
-        const gridCell = findCell(cell.x, cell.y);
-        gridCell.highlight();
-    });
-}
 
 function moveEntity(entity) {
     const entityPosition = game.path[entity.position];
@@ -65,9 +57,8 @@ document.querySelector(".moveEntity").addEventListener("click", () => {
 });
 
 createGrid();
-highlightPath();
 
-const test = new Tower("neutral",[8,2],15,"https://placehold.co/25" )
-const test2 = new Rat(15,"neutre", "https://placehold.co/25",15,[7,0])
-test.TilesSeen()
-test.EnnemieSeen(test2)
+// const test = new Tower("neutral",[8,2],15,"https://placehold.co/25" )
+// const test2 = new Rat(15,"neutre", "https://placehold.co/25",15,[7,0])
+// test.TilesSeen()
+// test.EnnemieSeen(test2)

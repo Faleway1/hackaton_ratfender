@@ -3,8 +3,8 @@ import { game } from "./game.js";
 
 
 function createGrid() {
-    for (let x = 0; x < game.gridHeight; x++) {
-        for (let y = 0; y < game.gridWidth; y++) {
+    for (let x = 0; x < game.gridWidth; x++) {
+        for (let y = 0; y < game.gridHeight; y++) {
             const cell = new Cell(x, y);
         }
     }
@@ -13,6 +13,7 @@ function createGrid() {
 function findCell(x, y) {
     return game.cellsList.find((cell) => cell.getPosition().x === x && cell.getPosition().y === y);
 }
+
 function moveEntity(entity) {
     const entityPosition = game.path[entity.position];
     if (entityPosition) {
@@ -41,5 +42,6 @@ document.querySelector(".moveEntity").addEventListener("click", () => {
 });
 
 createGrid();
-
+game.cellsList[0].highlight(0x00ff00); // Example of highlighting the first cell with green color
+// game.cellsList[0].unhighlight()
 export { findCell, createGrid, moveEntity };
