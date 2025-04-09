@@ -1,5 +1,6 @@
 import { game } from "./game.js";
 import { Cell } from "./gridCell.js";
+import { Tower } from "./towers.js";
 
 console.log(game)
 
@@ -16,7 +17,7 @@ function createGrid() {
     }
 }
 
-function findCell(x, y) {
+export function findCell(x, y) {
     return game.cellsList.find((cell) => cell.getPosition().x === x && cell.getPosition().y === y);
 }
 
@@ -57,3 +58,6 @@ document.querySelector(".moveEntity").addEventListener("click", () => {
 
 createGrid();
 highlightPath();
+
+const test = new Tower("neutral",[8,2],15 )
+test.TilesSeen()
