@@ -13,6 +13,7 @@ function createGrid() {
 function findCell(x, y) {
     return game.cellsList.find((cell) => cell.getPosition().x === x && cell.getPosition().y === y);
 }
+
 function moveEntity(entity) {
     const entityPosition = game.path[entity.position];
     if (entityPosition) {
@@ -36,9 +37,6 @@ const entity = {
     position: -1, // Starting position of the entity
 };
 
-document.querySelector(".moveEntity").addEventListener("click", () => {
-    moveEntity(entity);
-});
 
 createGrid();
 

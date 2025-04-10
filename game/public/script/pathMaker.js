@@ -13,7 +13,6 @@ function createPath() {
     console.log(game.path)
     path.moveTo(game.path[0].x * TILEWIDTH, game.path[0].y * TILEHEIGHT);
     game.path.forEach((cell) => {
-        console.log(cell)
         path.lineTo(cell.col * TILEWIDTH, cell.lig * TILEHEIGHT);
     });
     path.stroke({ width: TILEWIDTH, color: 0xffd900 });
@@ -30,12 +29,6 @@ function createPath() {
 
 }
 createPath()
-function highlightPath() {
-    game.path.forEach((cell) => {
-        const gridCell = findCell(cell.x, cell.y);
-        gridCell.highlight();
-    });
-}
 
 function moveEntity(entity) {
     const entityPosition = game.path[entity.position];
@@ -56,18 +49,16 @@ function moveEntity(entity) {
     }
 }
 
-const entity = {
-    position: -1, // Starting position of the entity
-};
-
-document.querySelector(".moveEntity").addEventListener("click", () => {
-    moveEntity(entity);
-});
 
 createGrid();
-highlightPath();
 
-const test = new Tower("neutral",[8,2],15,"https://placehold.co/25" )
-const test2 = new Rat(15,"neutre", "https://placehold.co/25",15,[7,0])
-test.TilesSeen()
-test.EnnemieSeen(test2)
+const texture = await PIXI.Assets.load('assets/normalRat.png');
+const tower = new PIXI.Sprite(texture);
+tower.width = 30
+tower.height = 30
+tower.x = 16;
+tower.y = 3;
+
+game.app.stage.addChild(tower);
+
+const test = new Tower("neutral",[16,3],15,tower.sprite )

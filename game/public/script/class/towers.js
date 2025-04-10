@@ -9,7 +9,7 @@ export class Tower{
             range:2,
             nb_shots: 1
         }
-        this.image = image
+        this.sprite = new PIXI.Sprite(image);
         this.types = types;
         this.tiles_seen = []
         this.ennemieseen = []
@@ -56,10 +56,14 @@ export class Tower{
     }
 
     render() {
-        const cell = document.querySelector(`#cell-${this.position[0]}-${this.position[1]}`);
+        const cell = findCell(this.position[0], this.position[1])
+        console.log('tower');
+        
         if (cell) {
-            console.log("Cell found:", cell);
-            cell.appendChild(this.element);
+            cell.towers.push(this);
+            console.log(this.sprite);
+            
+            game.app.stage.addChild(this.sprite)
         } else {
             console.warn(`Cell not found at: cell-${this.position[0]}-${this.position[1]}`);
         }
