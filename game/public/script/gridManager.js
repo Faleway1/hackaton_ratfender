@@ -16,14 +16,9 @@ function findCell(x, y, cellsList) {
     return cellsList.find((cell) => cell.getPosition().x === x && cell.getPosition().y === y) || null;
 }
 
-<<<<<<< HEAD
-function moveEntity(entity) {
-    const entityPosition = game.path[entity.position];
-=======
 // A BOUGER DANS ENNEMIES.JS
 function moveEntity(entity, path) {
     const entityPosition = path[entity.position];
->>>>>>> 3ea652bfb8eb08b6729d62dd5ffecad67677bc7e
     if (entityPosition) {
         const currentCell = findCell(entityPosition.x, entityPosition.y);
         currentCell.unhighlight();
@@ -41,14 +36,5 @@ function moveEntity(entity, path) {
     }
 }
 
-<<<<<<< HEAD
-const entity = {
-    position: -1, // Starting position of the entity
-};
-
-
-createGrid();
-=======
->>>>>>> 3ea652bfb8eb08b6729d62dd5ffecad67677bc7e
 
 export { findCell, createGrid, moveEntity };
