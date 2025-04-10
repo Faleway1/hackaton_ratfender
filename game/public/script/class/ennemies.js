@@ -41,7 +41,7 @@ export class Rat{
     }
 
     async loadAsset() {
-        this.asset = await PIXI.Assets.load('normalRat');
+        this.asset = await PIXI.Assets.load(this.type);
     }
 
     render() {
@@ -64,18 +64,20 @@ export class Rat{
     }
     
     kill() {
-        game.app.stage.removeChild(this.sprite);
-        this.sprite.destroy();
-        this.destroy()
-        this.sprite = null;
+        if (this.sprite) {
+            game.app.stage.removeChild(this.sprite);
+            this.sprite.destroy();
+            this.sprite = null;
+        }
         //DONNER LES SOUS AU JOUEUR
     }
 
     finishPath() {
-        game.app.stage.removeChild(this.sprite);
-        this.sprite.destroy();
-        this.destroy()
-        this.sprite = null;
+        if (this.sprite) {
+            game.app.stage.removeChild(this.sprite);
+            this.sprite.destroy();
+            this.sprite = null;
+        }
         //ENLEVER DE LA VIE AU JOUEUR
     }
 
