@@ -50,7 +50,7 @@ export class Tower{
             nb_shots: TOWER_TOME.BASE_NB_SHOTS,
         }
         this.type = TOWER_TOME.TYPE
-        this.image = 
+        this.image = TOWER_TOME.IMAGE
         this.price = TOWER_TOME.BASE_PRICE;
 
         this.isPlaced = false;
@@ -177,7 +177,7 @@ export class comteTower {
             nb_shots: TOWER_COMTE.BASE_NB_SHOTS,
         }
         this.type = TOWER_COMTE.TYPE
-        this.image = 
+        this.image = TOWER_COMTE.IMAGE
         this.price = TOWER_COMTE.BASE_PRICE;
 
     }
@@ -191,7 +191,7 @@ export class chevreTower {
             nb_shots: TOWER_CHEVRE.BASE_NB_SHOTS,
         }
         this.type = TOWER_CHEVRE.TYPE
-        this.image = 
+        this.image = TOWER_CHEVRE.IMAGE
         this.price = TOWER_CHEVRE.BASE_PRICE;
 
     }
@@ -205,7 +205,7 @@ export class roquefortTower {
             nb_shots: TOWER_ROQUEFORT.BASE_NB_SHOTS,
         }
         this.type = TOWER_ROQUEFORT.TYPE
-        this.image = 
+        this.image = TOWER_ROQUEFORT.IMAGE
         this.price = TOWER_ROQUEFORT.BASE_PRICE;
 
     }

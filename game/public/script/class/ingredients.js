@@ -1,12 +1,23 @@
+const INGREDIENT_MILK = {
+    TYPE_BUFF: "range",
+    CURRENT_BUFF: 10,
+    BASE_BUFF: 10,
+    BASE_RANGE: 2,
+    BASE_PRICE: 50,
+    BASE_LEVEL: 0,
+    IMAGE: "tomeFromage"
+}
+
 export class Ingredient {
-    constructor(typebuff, buff, rng, towers, position, level, price) {
-        this.typebuff = typebuff;
-        this.buff = buff;
-        this.baseBuff = buff
-        this.rng = rng;
-        this.towers = towers;
-        this.position = position;
-        this.level = level;
+    constructor() {
+        this.buffs = {
+            typebuff: INGREDIENT_MILK.TYPE_BUFF,
+            current_buff: INGREDIENT_MILK.CURRENT_BUFF,
+            base_buff: INGREDIENT_MILK,
+            level: INGREDIENT_MILK.BASE_LEVEL
+        }
+        this.rng = INGREDIENT_MILK.BASE_RANGE;
+        this.towers = []
         this.price = price;
     }
 
@@ -62,15 +73,5 @@ export class Ingredient {
 
     IncreaseBuff() {
         this.buff += this.baseBuff
-    }
-    
-    IncreaseLevel() {
-        if (this.level === 5) {
-            console.log("deja lvl max");
-        } else {
-            this.level += 1;
-            this.IncreaseBuff()
-            
-        }
     }
 }
