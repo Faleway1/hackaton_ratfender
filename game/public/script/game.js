@@ -23,9 +23,6 @@ const new_rat = new ENEMIES.RainbowRat();
 await new_rat.loadAsset();
 new_rat.render();
 
-document.querySelector(".moveEntity").addEventListener("click", () => {
-  new_rat.moveEntity();
-});
 
 const new_tower = await placeTower(TOWER_INFOS.TOWER_CHEVRE.TYPE)
 
