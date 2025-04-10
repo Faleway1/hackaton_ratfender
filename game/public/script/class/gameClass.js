@@ -75,8 +75,9 @@ export class Game {
             [0, 1], // Bas
             [0, -1] // Haut
         ];
+        const maxNumberOfTiles = this.tilesPerRow * 3
 
-        while (currentCell.x !== this.tilesPerRow - 1 && path.length < 130) {
+        while (currentCell.x !== this.tilesPerRow - 1 && path.length < maxNumberOfTiles) {
             blockedPaths.push(currentCell); // Ajoute la cellule actuelle aux chemins bloqués
 
             const possibleDirections = directions.filter(dir => {
@@ -105,9 +106,10 @@ export class Game {
 
         findCell(currentCell.x + 1, currentCell.y, this.cellsList)
         path.push(currentCell);
-        if (currentCell.x !== this.tilesPerRow - 1 || path.length < 50) {
+        if (currentCell.x !== this.tilesPerRow - 1 || path.length < maxNumberOfTiles - 10) {
             return this.generatePath(); // Relance la fonction si le chemin n'est pas complet
         }
+        console.log(path)
 
         return path;
     }
