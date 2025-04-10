@@ -59,7 +59,7 @@ export class Tower {
         this.sprite = null;
         this.rangeCircle = null;
 
-        this.tiles_in_range = []
+        this.paths_in_range = []
         this.enemies_in_range = []
 
         this.level = {
@@ -82,7 +82,7 @@ export class Tower {
     }
 
     async loadAsset() {
-        this.asset = await PIXI.Assets.load(this.type);
+        this.asset = await PIXI.Assets.load(this.image);
     }
 
     ableToPlace(x, y) {
@@ -121,8 +121,8 @@ export class Tower {
                 this.queryCircle()
                 this.sprite.tint = 0xFFFFFF; // Blanc
                 this.hideRange()
-                console.log(this.enemies_in_range)
-                this.enemies_in_range.forEach(element => {
+                console.log(this.paths_in_range)
+                this.paths_in_range.forEach(element => {
                     element.highlight()
                 })
             }
@@ -195,13 +195,21 @@ export class Tower {
             for (let row = startRow; row <= endRow; row++) {
                 const cell = findCell(col, row, game.cellsList);
                 if (!cell) continue;
-                if (game.path.includes(cell) && !this.tiles_in_range.includes(cell)) {
+                if (game.path.includes(cell) && !this.enemies_in_range.includes(cell)) {
                     entitiesInRange.push(cell)
                 }
             }
         }
         console.log(entitiesInRange)
-        this.enemies_in_range = entitiesInRange;
+        this.paths_in_range = entitiesInRange;
+    }
+
+    detectNearbyEnemies() {
+        this.paths_in_range.forEach(cell => {
+            cell.ennemies.forEach(enemy => {
+                this.enemies_in_range.push(enemy)
+            })
+        })
     }
 
 

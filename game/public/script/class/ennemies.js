@@ -33,6 +33,8 @@ export class Rat{
         this.asset = "";
         this.position = 0;
         this.sprite = null;
+        this.cell_position = null;
+
         this.updateCellPosition()
     }
 
@@ -81,7 +83,9 @@ export class Rat{
         //ENLEVER DE LA VIE AU JOUEUR
     }
 
-    moveEntity() {   
+    moveEntity() {
+        console.log(this.cell_position)
+        this.cell_position.ennemies.pop(this)
         this.position += 1
 
         if (this.position >= game.path.length - 1) {
@@ -90,6 +94,8 @@ export class Rat{
             return;
         }
         this.render();
+        this.cell_position.ennemies.push(this)
+        console.log(this.cell_position)
     }
 }
 

@@ -76,6 +76,7 @@ game.app.view.addEventListener("click", (event) => {
 //     const mouseY = event.clientY - rect.top;
 //     new_tower.render(mouseX, mouseY, true)
 // })
+
 export { game };
 const new_tower = await createTower("tower1")
 game.app.view.addEventListener("mousemove", (event) => {
