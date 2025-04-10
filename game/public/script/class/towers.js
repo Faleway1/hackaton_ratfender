@@ -1,75 +1,78 @@
-import {game} from "../game.js"
+import { game } from "../game.js"
 import { findCell } from "../gridManager.js";
+import { uuidv4 } from "../idManager.js";
+
+const TOWER_TOME = {
+    BASE_ATK: 10,
+    BASE_SHOT_SPEED: 3000,
+    BASE_RANGE: 2,
+    BASE_NB_SHOTS: 1,
+    BASE_PRICE: 100,
+}
+
 
 export class Tower{
-    constructor(types, position, price, image) {
+    constructor() {
+        this.id = uuidv4()
         this.stats = {
-            attack: 10,
-            shot_speed:3000,
-            range:2,
-            nb_shots: 1
+            attack: TOWER_TOME.BASE_ATK,
+            shot_speed: TOWER_TOME.BASE_SHOT_SPEED,
+            range: TOWER_TOME.BASE_RANGE,
+            nb_shots: TOWER_TOME.BASE_NB_SHOTS,
         }
-        this.sprite = new PIXI.Sprite(image);
-        this.types = types;
-        this.tiles_seen = []
-        this.ennemieseen = []
-        this.position = position;
-        this.price = price;
+        this.type = "normalRat";
+        this.price = TOWER_TOME.BASE_PRICE;
+
+        this.isPlaced = false;
+        this.asset = ""
+        this.position = null;
+        this.sprite = null;
+
+        this.tiles_in_range = []
+        this.enemies_in_range = []
+
         this.level = {
             path1: 0,
             path2: 0,
             path3: 0
         }
-        this.element = document.createElement("img");
-        this.element.src = this.image;
-        this.element.classList.add("tower");
-        this.render();
     }
 
-    setTypes(types) {
-        this.types = this.types.push(types);
+    updatePosition(x, y) {
+        this.position = {
+            x : x,
+            y : y,
+        };
     }
 
-    getTypes() {
-        return this.types;
+    async loadAsset() {
+        this.asset = await PIXI.Assets.load(this.type);
     }
 
-    setPosition(position) {
-        this.position = position;
-    }
-    getPosition() {
-        return this.position;
-    }
+    
 
-    setPrice(price) {
-        this.price = price;
-    }
-    getPrice() {
-        return this.price;
-    }
-
-    setName(name) {
-        this.name = name;
-    }
-    getName() {
-        return this.name;
-    }
-
-    render() {
-        const cell = findCell(this.position[0], this.position[1])
-        console.log('tower');
-        
-        if (cell) {
-            cell.towers.push(this);
-            console.log(this.sprite);
-            
-            game.app.stage.addChild(this.sprite)
-        } else {
-            console.warn(`Cell not found at: cell-${this.position[0]}-${this.position[1]}`);
+    render(x, y, placeIt) {
+        if (this.isPlaced) {
+            return
         }
+        this.position = {
+            x : x,
+            y : y,
+        };
+        if (!this.sprite) {
+            this.sprite = new PIXI.Sprite(this.asset);
+            this.sprite.anchor.set(0.5);
+            this.sprite.name = this.id;
+            this.sprite.width = game.tilewidth;
+            this.sprite.height = game.tileheight;
+        }
+        this.sprite.x = this.position.x; 
+        this.sprite.y = this.position.y;
+        game.app.stage.addChild(this.sprite);
+        this.isPlaced = placeIt;
     }
 
-    IncreaseLevel(id_upgrade) {
+    increaseLevel(id_upgrade) {
         if (id_upgrade === 1) {
             if (this.level.path1 === 3) {
                 console.log("deja niv max");
@@ -97,17 +100,6 @@ export class Tower{
     }
 
     TilesSeen() {
-        for (let y = -(this.stats.range); y < this.stats.range + 1; y++) {
-            for (let x = -(this.stats.range); x < this.stats.range + 1; x++) {
-                const cell = findCell((this.position[0]+x), (this.position[1]+y))
-                game.path.forEach(element => {
-                    if (element.x === cell.x && element.y === cell.y) {
-                        this.tiles_seen.push(`cell-${element.x}-${element.y}`)
-                    }
-                });
-            }            
-        }
-        console.log(this.tiles_seen);
         
     }
 

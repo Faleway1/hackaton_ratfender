@@ -14,38 +14,7 @@ export class Game {
         this.cellsList = [];
         console.log(this.money);
         
-        this.path = [
-            { lig: 15, col: 15 },
-            { lig: 15, col: 16 },
-            { lig: 15, col: 17 },
-            { lig: 14, col: 17 },
-            { lig: 13, col: 17 },
-            { lig: 13, col: 18 },
-            { lig: 13, col: 19 },
-            { lig: 14, col: 19 },
-            { lig: 15, col: 19 },
-            { lig: 15, col: 20 },
-            { lig: 15, col: 21 },
-            { lig: 15, col: 22 },
-            { lig: 16, col: 22 },
-            { lig: 17, col: 22 },
-            { lig: 17, col: 23 },
-            { lig: 17, col: 24 },
-            { lig: 16, col: 24 },
-            { lig: 15, col: 24 },
-            { lig: 15, col: 25 },
-            { lig: 15, col: 26 },
-            { lig: 15, col: 27 },
-            { lig: 14, col: 27 },
-            { lig: 13, col: 27 },
-            { lig: 13, col: 28 },
-            { lig: 13, col: 29 },
-            { lig: 14, col: 29 },
-            { lig: 15, col: 29 },
-            { lig: 15, col: 30 },
-            { lig: 15, col: 31 },
-            { lig: 15, col: 32 },
-        ];
+        this.path = [];
         this.pdr = 0;
         this.round = 0;
         this.money = document.querySelector(".money")
