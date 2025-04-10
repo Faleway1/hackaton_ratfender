@@ -1,7 +1,7 @@
 import { game } from "../game.js"
 import { gridManager } from "../gridManager.js";
 import { uuidv4 } from "../idManager.js";
-import { GAME_SETTINGS } from "./config.js";
+import { GAME_SETTINGS } from "../config.js";
 import { TOWER_INFOS } from "../config.js";
 
 

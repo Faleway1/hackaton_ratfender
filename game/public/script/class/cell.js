@@ -1,5 +1,5 @@
 import { game } from "../game.js";
-import { GAME_SETTINGS } from "./config.js";
+import { GAME_SETTINGS } from "../config.js";
 
 
 

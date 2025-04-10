@@ -1,4 +1,4 @@
-import { INGREDIENT_INFOS } from "../config";
+import { INGREDIENT_INFOS } from "../config.js";
 import { game } from "../game.js"
 import { gridManager } from "../gridManager.js";
 
