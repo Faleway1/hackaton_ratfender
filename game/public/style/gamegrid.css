@@ -32,3 +32,13 @@ body {
 .game-grid li {
     width: 100%;
 }
+
+.units {
+    display: flex;
+    flex-direction: row;
+}
+
+.placer {
+    display: flex;
+    flex-direction: row;
+}

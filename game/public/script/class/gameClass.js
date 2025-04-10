@@ -12,44 +12,18 @@ export class Game {
         this.tilewidth = appWidth / tilesPerRow;
         this.tileheight = appHeight / tilesPerCol;
         this.cellsList = [];
-        this.path = [
-            { lig: 15, col: 15 },
-            { lig: 15, col: 16 },
-            { lig: 15, col: 17 },
-            { lig: 14, col: 17 },
-            { lig: 13, col: 17 },
-            { lig: 13, col: 18 },
-            { lig: 13, col: 19 },
-            { lig: 14, col: 19 },
-            { lig: 15, col: 19 },
-            { lig: 15, col: 20 },
-            { lig: 15, col: 21 },
-            { lig: 15, col: 22 },
-            { lig: 16, col: 22 },
-            { lig: 17, col: 22 },
-            { lig: 17, col: 23 },
-            { lig: 17, col: 24 },
-            { lig: 16, col: 24 },
-            { lig: 15, col: 24 },
-            { lig: 15, col: 25 },
-            { lig: 15, col: 26 },
-            { lig: 15, col: 27 },
-            { lig: 14, col: 27 },
-            { lig: 13, col: 27 },
-            { lig: 13, col: 28 },
-            { lig: 13, col: 29 },
-            { lig: 14, col: 29 },
-            { lig: 15, col: 29 },
-            { lig: 15, col: 30 },
-            { lig: 15, col: 31 },
-            { lig: 15, col: 32 },
-        ];
+        console.log(this.money);
+        
+        this.towerTilesOccupied = [];
+        this.path = [];
         this.pdr = 0;
         this.round = 0;
+        this.money = document.querySelector(".money")
+        this.money.textContent = this.pdr
         this.app = new PIXI.Application();
-
+        
     }
-
+    
     async initCanva() {
         await this.app.init({ background: '#1099bb', width: this.appWidth, height: this.appHeight })
         document.querySelector("#game").appendChild(this.app.view);
@@ -100,7 +74,7 @@ export class Game {
             }
 
             const nextCell = findCell(currentCell.x + currentDirection[0], currentCell.y + currentDirection[1], this.cellsList); // Cellule suivante
-            currentCell = nextCell; 
+            currentCell = nextCell;
             path.push(currentCell);
         }
 
@@ -123,6 +97,7 @@ export class Game {
         console.log("Fin de round")
         this.pdr += roundEndPdr(this.round, this.pdrPerRound);
         this.round += 1;
+        this.money.textContent = this.pdr
         // A FAIRE : stoper le jeu si bouton pause pressé/ relancer le jeu sinon
     }
 }
