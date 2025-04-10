@@ -5,12 +5,28 @@ import { uuidv4 } from '../idManager.js';
 const NORMAL_RAT = {
     BASE_HP : 20,
     BASE_MONEY : 3,
+    TYPE : "Normal"
+}
+const CAMO_RAT = {
+    BASE_HP : 12,
+    BASE_MONEY : 5,
+    TYPE : "Camo"
+}
+const STEEL_RAT = {
+    BASE_HP : 20,
+    BASE_MONEY : 8,
+    TYPE : "Steel"
+}
+const RAINBOW_RAT = {
+    BASE_HP : 50,
+    BASE_MONEY : 10,
+    TYPE : "Rainbow"
 }
 
 export class Rat{
     constructor() {
         this.id = uuidv4();
-        this.type = "normalRat";
+        this.type = NORMAL_RAT.TYPE;
         this.hp = NORMAL_RAT.BASE_HP;
         this.money = NORMAL_RAT.BASE_MONEY;
 
@@ -72,5 +88,57 @@ export class Rat{
             return;
         }
         this.render();
+    }
+}
+
+export class camoRat extends Rat{
+    constructor() {
+        super()
+        this.type = CAMO_RAT.TYPE;
+        this.hp = CAMO_RAT.BASE_HP;
+        this.money = CAMO_RAT.BASE_MONEY;
+
+        this.asset = "";
+        this.position = 0;
+        this.sprite = null;
+        this.updateCellPosition()
+    }
+
+    async loadAsset() {
+        this.asset = await PIXI.Assets.load('camoRat');
+    }
+}
+export class steelRat extends Rat{
+    constructor() {
+        super()
+        this.type = STEEL_RAT.TYPE;
+        this.hp = STEEL_RAT.BASE_HP;
+        this.money = STEEL_RAT.BASE_MONEY;
+
+        this.asset = "";
+        this.position = 0;
+        this.sprite = null;
+        this.updateCellPosition()
+    }
+
+    async loadAsset() {
+        this.asset = await PIXI.Assets.load('steelRat');
+    }
+}
+export class rainbowRat extends Rat{
+    constructor() {
+        super()
+        this.type = RAINBOW_RAT.TYPE;
+        this.hp = RAINBOW_RAT.BASE_HP;
+        this.money = RAINBOW_RAT.BASE_MONEY;
+
+        this.asset = "";
+        this.position = 0;
+        this.sprite = null;
+        this.updateCellPosition()
+    }
+
+    async loadAsset() {
+        this.asset = await PIXI.Assets.load('rainbowRat');
     }
 }
