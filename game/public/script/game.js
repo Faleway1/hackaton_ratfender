@@ -29,12 +29,6 @@ new_rat.render()
 
 
 
-document.querySelector(".moveEntity").addEventListener("click", () => {
-    new_rat.moveEntity()
-})
-
-
-
 // const texture = await PIXI.Assets.load('normalRat');
 // const rat = new PIXI.Sprite(texture);
 // rat.anchor.set(0.5);
