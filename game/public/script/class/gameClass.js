@@ -14,6 +14,7 @@ export class Game {
         this.cellsList = [];
         console.log(this.money);
         
+        this.towerTilesOccupied = [];
         this.path = [];
         this.pdr = 0;
         this.round = 0;

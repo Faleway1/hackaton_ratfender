@@ -50,7 +50,7 @@ console.log(game.app)
 async function createTower(towerType) {
     // Changer la classe utilisée selon le type de la tour
     const new_tower = new Tower()
-    await new_tower.loadAsset()
+    await new_tower.init()
     return new_tower
 }
 
@@ -77,3 +77,19 @@ game.app.view.addEventListener("click", (event) => {
 //     new_tower.render(mouseX, mouseY, true)
 // })
 export { game };
+const new_tower = await createTower("tower1")
+game.app.view.addEventListener("mousemove", (event) => {
+    if (new_tower.isPlaced) {
+        return
+    }
+    const rect = game.app.view.getBoundingClientRect(); // position du canvas dans la page
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+    new_tower.render(mouseX, mouseY, false)
+})
+game.app.view.addEventListener("click", (event) => {
+    const rect = game.app.view.getBoundingClientRect(); // position du canvas dans la page
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+    new_tower.render(mouseX, mouseY, true)
+})
