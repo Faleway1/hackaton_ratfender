@@ -7,7 +7,36 @@ const TOWER_TOME = {
     BASE_SHOT_SPEED: 3000,
     BASE_RANGE: 2,
     BASE_NB_SHOTS: 1,
+    BASE_PRICE: 50,
+    TYPE: "Normal",
+    IMAGE: "tomeFromage"
+}
+const TOWER_COMTE = {
+    BASE_ATK: 10,
+    BASE_SHOT_SPEED: 3000,
+    BASE_RANGE: 2,
+    BASE_NB_SHOTS: 1,
     BASE_PRICE: 100,
+    TYPE: "Camo",
+    IMAGE: "comteFromage"
+}
+const TOWER_CHEVRE = {
+    BASE_ATK: 10,
+    BASE_SHOT_SPEED: 3000,
+    BASE_RANGE: 2,
+    BASE_NB_SHOTS: 1,
+    BASE_PRICE: 100,
+    TYPE: "Rainbow",
+    IMAGE: "chevreFromage"
+}
+const TOWER_ROQUEFORT = {
+    BASE_ATK: 10,
+    BASE_SHOT_SPEED: 4000,
+    BASE_RANGE: 3,
+    BASE_NB_SHOTS: 2,
+    BASE_PRICE: 100,
+    TYPE: "Steel",
+    IMAGE: "chevreFromage"
 }
 
 
@@ -20,7 +49,8 @@ export class Tower{
             range: TOWER_TOME.BASE_RANGE,
             nb_shots: TOWER_TOME.BASE_NB_SHOTS,
         }
-        this.type = "normalRat";
+        this.type = TOWER_TOME.TYPE
+        this.image = 
         this.price = TOWER_TOME.BASE_PRICE;
 
         this.isPlaced = false;
@@ -135,6 +165,49 @@ export class Tower{
                 this.ennemieseen[i].hp - this.stats.attack
             }
         }
+    }
+}
+
+export class comteTower {
+    constructor() {
+        this.stats = {
+            attack: TOWER_COMTE.BASE_ATK,
+            shot_speed: TOWER_COMTE.BASE_SHOT_SPEED,
+            range: TOWER_COMTE.BASE_RANGE,
+            nb_shots: TOWER_COMTE.BASE_NB_SHOTS,
+        }
+        this.type = TOWER_COMTE.TYPE
+        this.image = 
+        this.price = TOWER_COMTE.BASE_PRICE;
+
+    }
+}
+export class chevreTower {
+    constructor() {
+        this.stats = {
+            attack: TOWER_CHEVRE.BASE_ATK,
+            shot_speed: TOWER_CHEVRE.BASE_SHOT_SPEED,
+            range: TOWER_CHEVRE.BASE_RANGE,
+            nb_shots: TOWER_CHEVRE.BASE_NB_SHOTS,
+        }
+        this.type = TOWER_CHEVRE.TYPE
+        this.image = 
+        this.price = TOWER_CHEVRE.BASE_PRICE;
+
+    }
+}
+export class roquefortTower {
+    constructor() {
+        this.stats = {
+            attack: TOWER_ROQUEFORT.BASE_ATK,
+            shot_speed: TOWER_ROQUEFORT.BASE_SHOT_SPEED,
+            range: TOWER_ROQUEFORT.BASE_RANGE,
+            nb_shots: TOWER_ROQUEFORT.BASE_NB_SHOTS,
+        }
+        this.type = TOWER_ROQUEFORT.TYPE
+        this.image = 
+        this.price = TOWER_ROQUEFORT.BASE_PRICE;
+
     }
 }
 
