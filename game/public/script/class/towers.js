@@ -104,26 +104,28 @@ export class Tower{
     }
 
     EnnemieSeen(entity) {
-        this.tiles_seen.forEach(element => {
-            console.log(entity.cell_position);
-            
-            if (entity.cell_position === element) {
-                this.ennemieseen.push(entity)
-            }
-        });
+        const distance = Math.sqrt(
+          Math.pow(entity.cell_position[0] - this.position[0], 2) +
+          Math.pow(entity.cell_position[1] - this.position[1], 2)
+        );
+    
+        if (distance <= this.stats.range) { // Si l'ennemi est dans le rayon de la tour
+          this.ennemieseen.push(entity);
+        }
+    
         console.log(this.ennemieseen);
-        
-    }
-
-    EnnemiesUnseen(entity) {
+      }
+    
+      // Mise à jour des ennemis à portée
+      EnnemiesUnseen(entity) {
         this.tiles_seen.forEach(e => {
-            this.ennemieseen.forEach(element => {
-                if (element != e) {
-                    this.ennemieseen.pop(element)
-                }
-            })
-        })
-    }
+          this.ennemieseen.forEach((element, index) => {
+            if (element != e) {
+              this.ennemieseen.splice(index, 1); // Retirer l'ennemi qui n'est plus à portée
+            }
+          });
+        });
+      }
 
     TowerAttack() {
         if (!this.ennemieseen) {

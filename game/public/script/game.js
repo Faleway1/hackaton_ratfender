@@ -2,6 +2,7 @@ import { Game } from "./class/gameClass.js";
 import { Rat } from "./class/ennemies.js";
 import { Tower } from "./class/towers.js";
 import { findOnGrid } from "./gridManager.js";
+import { camoRat, rainbowRat, Rat, steelRat } from "./class/ennemies.js";
 import { Cell } from "./class/cell.js";
 import { Assets, Sprite } from "https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.mjs";
 
@@ -22,7 +23,7 @@ game.initCanva();
 game.initGrid();
 game.initPath();
 
-const new_rat = new Rat()
+const new_rat = new rainbowRat()
 await new_rat.loadAsset()
 new_rat.render()
 
@@ -44,7 +45,6 @@ document.querySelector(".moveEntity").addEventListener("click", () => {
 // console.log(texture, rat)
 // game.app.stage.addChild(rat);
 
-export { game };
 
 console.log(game.app)
 
@@ -77,3 +77,4 @@ game.app.view.addEventListener("click", (event) => {
 //     const mouseY = event.clientY - rect.top;
 //     new_tower.render(mouseX, mouseY, true)
 // })
+export { game };
