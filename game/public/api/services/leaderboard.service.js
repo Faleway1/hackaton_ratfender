@@ -2,8 +2,7 @@ import {
     BadRequestError,
     NotFoundError,
 } from "../errors/api.error.js"
-import { getTopPlayers } from "../repositories/leaderboard.repository.js";
-import { leaderboardRepository } from "./repositories/leaderboard.repository.js";
+import { leaderboardRepository } from "./repositories/index.repository.js";
 
 export async function addPlayerToLeaderboard({player, waves}) {
     if (!player || !/^[a-zA-Z ]+$/.test(player)) {

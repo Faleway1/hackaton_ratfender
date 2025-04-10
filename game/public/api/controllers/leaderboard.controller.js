@@ -1,4 +1,4 @@
-import { LeaderboardService } from "../api/services/leaderboard.service.js";
+import { LeaderboardService } from "../services/index.service.js";
 
 export async function addPlayerToLeaderboard(req,res, error) {
     try {
@@ -55,7 +55,7 @@ export async function deleteLeaderboard(req, res, next){
         res.json(leaderboard)
     } catch (error) {
         next(error);
-    })
+    }
 }
 
 export async function getAllPlayers(req, res, next) {
