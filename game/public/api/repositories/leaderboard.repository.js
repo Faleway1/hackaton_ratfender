@@ -32,6 +32,12 @@ export async function deletePlayerLeaderboard(id) {
     return await leaderboard.id.destroy();
 };
 
+export async function deleteLeaderboard(){
+    return await Leaderboard.destroy({
+        truncate: true
+    });
+};
+
 export async function getAllPlayers(){
     return await Leaderboard.findAll();
 };
