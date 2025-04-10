@@ -1,4 +1,3 @@
-import Leaderboard from "../models/leaderboard.models.js";
 import { LeaderboardService } from "../api/services/leaderboard.serivice.js";
 
 export async function addPlayerToLeaderboard(req,res, error) {
