@@ -1,5 +1,5 @@
 import { Game } from "./class/gameClass.js";
-import { Tower } from "./class/towers.js";
+import { Tower, comteTower, chevreTower, roquefortTower } from "./class/towers.js";
 import { findOnGrid } from "./gridManager.js";
 import { camoRat, rainbowRat, Rat, steelRat } from "./class/ennemies.js";
 import { Cell } from "./class/cell.js";
@@ -49,7 +49,7 @@ console.log(game.app)
 
 async function createTower(towerType) {
     // Changer la classe utilisée selon le type de la tour
-    const new_tower = new Tower()
+    const new_tower = new roquefortTower()
     await new_tower.init()
     return new_tower
 }

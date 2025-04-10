@@ -20,57 +20,7 @@ export class Ingredient {
         this.towers = []
         this.price = price;
     }
-
-    setTypeBuff(typebuff) {
-        this.typebuff = typebuff;
-    }
-    getTypeBuff() {
-        return this.typebuff
-    }
-
-    setBuff(buff) {
-        this.buff = buff;
-    }
-    getBuff() {
-        return this.buff
-    }
-
-    setRng(rng) {
-        this.rng = rng;
-    }
-
-    getRng() {
-        return this.rng
-    }
-    setTowers(towers) {
-        this.towers = this.towers.push(towers);
-    }
-
-    getTowers() {
-        return this.towers
-    }
-    setPosition(position) {
-        this.position = position;
-    }
-
-    getPosition() {
-        return this.position
-    }
-    setLevel(level) {
-        this.level = level;
-    }
-
-    getLevel() {
-        return this.level
-    }
-
-    setPrice(price) {
-        this.price = price;
-    }
-    getPrice() {
-        return this.price
-    }
-
+    
     IncreaseBuff() {
         this.buff += this.baseBuff
     }

@@ -36,7 +36,7 @@ const TOWER_ROQUEFORT = {
     BASE_NB_SHOTS: 2,
     BASE_PRICE: 100,
     TYPE: "Steel",
-    IMAGE: "chevreFromage"
+    IMAGE: "roquefortFromage"
 }
 
 
@@ -82,7 +82,7 @@ export class Tower {
     }
 
     async loadAsset() {
-        this.asset = await PIXI.Assets.load(this.type);
+        this.asset = await PIXI.Assets.load(this.image);
     }
 
     ableToPlace(x, y) {
@@ -240,8 +240,10 @@ export class Tower {
     }
 }
 
-export class comteTower {
+export class comteTower extends Tower {
     constructor() {
+        super();
+
         this.stats = {
             attack: TOWER_COMTE.BASE_ATK,
             shot_speed: TOWER_COMTE.BASE_SHOT_SPEED,
@@ -253,61 +255,11 @@ export class comteTower {
         this.price = TOWER_COMTE.BASE_PRICE;
 
     }
-
-    async init() {
-        super.init()
-    }
-
-    updatePosition(x, y) {
-        super.updatePosition(x, y)
-    }
-
-    async loadAsset() {
-        super.loadAsset()
-    }
-
-    ableToPlace(x, y) {
-        super.ableToPlace(x, y)
-    }
-
-    render() {
-        super.render()
-    }
-
-    increaseLevel(id_upgrade) {
-        super.increaseLevel(id_upgrade)
-    }
-
-    initRange() {
-        super.initRange()
-    }
-
-    showRange() {
-        super.showRange()
-    }
-
-    hideRange() {
-        super.hideRange()
-    }
-
-    queryCircle() {
-        super.queryCircle()
-    }
-
-    EnnemieSeen(entity) {
-        super.EnnemieSeen(entity)
-    }
-
-    EnnemiesUnseen(entity) {
-        super.EnnemiesUnseen(entity)
-    }
-
-    TowerAttack() {
-        super.TowerAttack()
-    }
 }
-export class chevreTower {
+export class chevreTower extends Tower{
     constructor() {
+        super();
+
         this.stats = {
             attack: TOWER_CHEVRE.BASE_ATK,
             shot_speed: TOWER_CHEVRE.BASE_SHOT_SPEED,
@@ -317,63 +269,28 @@ export class chevreTower {
         this.type = TOWER_CHEVRE.TYPE
         this.image = TOWER_CHEVRE.IMAGE
         this.price = TOWER_CHEVRE.BASE_PRICE;
+        
+        this.isPlaced = false;
+        this.asset = ""
+        this.position = null;
+        this.sprite = null;
+        this.rangeCircle = null;
 
+        this.tiles_in_range = []
+        this.enemies_in_range = []
+
+        this.level = {
+            path1: 0,
+            path2: 0,
+            path3: 0
+        }
     }
 
-    async init() {
-        super.init()
-    }
-
-    updatePosition(x, y) {
-        super.updatePosition(x, y)
-    }
-
-    async loadAsset() {
-        super.loadAsset()
-    }
-
-    ableToPlace(x, y) {
-        super.ableToPlace(x, y)
-    }
-
-    render() {
-        super.render()
-    }
-
-    increaseLevel(id_upgrade) {
-        super.increaseLevel(id_upgrade)
-    }
-
-    initRange() {
-        super.initRange()
-    }
-
-    showRange() {
-        super.showRange()
-    }
-
-    hideRange() {
-        super.hideRange()
-    }
-
-    queryCircle() {
-        super.queryCircle()
-    }
-
-    EnnemieSeen(entity) {
-        super.EnnemieSeen(entity)
-    }
-
-    EnnemiesUnseen(entity) {
-        super.EnnemiesUnseen(entity)
-    }
-
-    TowerAttack() {
-        super.TowerAttack()
-    }
 }
-export class roquefortTower {
+export class roquefortTower extends Tower {
     constructor() {
+        super()
+
         this.stats = {
             attack: TOWER_ROQUEFORT.BASE_ATK,
             shot_speed: TOWER_ROQUEFORT.BASE_SHOT_SPEED,
@@ -386,56 +303,5 @@ export class roquefortTower {
 
     }
 
-    async init() {
-        super.init()
-    }
-
-    updatePosition(x, y) {
-        super.updatePosition(x, y)
-    }
-
-    async loadAsset() {
-        super.loadAsset()
-    }
-
-    ableToPlace(x, y) {
-        super.ableToPlace(x, y)
-    }
-
-    render() {
-        super.render()
-    }
-
-    increaseLevel(id_upgrade) {
-        super.increaseLevel(id_upgrade)
-    }
-
-    initRange() {
-        super.initRange()
-    }
-
-    showRange() {
-        super.showRange()
-    }
-
-    hideRange() {
-        super.hideRange()
-    }
-
-    queryCircle() {
-        super.queryCircle()
-    }
-
-    EnnemieSeen(entity) {
-        super.EnnemieSeen(entity)
-    }
-
-    EnnemiesUnseen(entity) {
-        super.EnnemiesUnseen(entity)
-    }
-
-    TowerAttack() {
-        super.TowerAttack()
-    }
 }
 
