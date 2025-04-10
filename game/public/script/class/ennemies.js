@@ -1,69 +1,144 @@
 import { game } from "../game.js";
-import { findCell } from "../gridManager.js";
-import { Assets, Sprite } from "https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.mjs";
+import { uuidv4 } from '../idManager.js';
+
+//A METTRE DANS UN FICHIER CONFIG
+const NORMAL_RAT = {
+    BASE_HP : 20,
+    BASE_MONEY : 3,
+    TYPE : "Normal"
+}
+const CAMO_RAT = {
+    BASE_HP : 12,
+    BASE_MONEY : 5,
+    TYPE : "Camo"
+}
+const STEEL_RAT = {
+    BASE_HP : 20,
+    BASE_MONEY : 8,
+    TYPE : "Steel"
+}
+const RAINBOW_RAT = {
+    BASE_HP : 50,
+    BASE_MONEY : 10,
+    TYPE : "Rainbow"
+}
 
 export class Rat{
-    constructor(hp, type, assets, money, position) {
-        this.hp = hp;
-        this.type = type;
+    constructor() {
+        this.id = uuidv4();
+        this.type = NORMAL_RAT.TYPE;
+        this.hp = NORMAL_RAT.BASE_HP;
+        this.money = NORMAL_RAT.BASE_MONEY;
 
-        this.money = money;
-        this.position = position;
-        this.cell_position = `cell-${this.position[0]}-${this.position[1]}`
-
-        this.assets = assets
-        // console.log(assets);
-        
-        
+        this.asset = "";
+        this.position = 0;
+        this.sprite = null;
+        this.updateCellPosition()
     }
 
-    setHp(hp) {
-        this.hp = hp
+    updateCellPosition() {
+        this.cell_position = game.path[this.position];
     }
 
-    getHp() {
-        return this.getHp;
+    async loadAsset() {
+        this.asset = await PIXI.Assets.load('normalRat');
     }
 
-    getType() {
-        return this.type;
-    }
-
-    getImage() {
-        return this.image;
-    }
-
-    getMoney() {
-        return this.money
-    }
-
-    render(canva, texture) {
-        const rat = new Sprite(texture)
-        canva.stage.addChild(rat)
-    }
-    
-    remove() {
-        if (this.element && this.element.parentNode) {
-            this.element.remove();
-        }
-    }
-
-    moveEntity() {
-        const entityPosition = game.path[this.position];
-        if (entityPosition) {
-            const currentCell = findCell(entityPosition.x, entityPosition.y);
-            currentCell.unhighlightPath();
-        }
-    
-        this.position += 1
-        const nextPosition = game.path[this.position];
-    
-        if (nextPosition) {
-            const nextCell = findCell(nextPosition.x, nextPosition.y);
-            nextCell.highlightPath();
+    render() {
+        if (!this.sprite) {
+            this.sprite = new PIXI.Sprite(this.asset);
+            this.sprite.anchor.set(0.5);
+            this.sprite.name = this.id;
+            this.sprite.width = game.tilewidth;
+            this.sprite.height = game.tileheight;
         } else {
-            console.log("End of path reached.");
-            //FAIRE DISPARAITRE L'ENTITE
+            this.updateCellPosition()
         }
+        const middleOfTile = {
+            x: this.cell_position.xmin + (game.tilewidth / 2),
+            y: this.cell_position.ymin + (game.tileheight / 2),
+        };
+        this.sprite.x = middleOfTile.x; 
+        this.sprite.y = middleOfTile.y;
+        game.app.stage.addChild(this.sprite);
+    }
+    
+    kill() {
+        game.app.stage.removeChild(this.sprite);
+        this.sprite.destroy();
+        this.destroy()
+        this.sprite = null;
+        //DONNER LES SOUS AU JOUEUR
+    }
+
+    finishPath() {
+        game.app.stage.removeChild(this.sprite);
+        this.sprite.destroy();
+        this.destroy()
+        this.sprite = null;
+        //ENLEVER DE LA VIE AU JOUEUR
+    }
+
+    moveEntity() {   
+        this.position += 1
+
+        if (this.position >= game.path.length - 1) {
+            console.log("End of path reached.");
+            this.finishPath();
+            return;
+        }
+        this.render();
+    }
+}
+
+export class camoRat extends Rat{
+    constructor() {
+        super()
+        this.type = CAMO_RAT.TYPE;
+        this.hp = CAMO_RAT.BASE_HP;
+        this.money = CAMO_RAT.BASE_MONEY;
+
+        this.asset = "";
+        this.position = 0;
+        this.sprite = null;
+        this.updateCellPosition()
+    }
+
+    async loadAsset() {
+        this.asset = await PIXI.Assets.load('camoRat');
+    }
+}
+export class steelRat extends Rat{
+    constructor() {
+        super()
+        this.type = STEEL_RAT.TYPE;
+        this.hp = STEEL_RAT.BASE_HP;
+        this.money = STEEL_RAT.BASE_MONEY;
+
+        this.asset = "";
+        this.position = 0;
+        this.sprite = null;
+        this.updateCellPosition()
+    }
+
+    async loadAsset() {
+        this.asset = await PIXI.Assets.load('steelRat');
+    }
+}
+export class rainbowRat extends Rat{
+    constructor() {
+        super()
+        this.type = RAINBOW_RAT.TYPE;
+        this.hp = RAINBOW_RAT.BASE_HP;
+        this.money = RAINBOW_RAT.BASE_MONEY;
+
+        this.asset = "";
+        this.position = 0;
+        this.sprite = null;
+        this.updateCellPosition()
+    }
+
+    async loadAsset() {
+        this.asset = await PIXI.Assets.load('rainbowRat');
     }
 }
