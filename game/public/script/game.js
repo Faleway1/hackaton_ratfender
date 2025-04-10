@@ -1,6 +1,7 @@
-import { GAME_SETTINGS } from "./config.js";
+import { GAME_SETTINGS, TOWER_INFOS } from "./config.js";
 import { Game } from "./class/gameClass.js";
 import { TOWERS } from "./class/towers.js";
+import { placeTower } from "./towerManager.js";
 import { INGREDIENTS } from "./class/ingredients.js";
 import { ENEMIES } from "./class/ennemies.js";
 import { gridManager } from "./gridManager.js";
@@ -26,6 +27,9 @@ document.querySelector(".moveEntity").addEventListener("click", () => {
   new_rat.moveEntity();
 });
 
+const new_tower = await placeTower(TOWER_INFOS.TOWER_CHEVRE.TYPE)
+
+
 // const texture = await PIXI.Assets.load('normalRat');
 // const rat = new PIXI.Sprite(texture);
 // rat.anchor.set(0.5);
@@ -36,52 +40,6 @@ document.querySelector(".moveEntity").addEventListener("click", () => {
 // console.log(texture, rat)
 // game.app.stage.addChild(rat);
 
-console.log(game.app);
 
-async function createTower(towerType) {
-    // Changer la classe utilisée selon le type de la tour
-    const new_tower = new jalapenosIngredient()
-    await new_tower.initBeforePlacement()
-    return new_tower
-}
-
-game.app.view.addEventListener("click", (event) => {
-  const rect = game.app.view.getBoundingClientRect(); // position du canvas dans la page
-  const mouseX = event.clientX - rect.left;
-  const mouseY = event.clientY - rect.top;
-  console.log(gridManager.findOnGrid(mouseX, mouseY));
-});
-
-// game.app.view.addEventListener("mousemove", (event) => {
-//     if (new_tower.isPlaced) {
-//         return
-//     }
-//     const rect = game.app.view.getBoundingClientRect(); // position du canvas dans la page
-//     const mouseX = event.clientX - rect.left;
-//     const mouseY = event.clientY - rect.top;
-//     new_tower.render(mouseX, mouseY, false)
-// })
-// game.app.view.addEventListener("click", (event) => {
-//     const rect = game.app.view.getBoundingClientRect(); // position du canvas dans la page
-//     const mouseX = event.clientX - rect.left;
-//     const mouseY = event.clientY - rect.top;
-//     new_tower.render(mouseX, mouseY, true)
-// })
 
 export { game };
-const new_tower = await createTower("tower1");
-game.app.view.addEventListener("mousemove", (event) => {
-  if (new_tower.is_placed) {
-    return;
-  }
-  const rect = game.app.view.getBoundingClientRect(); // position du canvas dans la page
-  const mouseX = event.clientX - rect.left;
-  const mouseY = event.clientY - rect.top;
-  new_tower.render(mouseX, mouseY, false);
-});
-game.app.view.addEventListener("click", (event) => {
-  const rect = game.app.view.getBoundingClientRect(); // position du canvas dans la page
-  const mouseX = event.clientX - rect.left;
-  const mouseY = event.clientY - rect.top;
-  new_tower.render(mouseX, mouseY, true);
-});
