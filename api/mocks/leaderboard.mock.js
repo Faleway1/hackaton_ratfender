@@ -5,41 +5,41 @@ export const leaderboardMocks = [
     },
     {
         player: "Caca",
-        waves: 1
+        waves: 30,
     },
     {
         player: "Pipi",
-        waves: 14
+        waves: 14,
     },
     {
         player: "Yann",
-        waves: 12
+        waves: 12,
     },
     {
         player: "Yann",
-        waves: 12
+        waves: 12,
     },
     {
         player: "Yann",
-        waves: 12
+        waves: 12,
     },
     {
         player: "Yann",
-        waves: 12
+        waves: 12,
     },
     {
         player: "Yann",
-        waves: 12
+        waves: 12,
     },
     {
         player: "Yann",
-        waves: 12
+        waves: 12,
     },
     {
         player: "Yann",
-        waves: 12
+        waves: 12,
     },{
         player: "Yann",
-        waves: 16
+        waves: 16,
     },
 ]
