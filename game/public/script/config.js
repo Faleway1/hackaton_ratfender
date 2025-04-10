@@ -1,0 +1,173 @@
+//GAME SETTINGS
+
+const TILES_PER_ROW = 20;
+const TILES_PER_COL = 10;
+const APP_WIDTH = 800;
+const APP_HEIGHT = 400;
+const PDR_PER_ROUND = {
+  0: 50,
+  10: 100,
+  20: 150,
+  30: 200,
+  40: 300,
+  50: 400,
+  75: 500,
+  100: 1000,
+};
+const TILE_HEIGHT = APP_HEIGHT / TILES_PER_COL;
+const TILE_WIDTH = APP_WIDTH / TILES_PER_ROW;
+
+const GAME_SETTINGS = {
+  TILES_PER_ROW,
+  TILES_PER_COL,
+  APP_WIDTH,
+  APP_HEIGHT,
+  PDR_PER_ROUND,
+  TILE_HEIGHT,
+  TILE_WIDTH,
+};
+
+
+// ENEMIES INFOS
+const NORMAL_RAT = {
+  BASE_HP: 20,
+  BASE_MONEY: 3,
+  TYPE: "Normal",
+};
+const CAMO_RAT = {
+  BASE_HP: 12,
+  BASE_MONEY: 5,
+  TYPE: "Camo",
+};
+const STEEL_RAT = {
+  BASE_HP: 20,
+  BASE_MONEY: 8,
+  TYPE: "Steel",
+};
+const RAINBOW_RAT = {
+  BASE_HP: 50,
+  BASE_MONEY: 10,
+  TYPE: "Rainbow",
+};
+
+const ENEMY_INFOS = {
+  NORMAL_RAT,
+  CAMO_RAT,
+  STEEL_RAT,
+  RAINBOW_RAT,
+};
+
+// TOWER INFOS
+const TOWER_TOME = {
+  BASE_ATK: 10,
+  BASE_SHOT_SPEED: 3000,
+  BASE_RANGE: 2,
+  BASE_NB_SHOTS: 1,
+  BASE_PRICE: 50,
+  TYPE: "Normal",
+  IMAGE: "tomeFromage",
+};
+const TOWER_COMTE = {
+  BASE_ATK: 10,
+  BASE_SHOT_SPEED: 3000,
+  BASE_RANGE: 2,
+  BASE_NB_SHOTS: 1,
+  BASE_PRICE: 100,
+  TYPE: "Camo",
+  IMAGE: "comteFromage",
+};
+const TOWER_CHEVRE = {
+  BASE_ATK: 10,
+  BASE_SHOT_SPEED: 3000,
+  BASE_RANGE: 2,
+  BASE_NB_SHOTS: 1,
+  BASE_PRICE: 100,
+  TYPE: "Rainbow",
+  IMAGE: "chevreFromage",
+};
+const TOWER_ROQUEFORT = {
+  BASE_ATK: 10,
+  BASE_SHOT_SPEED: 4000,
+  BASE_RANGE: 3,
+  BASE_NB_SHOTS: 2,
+  BASE_PRICE: 100,
+  TYPE: "Steel",
+  IMAGE: "roquefortFromage",
+};
+
+const TOWER_INFOS = {   
+  TOWER_TOME,
+  TOWER_COMTE,
+  TOWER_CHEVRE,
+  TOWER_ROQUEFORT,
+};
+
+// INGREDIENT INFOS
+const INGREDIENT_MILK = {
+  TYPE_BUFF: "range",
+  CURRENT_BUFF: 10,
+  BASE_BUFF: 10,
+  BASE_RANGE: 2,
+  BASE_PRICE: 50,
+  BASE_LEVEL: 0,
+  IMAGE: "milkIngredient",
+};
+const INGREDIENT_PEPPER = {
+  TYPE_BUFF: "range",
+  CURRENT_BUFF: 10,
+  BASE_BUFF: 10,
+  BASE_RANGE: 2,
+  BASE_PRICE: 50,
+  BASE_LEVEL: 0,
+  IMAGE: "pepperIngredient",
+};
+const INGREDIENT_FIGUE = {
+  TYPE_BUFF: "range",
+  CURRENT_BUFF: 10,
+  BASE_BUFF: 10,
+  BASE_RANGE: 2,
+  BASE_PRICE: 50,
+  BASE_LEVEL: 0,
+  IMAGE: "figueIngredient",
+};
+const INGREDIENT_HERBE = {
+  TYPE_BUFF: "range",
+  CURRENT_BUFF: 10,
+  BASE_BUFF: 10,
+  BASE_RANGE: 2,
+  BASE_PRICE: 50,
+  BASE_LEVEL: 0,
+  IMAGE: "herbeIngredient",
+};
+const INGREDIENT_JALAPENOS = {
+  TYPE_BUFF: "range",
+  CURRENT_BUFF: 10,
+  BASE_BUFF: 10,
+  BASE_RANGE: 2,
+  BASE_PRICE: 50,
+  BASE_LEVEL: 0,
+  IMAGE: "jalapenosIngredient",
+};
+const INGREDIENT_ONION = {
+  TYPE_BUFF: "range",
+  CURRENT_BUFF: 10,
+  BASE_BUFF: 10,
+  BASE_RANGE: 2,
+  BASE_PRICE: 50,
+  BASE_LEVEL: 0,
+  IMAGE: "onionIngredient",
+};
+
+const INGREDIENT_INFOS = {
+  INGREDIENT_MILK,
+  INGREDIENT_PEPPER,
+  INGREDIENT_FIGUE,
+  INGREDIENT_HERBE,
+  INGREDIENT_JALAPENOS,
+  INGREDIENT_ONION,
+};
+
+
+export { GAME_SETTINGS, ENEMY_INFOS, TOWER_INFOS, INGREDIENT_INFOS };
+
+
