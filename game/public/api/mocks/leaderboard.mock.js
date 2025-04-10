@@ -4,12 +4,12 @@ export const leaderboardMocks = [
         waves: 15,
     },
     {
-        player: "Yann",
-        waves: 12
+        player: "Caca",
+        waves: 1
     },
     {
-        player: "Yann",
-        waves: 12
+        player: "Pipi",
+        waves: 14
     },
     {
         player: "Yann",
@@ -40,6 +40,6 @@ export const leaderboardMocks = [
         waves: 12
     },{
         player: "Yann",
-        waves: 12
+        waves: 16
     },
 ]

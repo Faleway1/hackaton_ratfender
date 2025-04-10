@@ -4,7 +4,7 @@ import {LeaderboardController} from "../controllers/index.controller.js"
 const leaderboardRouter = express.Router()
 
 leaderboardRouter.get("/", LeaderboardController.getAllPlayers);         
-leaderboardRouter.get("/top", LeaderboardController.getTopPlayers);
+leaderboardRouter.get("/topPlayer", LeaderboardController.getTopPlayers);
 leaderboardRouter.post("/", LeaderboardController.addPlayerToLeaderboard);
 leaderboardRouter.get("/:id", LeaderboardController.getPlayerById); 
 leaderboardRouter.put("/:id", LeaderboardController.updateLeaderboard);
