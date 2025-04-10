@@ -65,8 +65,8 @@ class Ingredient {
         this.rangeGraphic.visible = false;
     }
 
-    pathsInRange() {
-        const entitiesInRange = []
+    freeCellsInRange() {
+        const freeCells = []
         const cell = findOnGrid(this.position.x, this.position.y, game.cellsList);
         const startCol = Math.floor((cell.x - this.rng));
         const endCol = Math.floor((cell.x + this.rng));
@@ -77,12 +77,12 @@ class Ingredient {
             for (let row = startRow; row <= endRow; row++) {
                 const cell = findCell(col, row, game.cellsList);
                 if (!cell) continue;
-                if (game.path.includes(cell) && !this.enemies_in_range.includes(cell)) {
-                    entitiesInRange.push(cell)
+                if (!game.path.includes(cell)) {
+                    freeCells.push(cell)
                 }
             }
         }
-        this.paths_in_range = entitiesInRange;
+        this.cells_in_range = freeCells;
     }
 
 

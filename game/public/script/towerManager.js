@@ -43,8 +43,10 @@ async function placeTower(towerType) {
 
     const handleMouseClick = (event) => {
         const rect = game.app.view.getBoundingClientRect(); // position du canvas dans la page
-        const mouseX = event.clientX - rect.left;
-        const mouseY = event.clientY - rect.top;
+        const scaleX = game.app.view.width / rect.width;
+        const scaleY = game.app.view.height / rect.height;
+        const mouseX = (event.clientX - rect.left) * scaleX;
+        const mouseY = (event.clientY - rect.top) * scaleY;
 
         new_tower.render(mouseX, mouseY, true);
     }
