@@ -19,8 +19,16 @@ game.initCanva();
 game.initGrid();
 game.initPath();
 
-export { game };
 
-const texture = await Assets.load('https://pixijs.com/assets/bunny.png')
-const test = new Rat(15,"IODN",texture,15,[10,2])
-test.render(game.app, texture)
+
+const texture = await PIXI.Assets.load('normalRat');
+const rat = new PIXI.Sprite(texture);
+rat.anchor.set(0.5);
+rat.x = 100;
+rat.y = 100;
+rat.width = 50;
+rat.height = 50;
+console.log(texture, rat)
+game.app.stage.addChild(rat);
+
+export { game };

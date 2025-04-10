@@ -12,6 +12,8 @@ export class Game {
         this.tilewidth = appWidth / tilesPerRow;
         this.tileheight = appHeight / tilesPerCol;
         this.cellsList = [];
+        console.log(this.money);
+        
         this.path = [
             { lig: 15, col: 15 },
             { lig: 15, col: 16 },
@@ -46,10 +48,12 @@ export class Game {
         ];
         this.pdr = 0;
         this.round = 0;
+        this.money = document.querySelector(".money")
+        this.money.textContent = this.pdr
         this.app = new PIXI.Application();
-
+        
     }
-
+    
     async initCanva() {
         await this.app.init({ background: '#1099bb', width: this.appWidth, height: this.appHeight })
         document.querySelector("#game").appendChild(this.app.view);
@@ -123,6 +127,7 @@ export class Game {
         console.log("Fin de round")
         this.pdr += roundEndPdr(this.round, this.pdrPerRound);
         this.round += 1;
+        this.money.textContent = this.pdr
         // A FAIRE : stoper le jeu si bouton pause pressé/ relancer le jeu sinon
     }
 }

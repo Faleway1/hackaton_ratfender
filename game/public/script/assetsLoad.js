@@ -1,0 +1,1 @@
+PIXI.Assets.add({ alias: 'normalRat', src: '../public/assets/normalRat.png' });
