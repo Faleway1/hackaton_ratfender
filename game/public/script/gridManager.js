@@ -1,5 +1,6 @@
 import { Cell } from "./class/cell.js";
 import { game } from "./game.js";
+import { GAME_SETTINGS } from "./config.js";
 
 function createGrid(width, height) {
     let cellsList = [];
@@ -37,8 +38,8 @@ function moveEntity(entity, path) {
 }
 
 function findOnGrid(x, y) {
-    const xgrid = Math.floor(x / game.tilewidth);
-    const ygrid = Math.floor(y / game.tileheight);
+    const xgrid = Math.floor(x / GAME_SETTINGS.TILE_WIDTH);
+    const ygrid = Math.floor(y / GAME_SETTINGS.TILE_HEIGHT);
     const cell = findCell(xgrid, ygrid, game.cellsList);
     if (cell) {
         return cell;
@@ -55,4 +56,4 @@ function distanceBetweenTwoPoints(p1, p2) {
 }
 
 
-export { findCell, createGrid, moveEntity, findOnGrid };
+export * as gridManager from "./gridManager.js";
