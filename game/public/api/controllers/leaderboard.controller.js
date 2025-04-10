@@ -1,4 +1,4 @@
-import { LeaderboardService } from "../api/services/leaderboard.serivice.js";
+import { LeaderboardService } from "../api/services/leaderboard.service.js";
 
 export async function addPlayerToLeaderboard(req,res, error) {
     try {
