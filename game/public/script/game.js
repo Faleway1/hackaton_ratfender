@@ -1,5 +1,4 @@
 import { Game } from "./class/gameClass.js";
-import { Rat } from "./class/ennemies.js";
 import { Tower } from "./class/towers.js";
 import { findOnGrid } from "./gridManager.js";
 import { camoRat, rainbowRat, Rat, steelRat } from "./class/ennemies.js";
