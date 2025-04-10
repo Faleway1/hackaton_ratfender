@@ -1,16 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rat-Fender</title>
     <link rel="stylesheet" href="./style/gamegrid.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/8.6.6/pixi.min.js" integrity="sha512-9Che/pADxtzmgRM/Lt7g+wgmgVPNu4qLCOjH+owFqCSpd9HHCi1fMYp+XtfE8nOdRQWUsD0TUNQUc5Z1SwaLyw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/8.6.6/pixi.min.js"
+        integrity="sha512-9Che/pADxtzmgRM/Lt7g+wgmgVPNu4qLCOjH+owFqCSpd9HHCi1fMYp+XtfE8nOdRQWUsD0TUNQUc5Z1SwaLyw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.mjs"></script>
     <script type="module" src="./script/assetsLoad.js"></script>
     <script type="module" src="./script/game.js"></script>
 </head>
+
 <body>
+    <div id="game">
+
+    </div>
+    <div>
+        <button class="moveEntity">Move Entity</button>
+        <p class="pdr"></p>
+        <button class="endRound">End Round</button>
+    </div>
     <main>
         <section class="top">
             <div id="game">
@@ -60,4 +72,5 @@
         </section>
     </main>
 </body>
+
 </html>
