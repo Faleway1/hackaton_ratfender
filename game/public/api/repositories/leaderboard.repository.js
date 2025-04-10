@@ -1,4 +1,4 @@
-import Leaderboard from "./models/leaderboard.models.js";
+import Leaderboard from "../models/leaderboard.models.js";
 
 export async function addPlayerToLeaderboard({player, waves}) {
     const leaderboard = await Leaderboard.create({ player, waves});
