@@ -1,12 +1,8 @@
 import { Game } from "./class/gameClass.js";
-import {
-  Tower,
-  comteTower,
-  chevreTower,
-  roquefortTower,
-} from "./class/towers.js";
+import { TOWERS } from "./class/towers.js";
 import { gridManager } from "./gridManager.js";
-import { camoRat, rainbowRat, Rat, steelRat } from "./class/ennemies.js";
+import { INGREDIENTS } from "./class/ingredients.js";
+import { ENEMIES } from "./class/ennemies.js";
 import { GAME_SETTINGS } from "./config.js";
 
 const game = new Game(
@@ -43,10 +39,10 @@ document.querySelector(".moveEntity").addEventListener("click", () => {
 console.log(game.app);
 
 async function createTower(towerType) {
-  // Changer la classe utilisée selon le type de la tour
-  const new_tower = new roquefortTower();
-  await new_tower.init();
-  return new_tower;
+    // Changer la classe utilisée selon le type de la tour
+    const new_tower = new jalapenosIngredient()
+    await new_tower.initBeforePlacement()
+    return new_tower
 }
 
 game.app.view.addEventListener("click", (event) => {
