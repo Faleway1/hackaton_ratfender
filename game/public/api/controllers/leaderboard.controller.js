@@ -40,14 +40,22 @@ export async function updateLeaderboard(req, res, next) {
 export async function deletePlayerLeaderboard(req, res, next) {
     try {
         const id = req.params.id;
-        const deletedLeaderboard = await LeaderboardService.deletePlayerLeaderboard(id, {
+        const deletedPlayerLeaderboard = await LeaderboardService.deletePlayerLeaderboard(id, {
             player,
             waves,
         });
-        res.json(deletedLeaderboard);
+        res.json(deletedPlayerLeaderboard);
     } catch (error) {
         next(error)
     }
+}
+export async function deleteLeaderboard(req, res, next){
+    try{
+        const deletedLeaderboard = await LeaderboardService.deleteLeaderboard();
+        res.json(leaderboard)
+    } catch (error) {
+        next(error);
+    })
 }
 
 export async function getAllPlayers(req, res, next) {

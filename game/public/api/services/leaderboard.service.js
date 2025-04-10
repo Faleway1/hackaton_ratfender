@@ -1,5 +1,4 @@
 import {
-    // ConflictError,
     BadRequestError,
     NotFoundError,
 } from "../errors/api.error.js"
@@ -54,6 +53,10 @@ export async function deletePlayerLeaderboard(id){
     return await leaderboardRepository.deletePlayerLeaderboard(id);
 };
 
+export async function deleteLeaderboard(){
+    return await leaderboardRepository.deleteLeaderboard();
+}
+
 export async function getAllPlayers() {
     const leaderboards = await leaderboardRepository.getAllPlayers();
 
@@ -71,9 +74,11 @@ export async function getAllPlayers() {
 export async function getTopPlayers() {
     const topPlayer = await leaderboardRepository.getTopPlayers();
     
-    return topPlayer.map(player => ({
+    const formattedLeaderboard = topPlayer.map(player => ({
         id: player.id,
         player: player.player,
         waves: player.waves
     }));
+
+    return formattedLeaderboard
 }

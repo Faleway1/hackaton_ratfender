@@ -5,12 +5,6 @@ export class ApiError extends Error {
     }
 }
 
-// export class ConflictError extends ApiError {
-//     constructor(message) {
-//         super(message, 409)
-//     }
-// }
-
 export class BadRequestError extends ApiError {
     constructor(message) {
         super(message, 409)
