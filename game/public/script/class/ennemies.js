@@ -84,7 +84,6 @@ export class Rat{
     }
 
     moveEntity() {
-        console.log(this.cell_position)
         this.cell_position.ennemies.pop(this)
         this.position += 1
 
@@ -95,8 +94,19 @@ export class Rat{
         }
         this.render();
         this.cell_position.ennemies.push(this)
-        console.log(this.cell_position)
     }
+
+    takeDamage(damage) {
+        this.hp -= damage;
+        this.checkHealth();
+    }
+    
+    checkHealth() {
+        if (this.hp <= 0) {
+            this.kill();
+        }
+    }
+    
 }
 
 export class camoRat extends Rat{
