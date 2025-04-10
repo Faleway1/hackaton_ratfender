@@ -100,7 +100,7 @@ export class Game {
             }
 
             const nextCell = findCell(currentCell.x + currentDirection[0], currentCell.y + currentDirection[1], this.cellsList); // Cellule suivante
-            currentCell = nextCell; 
+            currentCell = nextCell;
             path.push(currentCell);
         }
 
