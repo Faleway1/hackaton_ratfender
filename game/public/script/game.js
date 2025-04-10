@@ -1,9 +1,9 @@
+import { GAME_SETTINGS } from "./config.js";
 import { Game } from "./class/gameClass.js";
 import { TOWERS } from "./class/towers.js";
-import { gridManager } from "./gridManager.js";
 import { INGREDIENTS } from "./class/ingredients.js";
 import { ENEMIES } from "./class/ennemies.js";
-import { GAME_SETTINGS } from "./config.js";
+import { gridManager } from "./gridManager.js";
 
 const game = new Game(
   GAME_SETTINGS.TILES_PER_ROW,
@@ -18,7 +18,7 @@ game.initCanva();
 game.initGrid();
 game.initPath();
 
-const new_rat = new rainbowRat();
+const new_rat = new ENEMIES.RainbowRat();
 await new_rat.loadAsset();
 new_rat.render();
 

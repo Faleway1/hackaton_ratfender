@@ -1,6 +1,6 @@
 import { game } from "../game.js";
 import { uuidv4 } from '../idManager.js';
-import { GAME_SETTINGS, ENEMY_INFOS } from "./config.js";
+import { GAME_SETTINGS, ENEMY_INFOS } from "../config.js";
 
 
 class Rat{
