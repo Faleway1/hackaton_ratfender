@@ -1,5 +1,5 @@
 import { Game } from "./class/gameClass.js";
-import { Tower } from "./class/towers.js";
+import { Tower, comteTower } from "./class/towers.js";
 import { findOnGrid } from "./gridManager.js";
 import { camoRat, rainbowRat, Rat, steelRat } from "./class/ennemies.js";
 import { Cell } from "./class/cell.js";
@@ -50,7 +50,7 @@ console.log(game.app)
 async function createTower(towerType) {
     // Changer la classe utilisée selon le type de la tour
     const new_tower = new Tower()
-    await new_tower.init()
+    await new_tower.initBeforePlacement()
     return new_tower
 }
 
@@ -80,7 +80,7 @@ game.app.view.addEventListener("click", (event) => {
 export { game };
 const new_tower = await createTower("tower1")
 game.app.view.addEventListener("mousemove", (event) => {
-    if (new_tower.isPlaced) {
+    if (new_tower.is_placed) {
         return
     }
     const rect = game.app.view.getBoundingClientRect(); // position du canvas dans la page
