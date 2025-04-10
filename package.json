@@ -1,0 +1,27 @@
+{
+  "name": "hackaton_ratfender",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./game/public/api/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Faleway1/hackaton_ratfender.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Faleway1/hackaton_ratfender/issues"
+  },
+  "homepage": "https://github.com/Faleway1/hackaton_ratfender#readme",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.0.0"
+  }
+}
