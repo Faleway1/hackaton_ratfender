@@ -1,5 +1,5 @@
 import { game } from "../game.js"
-import { findCell } from "../gridManager.js";
+import { findCell, findOnGrid } from "../gridManager.js";
 import { uuidv4 } from "../idManager.js";
 
 const TOWER_TOME = {
@@ -27,6 +27,7 @@ export class Tower{
         this.asset = ""
         this.position = null;
         this.sprite = null;
+        this.rangeCircle = null;
 
         this.tiles_in_range = []
         this.enemies_in_range = []
@@ -36,6 +37,11 @@ export class Tower{
             path2: 0,
             path3: 0
         }
+    }
+
+    async init() {
+        await this.loadAsset()
+        this.initRange()
     }
 
     updatePosition(x, y) {
@@ -49,7 +55,14 @@ export class Tower{
         this.asset = await PIXI.Assets.load(this.type);
     }
 
-    
+    ableToPlace(x, y) {
+        const cell_position = findOnGrid(x, y);
+        const cell = findCell(cell_position.x, cell_position.y, game.cellsList); 
+        if (game.path.includes(cell) || game.towerTilesOccupied.includes(cell)) {
+            return false
+        }
+        return true
+    }  
 
     render(x, y, placeIt) {
         if (this.isPlaced) {
@@ -69,7 +82,19 @@ export class Tower{
         this.sprite.x = this.position.x; 
         this.sprite.y = this.position.y;
         game.app.stage.addChild(this.sprite);
-        this.isPlaced = placeIt;
+
+        this.showRange()
+        if (this.ableToPlace(this.position.x, this.position.y)) {
+            this.sprite.tint = 0x00FF00; // Vert
+            this.isPlaced = placeIt;
+            if (placeIt) {
+                this.sprite.tint = 0xFFFFFF; // Blanc
+                this.hideRange()
+            }
+        } else {
+            this.sprite.tint = 0xFF0000; // Rouge
+            this.isPlaced = false;
+        }
     }
 
     increaseLevel(id_upgrade) {
@@ -99,8 +124,25 @@ export class Tower{
         }
     }
 
-    TilesSeen() {
-        
+    initRange() {
+        this.rangeGraphic = new PIXI.Graphics();
+        this.rangeGraphic.circle(0, 0, this.stats.range * game.tilewidth);
+        this.rangeGraphic.beginFill(0x00FF00, 0.5); // Vert avec opacité
+        game.app.stage.addChild(this.rangeGraphic)
+        this.rangeGraphic.stroke({ width: 2, color: 0xfeeb77 });
+        this.rangeGraphic.visible = false;
+
+    }
+    
+    showRange() {
+        console.log(this.rangeGraphic.getBounds())
+        this.rangeGraphic.x = this.position.x;
+        this.rangeGraphic.y = this.position.y;
+        this.rangeGraphic.visible = true;
+    }
+
+    hideRange() {
+        this.rangeGraphic.visible = false;
     }
 
     EnnemieSeen(entity) {

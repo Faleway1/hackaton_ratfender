@@ -27,6 +27,7 @@ export class Cell {
         cell.fill(color);
         cell.stroke({ width: 2, color: 0xfeeb77 });
         cell.name = `cell-${this.x}-${this.y}`;
+        console.log(cell.getBounds())
         game.app.stage.addChild(cell);
     }
 
