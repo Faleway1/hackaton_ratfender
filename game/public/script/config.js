@@ -59,39 +59,43 @@ const ENEMY_INFOS = {
 
 // TOWER INFOS
 const TOWER_TOME = {
+  TYPE: "TOWER_TOME",
   BASE_ATK: 10,
   BASE_SHOT_SPEED: 3000,
   BASE_RANGE: 2,
   BASE_NB_SHOTS: 1,
   BASE_PRICE: 50,
-  TYPE: "Normal",
+  RAT_TYPE: "Normal",
   IMAGE: "tomeFromage",
 };
 const TOWER_COMTE = {
+  TYPE: "TOWER_COMTE",
   BASE_ATK: 10,
   BASE_SHOT_SPEED: 3000,
   BASE_RANGE: 2,
   BASE_NB_SHOTS: 1,
   BASE_PRICE: 100,
-  TYPE: "Camo",
+  RAT_TYPE: "Camo",
   IMAGE: "comteFromage",
 };
 const TOWER_CHEVRE = {
+  TYPE: "TOWER_CHEVRE",
   BASE_ATK: 10,
   BASE_SHOT_SPEED: 3000,
   BASE_RANGE: 2,
   BASE_NB_SHOTS: 1,
   BASE_PRICE: 100,
-  TYPE: "Rainbow",
+  RAT_TYPE: "Rainbow",
   IMAGE: "chevreFromage",
 };
 const TOWER_ROQUEFORT = {
+  TYPE: "TOWER_ROQUEFORT",
   BASE_ATK: 10,
   BASE_SHOT_SPEED: 4000,
   BASE_RANGE: 3,
   BASE_NB_SHOTS: 2,
   BASE_PRICE: 100,
-  TYPE: "Steel",
+  RAT_TYPE: "Steel",
   IMAGE: "roquefortFromage",
 };
 
