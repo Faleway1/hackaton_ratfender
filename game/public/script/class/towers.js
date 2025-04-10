@@ -53,11 +53,11 @@ export class Tower {
         this.image = TOWER_TOME.IMAGE
         this.price = TOWER_TOME.BASE_PRICE;
 
-        this.isPlaced = false;
+        this.is_placed = false;
         this.asset = ""
         this.position = null;
         this.sprite = null;
-        this.rangeCircle = null;
+        this.range_circle = null;
 
         this.paths_in_range = []
         this.enemies_in_range = []
@@ -69,21 +69,82 @@ export class Tower {
         }
     }
 
-    async init() {
-        await this.loadAsset()
-        this.initRange()
-    }
-
-    updatePosition(x, y) {
-        this.position = {
-            x: x,
-            y: y,
-        };
-    }
-
     async loadAsset() {
         this.asset = await PIXI.Assets.load(this.image);
     }
+
+
+    async initBeforePlacement() {
+        await this.loadAsset()
+        this.initRangeVisual()
+    }
+
+    initAfterPlacement() {
+        this.pathsInRange()
+        this.sprite.tint = 0xFFFFFF; // Blanc
+        this.hideRange()
+        this.detectEnemisInterval()
+        this.towerAttackInterval()
+    }
+
+    initRangeVisual() {
+        this.rangeGraphic = new PIXI.Graphics();
+        this.rangeGraphic.circle(0, 0, this.stats.range * game.tilewidth);
+        this.rangeGraphic.beginFill(0x00FF00, 0.5); // Vert avec opacité
+        game.app.stage.addChild(this.rangeGraphic)
+        this.rangeGraphic.stroke({ width: 2, color: 0xfeeb77 });
+        this.rangeGraphic.visible = false;
+
+    }
+
+    showRange() {
+        this.rangeGraphic.x = this.position.x;
+        this.rangeGraphic.y = this.position.y;
+        this.rangeGraphic.visible = true;
+    }
+
+    hideRange() {
+        this.rangeGraphic.visible = false;
+    }
+
+    pathsInRange() {
+        const entitiesInRange = []
+        const cell = findOnGrid(this.position.x, this.position.y, game.cellsList);
+        const startCol = Math.floor((cell.x - this.stats.range));
+        const endCol = Math.floor((cell.x + this.stats.range));
+        const startRow = Math.floor((cell.y - this.stats.range));
+        const endRow = Math.floor((cell.y + this.stats.range));
+
+        for (let col = startCol; col <= endCol; col++) {
+            for (let row = startRow; row <= endRow; row++) {
+                const cell = findCell(col, row, game.cellsList);
+                if (!cell) continue;
+                if (game.path.includes(cell) && !this.enemies_in_range.includes(cell)) {
+                    entitiesInRange.push(cell)
+                }
+            }
+        }
+        this.paths_in_range = entitiesInRange;
+    }
+
+    detectNearbyEnemies() {
+        const enemies_nearby = []
+        this.paths_in_range.forEach(cell => {
+            cell.ennemies.forEach(enemy => {
+                if (!enemies_nearby.includes(enemy)) {
+                    enemies_nearby.push(enemy)
+                }
+            })
+        })
+        this.enemies_in_range = enemies_nearby
+    }
+    detectEnemisInterval() {
+        this.detectingEnemies = setInterval(() => {
+            this.detectNearbyEnemies()
+        }, 200);
+    }
+
+
 
     ableToPlace(x, y) {
         const cell_position = findOnGrid(x, y);
@@ -94,8 +155,15 @@ export class Tower {
         return true
     }
 
+    updatePosition(x, y) {
+        this.position = {
+            x: x,
+            y: y,
+        };
+    }
+
     render(x, y, placeIt) {
-        if (this.isPlaced) {
+        if (this.is_placed) {
             return
         }
         this.position = {
@@ -116,21 +184,17 @@ export class Tower {
         this.showRange()
         if (this.ableToPlace(this.position.x, this.position.y)) {
             this.sprite.tint = 0x00FF00; // Vert
-            this.isPlaced = placeIt;
+            this.is_placed = placeIt;
             if (placeIt) {
-                this.queryCircle()
-                this.sprite.tint = 0xFFFFFF; // Blanc
-                this.hideRange()
-                console.log(this.paths_in_range)
-                this.paths_in_range.forEach(element => {
-                    element.highlight()
-                })
+                this.initAfterPlacement()
             }
         } else {
             this.sprite.tint = 0xFF0000; // Rouge
-            this.isPlaced = false;
+            this.is_placed = false;
         }
     }
+
+    
 
     increaseLevel(id_upgrade) {
         if (id_upgrade === 1) {
@@ -159,92 +223,25 @@ export class Tower {
         }
     }
 
-    initRange() {
-        this.rangeGraphic = new PIXI.Graphics();
-        this.rangeGraphic.circle(0, 0, this.stats.range * game.tilewidth);
-        this.rangeGraphic.beginFill(0x00FF00, 0.5); // Vert avec opacité
-        game.app.stage.addChild(this.rangeGraphic)
-        this.rangeGraphic.stroke({ width: 2, color: 0xfeeb77 });
-        this.rangeGraphic.visible = false;
-
-    }
-
-    showRange() {
-        this.rangeGraphic.x = this.position.x;
-        this.rangeGraphic.y = this.position.y;
-        this.rangeGraphic.visible = true;
-    }
-
-    hideRange() {
-        this.rangeGraphic.visible = false;
-
-    }
-
-    queryCircle() {
-        const entitiesInRange = []
-        const cell = findOnGrid(this.position.x, this.position.y, game.cellsList);
-        const startCol = Math.floor((cell.x - this.stats.range));
-        const endCol = Math.floor((cell.x + this.stats.range));
-        const startRow = Math.floor((cell.y - this.stats.range));
-        const endRow = Math.floor((cell.y + this.stats.range));
-
-        console.log(startCol, endCol, startRow, endRow);
-
-
-        for (let col = startCol; col <= endCol; col++) {
-            for (let row = startRow; row <= endRow; row++) {
-                const cell = findCell(col, row, game.cellsList);
-                if (!cell) continue;
-                if (game.path.includes(cell) && !this.enemies_in_range.includes(cell)) {
-                    entitiesInRange.push(cell)
-                }
-            }
-        }
-        console.log(entitiesInRange)
-        this.paths_in_range = entitiesInRange;
-    }
-
-    detectNearbyEnemies() {
-        this.paths_in_range.forEach(cell => {
-            cell.ennemies.forEach(enemy => {
-                this.enemies_in_range.push(enemy)
-            })
-        })
-    }
-
-
-    EnnemieSeen(entity) {
-        const distance = Math.sqrt(
-          Math.pow(entity.cell_position[0] - this.position[0], 2) +
-          Math.pow(entity.cell_position[1] - this.position[1], 2)
-        );
-    
-        if (distance <= this.stats.range) { // Si l'ennemi est dans le rayon de la tour
-          this.ennemieseen.push(entity);
-        }
-    
-        console.log(this.ennemieseen);
-      }
-    
-      // Mise à jour des ennemis à portée
-      EnnemiesUnseen(entity) {
-        this.tiles_seen.forEach(e => {
-          this.ennemieseen.forEach((element, index) => {
-            if (element != e) {
-              this.ennemieseen.splice(index, 1); // Retirer l'ennemi qui n'est plus à portée
-            }
-          });
-        });
-      }
-
-    TowerAttack() {
-        if (!this.ennemieseen) {
-            console.log("liste vide pas d'attaque");
+    towerAttack() {
+        if (!this.enemies_in_range.length) {
+            return
         } else {
             for (let i = 0; i < this.stats.nb_shots; i++) {
-                this.ennemieseen[i].hp - this.stats.attack
+                if (this.enemies_in_range[i] == undefined || this.enemies_in_range[i].hp <= 0) {
+                    this.enemies_in_range.splice(i, 1)
+                    continue
+                }
+                this.enemies_in_range[i].takeDamage(this.stats.attack)
             }
+            console.log(this.enemies_in_range)
         }
+    }
+
+    towerAttackInterval() {
+        this.attackInterval = setInterval(() => {
+            this.towerAttack()
+        }, this.stats.shot_speed);
     }
 }
 
