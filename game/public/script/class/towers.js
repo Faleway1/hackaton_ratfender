@@ -253,6 +253,58 @@ export class comteTower {
         this.price = TOWER_COMTE.BASE_PRICE;
 
     }
+
+    async init() {
+        super.init()
+    }
+
+    updatePosition(x, y) {
+        super.updatePosition(x, y)
+    }
+
+    async loadAsset() {
+        super.loadAsset()
+    }
+
+    ableToPlace(x, y) {
+        super.ableToPlace(x, y)
+    }
+
+    render() {
+        super.render()
+    }
+
+    increaseLevel(id_upgrade) {
+        super.increaseLevel(id_upgrade)
+    }
+
+    initRange() {
+        super.initRange()
+    }
+
+    showRange() {
+        super.showRange()
+    }
+
+    hideRange() {
+        super.hideRange()
+    }
+
+    queryCircle() {
+        super.queryCircle()
+    }
+
+    EnnemieSeen(entity) {
+        super.EnnemieSeen(entity)
+    }
+
+    EnnemiesUnseen(entity) {
+        super.EnnemiesUnseen(entity)
+    }
+
+    TowerAttack() {
+        super.TowerAttack()
+    }
 }
 export class chevreTower {
     constructor() {
@@ -267,6 +319,58 @@ export class chevreTower {
         this.price = TOWER_CHEVRE.BASE_PRICE;
 
     }
+
+    async init() {
+        super.init()
+    }
+
+    updatePosition(x, y) {
+        super.updatePosition(x, y)
+    }
+
+    async loadAsset() {
+        super.loadAsset()
+    }
+
+    ableToPlace(x, y) {
+        super.ableToPlace(x, y)
+    }
+
+    render() {
+        super.render()
+    }
+
+    increaseLevel(id_upgrade) {
+        super.increaseLevel(id_upgrade)
+    }
+
+    initRange() {
+        super.initRange()
+    }
+
+    showRange() {
+        super.showRange()
+    }
+
+    hideRange() {
+        super.hideRange()
+    }
+
+    queryCircle() {
+        super.queryCircle()
+    }
+
+    EnnemieSeen(entity) {
+        super.EnnemieSeen(entity)
+    }
+
+    EnnemiesUnseen(entity) {
+        super.EnnemiesUnseen(entity)
+    }
+
+    TowerAttack() {
+        super.TowerAttack()
+    }
 }
 export class roquefortTower {
     constructor() {
@@ -280,6 +384,58 @@ export class roquefortTower {
         this.image = TOWER_ROQUEFORT.IMAGE
         this.price = TOWER_ROQUEFORT.BASE_PRICE;
 
+    }
+
+    async init() {
+        super.init()
+    }
+
+    updatePosition(x, y) {
+        super.updatePosition(x, y)
+    }
+
+    async loadAsset() {
+        super.loadAsset()
+    }
+
+    ableToPlace(x, y) {
+        super.ableToPlace(x, y)
+    }
+
+    render() {
+        super.render()
+    }
+
+    increaseLevel(id_upgrade) {
+        super.increaseLevel(id_upgrade)
+    }
+
+    initRange() {
+        super.initRange()
+    }
+
+    showRange() {
+        super.showRange()
+    }
+
+    hideRange() {
+        super.hideRange()
+    }
+
+    queryCircle() {
+        super.queryCircle()
+    }
+
+    EnnemieSeen(entity) {
+        super.EnnemieSeen(entity)
+    }
+
+    EnnemiesUnseen(entity) {
+        super.EnnemiesUnseen(entity)
+    }
+
+    TowerAttack() {
+        super.TowerAttack()
     }
 }
 
