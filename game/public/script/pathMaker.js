@@ -1,24 +1,23 @@
-import { game, TILEHEIGHT, TILEWIDTH } from "./game.js";
-import { Cell } from "./class/cell.js";
-import { Tower } from "./class/towers.js";
-import { Rat } from "./class/ennemies.js";
+import { game } from "./game.js";
 import { findCell, createGrid } from "./gridManager.js";
 
-console.log(game)
 
-function createPath() {
+function createPath(pathList) {
     const path = new PIXI.Graphics();
+<<<<<<< HEAD
     path.lineStyle(50, 0xffff00, 1);
 
     console.log(game.path)
     path.moveTo(game.path[0].x * TILEWIDTH, game.path[0].y * TILEHEIGHT);
     game.path.forEach((cell) => {
         path.lineTo(cell.col * TILEWIDTH, cell.lig * TILEHEIGHT);
+=======
+    pathList.forEach((cell) => {
+        cell.highlight(0xffd900);
+>>>>>>> 3ea652bfb8eb08b6729d62dd5ffecad67677bc7e
     });
-    path.stroke({ width: TILEWIDTH, color: 0xffd900 });
-    console.log(path)
-    game.app.stage.addChild(path);
 
+<<<<<<< HEAD
     // const path = new PIXI.Graphics();
     // path.moveTo(50, 350);
     // path.lineTo(250, 350);
@@ -62,3 +61,16 @@ tower.y = 3;
 game.app.stage.addChild(tower);
 
 const test = new Tower("neutral",[16,3],15,tower.sprite )
+=======
+    return path
+}
+
+export { createPath };
+
+createGrid();
+
+// const test = new Tower("neutral",[8,2],15,"https://placehold.co/25" )
+// const test2 = new Rat(15,"neutre", "https://placehold.co/25",15,[7,0])
+// test.TilesSeen()
+// test.EnnemieSeen(test2)
+>>>>>>> 3ea652bfb8eb08b6729d62dd5ffecad67677bc7e
