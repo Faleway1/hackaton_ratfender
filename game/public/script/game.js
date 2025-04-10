@@ -12,11 +12,9 @@ const pdrPerRound = {
     100: 1000,
 };
 
-const game = new Game(40, 20, 800, 400, pdrPerRound)
+const game = new Game(20, 10, 800, 400, pdrPerRound)
 game.initCanva()
 game.initGrid()
 game.initPath()
-
-game.cellsList[0].highlight()
 
 export { game };
