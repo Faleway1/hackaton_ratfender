@@ -1,57 +1,23 @@
 import { game } from "../game.js"
-import { findCell, findOnGrid } from "../gridManager.js";
+import { gridManager } from "../gridManager.js";
 import { uuidv4 } from "../idManager.js";
-
-const TOWER_TOME = {
-    BASE_ATK: 10,
-    BASE_SHOT_SPEED: 3000,
-    BASE_RANGE: 2,
-    BASE_NB_SHOTS: 1,
-    BASE_PRICE: 50,
-    TYPE: "Normal",
-    IMAGE: "tomeFromage"
-}
-const TOWER_COMTE = {
-    BASE_ATK: 10,
-    BASE_SHOT_SPEED: 3000,
-    BASE_RANGE: 2,
-    BASE_NB_SHOTS: 1,
-    BASE_PRICE: 100,
-    TYPE: "Camo",
-    IMAGE: "comteFromage"
-}
-const TOWER_CHEVRE = {
-    BASE_ATK: 10,
-    BASE_SHOT_SPEED: 3000,
-    BASE_RANGE: 2,
-    BASE_NB_SHOTS: 1,
-    BASE_PRICE: 100,
-    TYPE: "Rainbow",
-    IMAGE: "chevreFromage"
-}
-const TOWER_ROQUEFORT = {
-    BASE_ATK: 10,
-    BASE_SHOT_SPEED: 4000,
-    BASE_RANGE: 3,
-    BASE_NB_SHOTS: 2,
-    BASE_PRICE: 100,
-    TYPE: "Steel",
-    IMAGE: "roquefortFromage"
-}
+import { GAME_SETTINGS } from "../config.js";
+import { TOWER_INFOS } from "../config.js";
 
 
-export class Tower {
+
+class Tower {
     constructor() {
         this.id = uuidv4()
         this.stats = {
-            attack: TOWER_TOME.BASE_ATK,
-            shot_speed: TOWER_TOME.BASE_SHOT_SPEED,
-            range: TOWER_TOME.BASE_RANGE,
-            nb_shots: TOWER_TOME.BASE_NB_SHOTS,
+            attack: TOWER_INFOS.TOWER_TOME.BASE_ATK,
+            shot_speed: TOWER_INFOS.TOWER_TOME.BASE_SHOT_SPEED,
+            range: TOWER_INFOS.TOWER_TOME.BASE_RANGE,
+            nb_shots: TOWER_INFOS.TOWER_TOME.BASE_NB_SHOTS,
         }
-        this.type = TOWER_TOME.TYPE
-        this.image = TOWER_TOME.IMAGE
-        this.price = TOWER_TOME.BASE_PRICE;
+        this.type = TOWER_INFOS.TOWER_TOME.TYPE
+        this.image = TOWER_INFOS.TOWER_TOME.IMAGE
+        this.price = TOWER_INFOS.TOWER_TOME.BASE_PRICE;
 
         this.is_placed = false;
         this.asset = ""
@@ -89,7 +55,7 @@ export class Tower {
 
     initRangeVisual() {
         this.rangeGraphic = new PIXI.Graphics();
-        this.rangeGraphic.circle(0, 0, this.stats.range * game.tilewidth);
+        this.rangeGraphic.circle(0, 0, this.stats.range * GAME_SETTINGS.TILE_WIDTH);
         this.rangeGraphic.beginFill(0x00FF00, 0.5); // Vert avec opacité
         game.app.stage.addChild(this.rangeGraphic)
         this.rangeGraphic.stroke({ width: 2, color: 0xfeeb77 });
@@ -109,7 +75,7 @@ export class Tower {
 
     pathsInRange() {
         const entitiesInRange = []
-        const cell = findOnGrid(this.position.x, this.position.y, game.cellsList);
+        const cell = gridManager.findOnGrid(this.position.x, this.position.y, game.cellsList);
         const startCol = Math.floor((cell.x - this.stats.range));
         const endCol = Math.floor((cell.x + this.stats.range));
         const startRow = Math.floor((cell.y - this.stats.range));
@@ -117,7 +83,7 @@ export class Tower {
 
         for (let col = startCol; col <= endCol; col++) {
             for (let row = startRow; row <= endRow; row++) {
-                const cell = findCell(col, row, game.cellsList);
+                const cell = gridManager.findCell(col, row, game.cellsList);
                 if (!cell) continue;
                 if (game.path.includes(cell) && !this.enemies_in_range.includes(cell)) {
                     entitiesInRange.push(cell)
@@ -147,8 +113,8 @@ export class Tower {
 
 
     ableToPlace(x, y) {
-        const cell_position = findOnGrid(x, y);
-        const cell = findCell(cell_position.x, cell_position.y, game.cellsList);
+        const cell_position = gridManager.findOnGrid(x, y);
+        const cell = gridManager.findCell(cell_position.x, cell_position.y, game.cellsList);
         if (game.path.includes(cell) || game.towerTilesOccupied.includes(cell)) {
             return false
         }
@@ -174,8 +140,8 @@ export class Tower {
             this.sprite = new PIXI.Sprite(this.asset);
             this.sprite.anchor.set(0.5);
             this.sprite.name = this.id;
-            this.sprite.width = game.tilewidth;
-            this.sprite.height = game.tileheight;
+            this.sprite.width = GAME_SETTINGS.TILE_WIDTH;
+            this.sprite.height = GAME_SETTINGS.TILE_HEIGHT;
         }
         this.sprite.x = this.position.x;
         this.sprite.y = this.position.y;
@@ -245,35 +211,35 @@ export class Tower {
     }
 }
 
-export class comteTower extends Tower {
+class ComteTower extends Tower {
     constructor() {
         super();
 
         this.stats = {
-            attack: TOWER_COMTE.BASE_ATK,
-            shot_speed: TOWER_COMTE.BASE_SHOT_SPEED,
-            range: TOWER_COMTE.BASE_RANGE,
-            nb_shots: TOWER_COMTE.BASE_NB_SHOTS,
+            attack: TOWER_INFOS.TOWER_COMTE.BASE_ATK,
+            shot_speed: TOWER_INFOS.TOWER_COMTE.BASE_SHOT_SPEED,
+            range: TOWER_INFOS.TOWER_COMTE.BASE_RANGE,
+            nb_shots: TOWER_INFOS.TOWER_COMTE.BASE_NB_SHOTS,
         }
-        this.type = TOWER_COMTE.TYPE
-        this.image = TOWER_COMTE.IMAGE
-        this.price = TOWER_COMTE.BASE_PRICE;
+        this.type = TOWER_INFOS.TOWER_COMTE.TYPE
+        this.image = TOWER_INFOS.TOWER_COMTE.IMAGE
+        this.price = TOWER_INFOS.TOWER_COMTE.BASE_PRICE;
 
     }
 }
-export class chevreTower extends Tower{
+class ChevreTower extends Tower{
     constructor() {
         super();
 
         this.stats = {
-            attack: TOWER_CHEVRE.BASE_ATK,
-            shot_speed: TOWER_CHEVRE.BASE_SHOT_SPEED,
-            range: TOWER_CHEVRE.BASE_RANGE,
-            nb_shots: TOWER_CHEVRE.BASE_NB_SHOTS,
+            attack: TOWER_INFOS.TOWER_CHEVRE.BASE_ATK,
+            shot_speed: TOWER_INFOS.TOWER_CHEVRE.BASE_SHOT_SPEED,
+            range: TOWER_INFOS.TOWER_CHEVRE.BASE_RANGE,
+            nb_shots: TOWER_INFOS.TOWER_CHEVRE.BASE_NB_SHOTS,
         }
-        this.type = TOWER_CHEVRE.TYPE
-        this.image = TOWER_CHEVRE.IMAGE
-        this.price = TOWER_CHEVRE.BASE_PRICE;
+        this.type = TOWER_INFOS.TOWER_CHEVRE.TYPE
+        this.image = TOWER_INFOS.TOWER_CHEVRE.IMAGE
+        this.price = TOWER_INFOS.TOWER_CHEVRE.BASE_PRICE;
         
         this.isPlaced = false;
         this.asset = ""
@@ -292,21 +258,28 @@ export class chevreTower extends Tower{
     }
 
 }
-export class roquefortTower extends Tower {
+class RoquefortTower extends Tower {
     constructor() {
         super()
 
         this.stats = {
-            attack: TOWER_ROQUEFORT.BASE_ATK,
-            shot_speed: TOWER_ROQUEFORT.BASE_SHOT_SPEED,
-            range: TOWER_ROQUEFORT.BASE_RANGE,
-            nb_shots: TOWER_ROQUEFORT.BASE_NB_SHOTS,
+            attack: TOWER_INFOS.TOWER_ROQUEFORT.BASE_ATK,
+            shot_speed: TOWER_INFOS.TOWER_ROQUEFORT.BASE_SHOT_SPEED,
+            range: TOWER_INFOS.TOWER_ROQUEFORT.BASE_RANGE,
+            nb_shots: TOWER_INFOS.TOWER_ROQUEFORT.BASE_NB_SHOTS,
         }
-        this.type = TOWER_ROQUEFORT.TYPE
-        this.image = TOWER_ROQUEFORT.IMAGE
-        this.price = TOWER_ROQUEFORT.BASE_PRICE;
+        this.type = TOWER_INFOS.TOWER_ROQUEFORT.TYPE
+        this.image = TOWER_INFOS.TOWER_ROQUEFORT.IMAGE
+        this.price = TOWER_INFOS.TOWER_ROQUEFORT.BASE_PRICE;
 
     }
-
 }
+
+const TOWERS = {
+    Tower,
+    ComteTower,
+    ChevreTower,
+    RoquefortTower
+}
+export { TOWERS };
 

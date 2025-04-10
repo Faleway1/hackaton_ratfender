@@ -9,6 +9,16 @@ body {
     height: 100vh;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+.top {
+    display: flex;
+    flex-direction: row;
+}
+
 #game {
     padding: 0;
     margin-top: 0;
@@ -41,4 +51,26 @@ body {
 .placer {
     display: flex;
     flex-direction: row;
+    list-style: none;
+    padding-top: 0px²;
+    padding-right: 150px;
 }
+
+.placer img {
+    width: 100px;
+    height: 100px;
+}
+
+.placer li {
+    padding: 10px 15px;
+    margin: 0px 10px;
+    border: brown 2px solid;
+    border-radius: 15px;
+}
+
+.price {
+    border: #000 1px solid;
+    border-radius: 15px;
+    padding: 5px, 3px;
+}
+

@@ -1,38 +1,30 @@
+import { GAME_SETTINGS, TOWER_INFOS } from "./config.js";
 import { Game } from "./class/gameClass.js";
-import { Tower, comteTower, chevreTower, roquefortTower } from "./class/towers.js";
-import { findOnGrid } from "./gridManager.js";
-import { Ingredient, jalapenosIngredient, figueIngredient, pepperIngredient, onionIngredient, herbeIngredient } from "./class/ingredients.js";
-import { camoRat, rainbowRat, Rat, steelRat } from "./class/ennemies.js";
-import { Cell } from "./class/cell.js";
-import { Assets, Sprite } from "https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.mjs";
+import { TOWERS } from "./class/towers.js";
+import { placeTower } from "./towerManager.js";
+import { INGREDIENTS } from "./class/ingredients.js";
+import { ENEMIES } from "./class/ennemies.js";
+import { gridManager } from "./gridManager.js";
 
-
-const pdrPerRound = {
-    0: 50,
-    10: 100,
-    20: 150,
-    30: 200,
-    40: 300,
-    50: 400,
-    75: 500,
-    100: 1000,
-};
-
-const game = new Game(20, 10, 800, 400, pdrPerRound);
+const game = new Game(
+  GAME_SETTINGS.TILES_PER_ROW,
+  GAME_SETTINGS.TILES_PER_COL,
+  GAME_SETTINGS.APP_WIDTH,
+  GAME_SETTINGS.APP_HEIGHT,
+  GAME_SETTINGS.TILE_WIDTH,
+  GAME_SETTINGS.TILE_HEIGHT,
+  GAME_SETTINGS.PDR_PER_ROUND
+);
 game.initCanva();
 game.initGrid();
 game.initPath();
 
-const new_rat = new rainbowRat()
-await new_rat.loadAsset()
-new_rat.render()
+const new_rat = new ENEMIES.RainbowRat();
+await new_rat.loadAsset();
+new_rat.render();
 
 
-
-document.querySelector(".moveEntity").addEventListener("click", () => {
-    new_rat.moveEntity()
-})
-
+const new_tower = await placeTower(TOWER_INFOS.TOWER_CHEVRE.TYPE)
 
 
 // const texture = await PIXI.Assets.load('normalRat');
@@ -46,52 +38,5 @@ document.querySelector(".moveEntity").addEventListener("click", () => {
 // game.app.stage.addChild(rat);
 
 
-console.log(game.app)
-
-async function createTower(towerType) {
-    // Changer la classe utilisée selon le type de la tour
-    const new_tower = new jalapenosIngredient()
-    await new_tower.initBeforePlacement()
-    return new_tower
-}
-
-game.app.view.addEventListener("click", (event) => {
-    const rect = game.app.view.getBoundingClientRect(); // position du canvas dans la page
-    const mouseX = event.clientX - rect.left;
-    const mouseY = event.clientY - rect.top;
-    console.log(findOnGrid(mouseX, mouseY))
-})
-
-// game.app.view.addEventListener("mousemove", (event) => {
-//     if (new_tower.isPlaced) {
-//         return
-//     }
-//     const rect = game.app.view.getBoundingClientRect(); // position du canvas dans la page
-//     const mouseX = event.clientX - rect.left;
-//     const mouseY = event.clientY - rect.top;
-//     new_tower.render(mouseX, mouseY, false)
-// })
-// game.app.view.addEventListener("click", (event) => {
-//     const rect = game.app.view.getBoundingClientRect(); // position du canvas dans la page
-//     const mouseX = event.clientX - rect.left;
-//     const mouseY = event.clientY - rect.top;
-//     new_tower.render(mouseX, mouseY, true)
-// })
 
 export { game };
-const new_tower = await createTower("tower1")
-game.app.view.addEventListener("mousemove", (event) => {
-    if (new_tower.is_placed) {
-        return
-    }
-    const rect = game.app.view.getBoundingClientRect(); // position du canvas dans la page
-    const mouseX = event.clientX - rect.left;
-    const mouseY = event.clientY - rect.top;
-    new_tower.render(mouseX, mouseY, false)
-})
-game.app.view.addEventListener("click", (event) => {
-    const rect = game.app.view.getBoundingClientRect(); // position du canvas dans la page
-    const mouseX = event.clientX - rect.left;
-    const mouseY = event.clientY - rect.top;
-    new_tower.render(mouseX, mouseY, true)
-})

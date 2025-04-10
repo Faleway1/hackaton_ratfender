@@ -1,14 +1,16 @@
 import { game } from "../game.js";
+import { GAME_SETTINGS } from "../config.js";
+
 
 
 export class Cell {
     constructor(ligne, colonne, isOccupied = false) {
         this.x = ligne;
         this.y = colonne;
-        this.xmin = ligne * game.tilewidth;
-        this.ymin = colonne * game.tileheight;
-        this.xmax = ligne * game.tilewidth + game.tilewidth;
-        this.ymax = colonne * game.tileheight + game.tileheight;
+        this.xmin = ligne * GAME_SETTINGS.TILE_WIDTH;
+        this.ymin = colonne * GAME_SETTINGS.TILE_HEIGHT;
+        this.xmax = ligne * GAME_SETTINGS.TILE_WIDTH + GAME_SETTINGS.TILE_WIDTH;
+        this.ymax = colonne * GAME_SETTINGS.TILE_HEIGHT + GAME_SETTINGS.TILE_HEIGHT;
 
         this.isOccupied = isOccupied;
         this.ennemies = [];
@@ -23,7 +25,7 @@ export class Cell {
 
     highlight(color) {
         const cell = new PIXI.Graphics();
-        cell.rect(this.xmin, this.ymin, game.tilewidth, game.tileheight);
+        cell.rect(this.xmin, this.ymin, GAME_SETTINGS.TILE_WIDTH, GAME_SETTINGS.TILE_HEIGHT);
         cell.fill(color);
         cell.stroke({ width: 2, color: 0xfeeb77 });
         cell.name = `cell-${this.x}-${this.y}`;
