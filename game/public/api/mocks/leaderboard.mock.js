@@ -7,4 +7,39 @@ export const leaderboardMocks = [
         player: "Yann",
         waves: 12
     },
+    {
+        player: "Yann",
+        waves: 12
+    },
+    {
+        player: "Yann",
+        waves: 12
+    },
+    {
+        player: "Yann",
+        waves: 12
+    },
+    {
+        player: "Yann",
+        waves: 12
+    },
+    {
+        player: "Yann",
+        waves: 12
+    },
+    {
+        player: "Yann",
+        waves: 12
+    },
+    {
+        player: "Yann",
+        waves: 12
+    },
+    {
+        player: "Yann",
+        waves: 12
+    },{
+        player: "Yann",
+        waves: 12
+    },
 ]

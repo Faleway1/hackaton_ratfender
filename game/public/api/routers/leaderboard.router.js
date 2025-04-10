@@ -3,12 +3,15 @@ import {LeaderboardController} from "../controllers/index.controller.js"
 
 const leaderboardRouter = express.Router()
 
+leaderboardRouter.get("/", LeaderboardController.getAllPlayers);         
+leaderboardRouter.get("/top", LeaderboardController.getTopPlayers);
 leaderboardRouter.post("/", LeaderboardController.addPlayerToLeaderboard);
-leaderboardRouter.get("/", LeaderboardController.getPlayerById);
+leaderboardRouter.get("/:id", LeaderboardController.getPlayerById); 
 leaderboardRouter.put("/:id", LeaderboardController.updateLeaderboard);
-leaderboardRouter.delete("/:id", LeaderboardController.deleteLeaderboard);
-leaderboardRouter.delete("/", LeaderboardController.deleteLeaderboard)
-leaderboardRouter.get("/", LeaderboardController.getAllPlayers);
-leaderboardRouter.get("/", LeaderboardController.getTopPlayers);
+leaderboardRouter.delete("/:id", LeaderboardController.deletePlayerLeaderboard);
+leaderboardRouter.delete("/", LeaderboardController.deleteLeaderboard);
+
+
+
 
 export default leaderboardRouter;

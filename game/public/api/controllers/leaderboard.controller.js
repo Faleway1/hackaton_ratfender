@@ -1,6 +1,6 @@
 import { LeaderboardService } from "../services/index.service.js";
 
-export async function addPlayerToLeaderboard(req,res, error) {
+export async function addPlayerToLeaderboard(req,res, next) {
     try {
         const {player, waves} = req.body;
         const newPlayer = await LeaderboardService.addPlayerToLeaderboard({
@@ -27,7 +27,7 @@ export async function updateLeaderboard(req, res, next) {
     try{
         const id = req.params.id;
         const { player, waves} = req.body;
-        const updatedLeaderboard = await LeaderboardService.updateHero(id, {
+        const updatedLeaderboard = await LeaderboardService.updateLeaderboard(id, {
             player,
             waves
         });
@@ -52,7 +52,7 @@ export async function deletePlayerLeaderboard(req, res, next) {
 export async function deleteLeaderboard(req, res, next){
     try{
         const deletedLeaderboard = await LeaderboardService.deleteLeaderboard();
-        res.json(leaderboard)
+        res.json(deletedLeaderboard)
     } catch (error) {
         next(error);
     }
@@ -67,7 +67,7 @@ export async function getAllPlayers(req, res, next) {
     }
 }
 
-export async function getTopPlayers(){
+export async function getTopPlayers(req, res, next){
     try {
         const topPlayer = await LeaderboardService.getTopPlayers();
         res.json(topPlayer);

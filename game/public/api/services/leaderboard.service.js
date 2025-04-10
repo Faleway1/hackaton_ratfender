@@ -32,7 +32,7 @@ export async function updateLeaderboard(id, {player, waves}){
         throw new BadRequestError ("Le nom du joueur n'a pas été fourni ou n'est pas conforme");      
     }
 
-    if (!await leaderboardRepository.getPlayerById(player)) {
+    if (!await LeaderboardRepository.getPlayerById(player)) {
         throw new NotFoundError("Le héros n'existe pas")
     }
 
@@ -46,7 +46,7 @@ export async function updateLeaderboard(id, {player, waves}){
 
 export async function deletePlayerLeaderboard(id){
     if (!(await getPlayerById(id))) {
-        throw new NotFoundError("le héros n'existe pas");
+        throw new NotFoundError("le joueur n'existe pas");
     }
 
     return await LeaderboardRepository.deletePlayerLeaderboard(id);
