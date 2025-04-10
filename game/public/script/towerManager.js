@@ -26,21 +26,27 @@ async function placeTower(towerType) {
     await new_tower.initBeforePlacement()
 
     const handleMouseMove = (event) => {
+        
         if (new_tower.is_placed) {
             game.app.view.removeEventListener("mousemove", handleMouseMove);
             game.app.view.removeEventListener("click", handleMouseClick);
             return;
           }
           const rect = game.app.view.getBoundingClientRect(); // position du canvas dans la page
-          const mouseX = event.clientX - rect.left;
-          const mouseY = event.clientY - rect.top;
+          const scaleX = game.app.view.width / rect.width;
+          const scaleY = game.app.view.height / rect.height;
+          const mouseX = (event.clientX - rect.left) * scaleX;
+          const mouseY = (event.clientY - rect.top) * scaleY;
+
           new_tower.render(mouseX, mouseY, false);
     }
 
     const handleMouseClick = (event) => {
         const rect = game.app.view.getBoundingClientRect(); // position du canvas dans la page
-        const mouseX = event.clientX - rect.left;
-        const mouseY = event.clientY - rect.top;
+        const scaleX = game.app.view.width / rect.width;
+        const scaleY = game.app.view.height / rect.height;
+        const mouseX = (event.clientX - rect.left) * scaleX;
+        const mouseY = (event.clientY - rect.top) * scaleY;
 
         new_tower.render(mouseX, mouseY, true);
     }
