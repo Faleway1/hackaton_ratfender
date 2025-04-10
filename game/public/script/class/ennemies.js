@@ -1,20 +1,20 @@
 import { game } from "../game.js";
 import { findCell } from "../gridManager.js";
+import { Assets, Sprite } from "https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.mjs";
 
 export class Rat{
-    constructor(hp, type, image, money, position) {
+    constructor(hp, type, assets, money, position) {
         this.hp = hp;
         this.type = type;
 
-        this.image = image;
         this.money = money;
         this.position = position;
         this.cell_position = `cell-${this.position[0]}-${this.position[1]}`
-    
-        this.element = document.createElement("img");
-        this.element.src = this.image;
-        this.element.classList.add("enemy");
-        this.render();
+
+        this.assets = assets
+        // console.log(assets);
+        
+        
     }
 
     setHp(hp) {
@@ -37,15 +37,9 @@ export class Rat{
         return this.money
     }
 
-    render() {
-        const cell = findCell(this.position[0], this.position[1])
-        console.log(cell);
-        
-        game.path.forEach(element => {
-            if (element.x === cell.x && element.y === cell.y) {
-                cell.element.appendChild(this.element);
-            }
-        });
+    render(canva, texture) {
+        const rat = new Sprite(texture)
+        canva.stage.addChild(rat)
     }
     
     remove() {
