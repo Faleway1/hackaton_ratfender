@@ -1,79 +1,19 @@
+import { INGREDIENT_INFOS } from "../config.js";
 import { game } from "../game.js"
-import { findCell, findOnGrid } from "../gridManager.js";
+import { gridManager } from "../gridManager.js";
 
-const INGREDIENT_MILK = {
-    TYPE_BUFF: "range",
-    CURRENT_BUFF: 10,
-    BASE_BUFF: 10,
-    BASE_RANGE: 2,
-    BASE_PRICE: 50,
-    BASE_LEVEL: 0,
-    PRICE: 100,
-    IMAGE: "milkIngredient"
-}
-const INGREDIENT_PEPPER = {
-    TYPE_BUFF: "range",
-    CURRENT_BUFF: 10,
-    BASE_BUFF: 10,
-    BASE_RANGE: 2,
-    BASE_PRICE: 50,
-    BASE_LEVEL: 0,
-    PRICE: 100,
-    IMAGE: "pepperIngredient"
-}
-const INGREDIENT_FIGUE = {
-    TYPE_BUFF: "range",
-    CURRENT_BUFF: 10,
-    BASE_BUFF: 10,
-    BASE_RANGE: 2,
-    BASE_PRICE: 50,
-    BASE_LEVEL: 0,
-    PRICE: 100,
-    IMAGE: "figueIngredient"
-}
-const INGREDIENT_HERBE = {
-    TYPE_BUFF: "range",
-    CURRENT_BUFF: 10,
-    BASE_BUFF: 10,
-    BASE_RANGE: 2,
-    BASE_PRICE: 50,
-    BASE_LEVEL: 0,
-    PRICE: 100,
-    IMAGE: "herbeIngredient"
-}
-const INGREDIENT_JALAPENOS = {
-    TYPE_BUFF: "range",
-    CURRENT_BUFF: 10,
-    BASE_BUFF: 10,
-    BASE_RANGE: 2,
-    BASE_PRICE: 50,
-    BASE_LEVEL: 0,
-    PRICE: 100,
-    IMAGE: "jalapenosIngredient"
-}
-const INGREDIENT_ONION = {
-    TYPE_BUFF: "range",
-    CURRENT_BUFF: 10,
-    BASE_BUFF: 10,
-    BASE_RANGE: 2,
-    BASE_PRICE: 50,
-    BASE_LEVEL: 0,
-    PRICE: 100,
-    IMAGE: "onionIngredient"
-}
-
-export class Ingredient {
+class Ingredient {
     constructor() {
         this.buffs = {
-            typebuff: INGREDIENT_MILK.TYPE_BUFF,
-            current_buff: INGREDIENT_MILK.CURRENT_BUFF,
-            base_buff: INGREDIENT_MILK,
-            level: INGREDIENT_MILK.BASE_LEVEL
+            typebuff: INGREDIENT_INFOS.INGREDIENT_MILK.TYPE_BUFF,
+            current_buff: INGREDIENT_INFOS.INGREDIENT_MILK.CURRENT_BUFF,
+            base_buff: INGREDIENT_INFOS.INGREDIENT_MILK.BASE_BUFF,
+            level: INGREDIENT_INFOS.INGREDIENT_MILK.BASE_LEVEL
         }
-        this.rng = INGREDIENT_MILK.BASE_RANGE;
-        this.image = INGREDIENT_MILK.IMAGE
+        this.rng = INGREDIENT_INFOS.INGREDIENT_MILK.BASE_RANGE;
+        this.image = INGREDIENT_INFOS.INGREDIENT_MILK.IMAGE
         this.towers = []
-        this.price = INGREDIENT_MILK.PRICE;
+        this.price = INGREDIENT_INFOS.INGREDIENT_MILK.PRICE;
 
         this.is_placed = false;
         this.asset = ""
@@ -86,7 +26,7 @@ export class Ingredient {
     }
 
     IncreaseBuff() {
-        this.buff += this.baseBuff
+        this.buffs.current_buff += this.buffs.base_buff
     }
 
     async loadAsset() {
@@ -195,78 +135,89 @@ export class Ingredient {
     }
 }
 
-export class pepperIngredient extends Ingredient{
+class PepperIngredient extends Ingredient{
     constructor() {
         super();
         
         this.buffs = {
-            typebuff: INGREDIENT_PEPPER.TYPE_BUFF,
-            current_buff: INGREDIENT_PEPPER.CURRENT_BUFF,
-            base_buff: INGREDIENT_PEPPER,
-            level: INGREDIENT_PEPPER.BASE_LEVEL
+            typebuff: INGREDIENT_INFOS.INGREDIENT_PEPPER.TYPE_BUFF,
+            current_buff: INGREDIENT_INFOS.INGREDIENT_PEPPER.CURRENT_BUFF,
+            base_buff: INGREDIENT_INFOS.INGREDIENT_PEPPER.BASE_BUFF,
+            level: INGREDIENT_INFOS.INGREDIENT_PEPPER.BASE_LEVEL
         }
-        this.rng = INGREDIENT_PEPPER.BASE_RANGE;
-        this.image = INGREDIENT_PEPPER.IMAGE;
-        this.price =INGREDIENT_PEPPER.PRICE
+
+        this.rng = INGREDIENT_INFOS.INGREDIENT_PEPPER.BASE_RANGE;
+        this.image = INGREDIENT_INFOS.INGREDIENT_PEPPER.IMAGE;
+        this.price =INGREDIENT_INFOS.INGREDIENT_PEPPER.PRICE
     }
 }
-export class figueIngredient extends Ingredient{
+class FigueIngredient extends Ingredient{
     constructor() {
         super();
 
         this.buffs = {
-            typebuff: INGREDIENT_FIGUE.TYPE_BUFF,
-            current_buff: INGREDIENT_FIGUE.CURRENT_BUFF,
-            base_buff: INGREDIENT_FIGUE,
-            level: INGREDIENT_FIGUE.BASE_LEVEL
+            typebuff: INGREDIENT_INFOS.INGREDIENT_FIGUE.TYPE_BUFF,
+            current_buff: INGREDIENT_INFOS.INGREDIENT_FIGUE.CURRENT_BUFF,
+            base_buff: INGREDIENT_INFOS.INGREDIENT_FIGUE.BASE_BUFF,
+            level: INGREDIENT_INFOS.INGREDIENT_FIGUE.BASE_LEVEL
         }
-        this.rng = INGREDIENT_FIGUE.BASE_RANGE;
-        this.image = INGREDIENT_FIGUE.IMAGE
-        this.price = INGREDIENT_FIGUE.PRICE;
+        this.rng = INGREDIENT_INFOS.INGREDIENT_FIGUE.BASE_RANGE;
+        this.image = INGREDIENT_INFOS.INGREDIENT_FIGUE.IMAGE
+        this.price = INGREDIENT_INFOS.INGREDIENT_FIGUE.PRICE;
     }
 }
-export class herbeIngredient extends Ingredient{
+class HerbeIngredient extends Ingredient{
     constructor() {
         super();
 
         this.buffs = {
-            typebuff: INGREDIENT_HERBE.TYPE_BUFF,
-            current_buff: INGREDIENT_HERBE.CURRENT_BUFF,
-            base_buff: INGREDIENT_HERBE,
-            level: INGREDIENT_HERBE.BASE_LEVEL
+            typebuff: INGREDIENT_INFOS.INGREDIENT_HERBE.TYPE_BUFF,
+            current_buff: INGREDIENT_INFOS.INGREDIENT_HERBE.CURRENT_BUFF,
+            base_buff: INGREDIENT_INFOS.INGREDIENT_HERBE.BASE_BUFF,
+            level: INGREDIENT_INFOS.INGREDIENT_HERBE.BASE_LEVEL
         }
-        this.rng = INGREDIENT_HERBE.BASE_RANGE;
-        this.image = INGREDIENT_HERBE.IMAGE
-        this.price = INGREDIENT_HERBE.PRICE;
+        this.rng = INGREDIENT_INFOS.INGREDIENT_HERBE.BASE_RANGE;
+        this.image = INGREDIENT_INFOS.INGREDIENT_HERBE.IMAGE
+        this.price = INGREDIENT_INFOS.INGREDIENT_HERBE.PRICE;
     }
 }
-export class jalapenosIngredient extends Ingredient{
+class JalapenosIngredient extends Ingredient{
     constructor() {
         super();
 
         this.buffs = {
-            typebuff: INGREDIENT_JALAPENOS.TYPE_BUFF,
-            current_buff: INGREDIENT_JALAPENOS.CURRENT_BUFF,
-            base_buff: INGREDIENT_JALAPENOS,
-            level: INGREDIENT_JALAPENOS.BASE_LEVEL
+            typebuff: INGREDIENT_INFOS.INGREDIENT_JALAPENOS.TYPE_BUFF,
+            current_buff: INGREDIENT_INFOS.INGREDIENT_JALAPENOS.CURRENT_BUFF,
+            base_buff: INGREDIENT_INFOS.INGREDIENT_JALAPENOS.BASE_BUFF,
+            level: INGREDIENT_INFOS.INGREDIENT_JALAPENOS.BASE_LEVEL
         }
-        this.rng = INGREDIENT_JALAPENOS.BASE_RANGE;
-        this.image = INGREDIENT_JALAPENOS.IMAGE
-        this.price = INGREDIENT_JALAPENOS.PRICE;
+        this.rng = INGREDIENT_INFOS.INGREDIENT_JALAPENOS.BASE_RANGE;
+        this.image = INGREDIENT_INFOS.INGREDIENT_JALAPENOS.IMAGE
+        this.price = INGREDIENT_INFOS.INGREDIENT_JALAPENOS.PRICE;
     }
 }
-export class onionIngredient extends Ingredient{
+class OnionIngredient extends Ingredient{
     constructor() {
         super();
 
         this.buffs = {
-            typebuff: INGREDIENT_ONION.TYPE_BUFF,
-            current_buff: INGREDIENT_ONION.CURRENT_BUFF,
-            base_buff: INGREDIENT_ONION,
-            level: INGREDIENT_ONION.BASE_LEVEL
+            typebuff: INGREDIENT_INFOS.INGREDIENT_ONION.TYPE_BUFF,
+            current_buff: INGREDIENT_INFOS.INGREDIENT_ONION.CURRENT_BUFF,
+            base_buff: INGREDIENT_INFOS.INGREDIENT_ONION.BASE_BUFF,
+            level: INGREDIENT_INFOS.INGREDIENT_ONION.BASE_LEVEL
         }
-        this.rng = INGREDIENT_ONION.BASE_RANGE;
-        this.image = INGREDIENT_ONION.IMAGE
-        this.price = INGREDIENT_ONION.PRICE;
+        this.rng = INGREDIENT_INFOS.INGREDIENT_ONION.BASE_RANGE;
+        this.image = INGREDIENT_INFOS.INGREDIENT_ONION.IMAGE
+        this.price = INGREDIENT_INFOS.INGREDIENT_ONION.PRICE;
     }
 }
+
+const INGREDIENTS = {
+    Ingredient,
+    PepperIngredient,
+    FigueIngredient,
+    HerbeIngredient,
+    JalapenosIngredient,
+    OnionIngredient
+}
+export { INGREDIENTS };

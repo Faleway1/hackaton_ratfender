@@ -1,8 +1,3 @@
-import { game } from "./game.js";
-import { findCell, createGrid } from "./gridManager.js";
-
-
-
 function createPath(pathList) {
     const path = new PIXI.Graphics();
     pathList.forEach((cell) => {
@@ -13,5 +8,3 @@ function createPath(pathList) {
 }
 
 export { createPath };
-
-createGrid();
