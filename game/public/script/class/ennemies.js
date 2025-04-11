@@ -2,9 +2,14 @@ import { game } from "../game.js";
 import { uuidv4 } from '../idManager.js';
 import { GAME_SETTINGS, ENEMY_INFOS } from "../config.js";
 
+let ratId = 0;
+
 class Rat {
     constructor() {
-        this.id = uuidv4();
+        // this.id = uuidv4();
+        this.id = ratId;
+        ratId += 1;
+
         this.type = ENEMY_INFOS.NORMAL_RAT.TYPE;
         this.hp = ENEMY_INFOS.NORMAL_RAT.BASE_HP;
         this.money = ENEMY_INFOS.NORMAL_RAT.BASE_MONEY;
@@ -37,28 +42,47 @@ class Rat {
             this.updateCellPosition()
         }
 
+
+
         if (!this.isKilled) {
             const middleOfTile = {
                 x: this.cell_position.xmin + (GAME_SETTINGS.TILE_WIDTH / 2),
                 y: this.cell_position.ymin + (GAME_SETTINGS.TILE_HEIGHT / 2),
             };
 
-            gsap.to(this.sprite, {
-                duration: 1,
-                x: middleOfTile.x,
-                y: middleOfTile.y,
-                onUpdate: () => {
-                    if (!this.sprite) {
-                        gsap.killTweensOf(this.sprite);
-                    }
-                },
-            });
+            if (this.sprite) {
+                gsap.to(this.sprite, {
+                    duration: 1,
+                    x: middleOfTile.x,
+                    y: middleOfTile.y,
+                    onComplete: () => {
+                        if (!this.sprite || this.isKilled) {
+                            gsap.killTweensOf(this.sprite);
+                        }
+                    },
+                });
+            }
             game.app.stage.addChild(this.sprite);
+
+            /* AFFICHER LE DEBUG DES ID SUR LE SPRITE */
+
+            // const text = new PIXI.Text(this.id, {
+            //     fontFamily: 'Arial',
+            //     fontSize: 24,
+            //     fill: 0xffffff, // Couleur du texte (blanc)
+            //     align: 'center'
+            // });
+            // text.anchor.set(0.5); // Centrer le texte
+            // text.x = this.sprite.x;
+            // text.y = this.sprite.y - this.sprite.height / 2 - 10; // Ajuster la position selon le besoin
+            // game.app.stage.addChild(text);
         }
     }
 
     kill() {
         if (this.sprite) {
+            gsap.killTweensOf(this.sprite); 
+
             game.app.stage.removeChild(this.sprite);
             this.sprite.destroy();
             this.sprite = null;
@@ -99,6 +123,7 @@ class Rat {
     }
 
     moveEntityInterval() {
+        if (this.isKilled) return;
         this.moveInterval = setInterval(() => {
             this.moveEntity();
         }, 1000);
@@ -107,6 +132,7 @@ class Rat {
     takeDamage(damage) {
         this.hp -= damage;
         this.checkHealth();
+        if (this.isKilled) return;
         this.sprite.tint = 0xff0000; // Change color to red when taking damage
         setTimeout(() => {
             if (this.sprite) {

@@ -25,6 +25,20 @@ game.initPath();
 await game.startRound()
 
 
+const paused = document.querySelector(".pausePlayButton")
+
+paused.addEventListener("click", async () => {
+    if (game.isPaused) {
+        await game.startRound()
+        game.isPaused = false
+        paused.textContent = "Pause"
+    } else {
+        game.isPaused = true
+        paused.textContent = "Play"
+    }
+})
+
+
 // const texture = await PIXI.Assets.load('normalRat');
 // const rat = new PIXI.Sprite(texture);
 // rat.anchor.set(0.5);
