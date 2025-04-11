@@ -121,6 +121,8 @@ class Rat {
         clearInterval(this.moveInterval)
         this.isKilled = true
         game.life -= this.damage
+        const hp = document.querySelector(".hp")
+        hp.textContent = `Vie : ${game.life}`
 
     }
 
