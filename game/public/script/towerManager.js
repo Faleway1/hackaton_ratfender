@@ -82,16 +82,27 @@ function activateButtons() {
     const roquefort = document.querySelector(".tower_roquefort");
 
     tome.addEventListener("click", () => {
-        placeTower(TOWER_INFOS.TOWER_TOME.TYPE);
+        if (game.pdr >= TOWER_INFOS.TOWER_TOME.BASE_PRICE) {
+            placeTower(TOWER_INFOS.TOWER_TOME.TYPE);
+            game.pdr = game.pdr - TOWER_INFOS.TOWER_TOME.BASE_PRICE
+            console.log(game.pdr);
+            
+        }
     });
     comte.addEventListener("click", () => {
-        placeTower(TOWER_INFOS.TOWER_COMTE.TYPE);
+        if (game.pdr >= TOWER_INFOS.TOWER_COMTE.BASE_PRICE) {
+            placeTower(TOWER_INFOS.TOWER_COMTE.TYPE);
+        }
     });
     chevre.addEventListener("click", () => {
-        placeTower(TOWER_INFOS.TOWER_CHEVRE.TYPE);
+        if (game.pdr >= TOWER_INFOS.TOWER_CHEVRE.BASE_PRICE) {
+            placeTower(TOWER_INFOS.TOWER_CHEVRE.TYPE);
+        }
     });
     roquefort.addEventListener("click", () => {
-        placeTower(TOWER_INFOS.TOWER_ROQUEFORT.TYPE);
+        if (game.pdr >= TOWER_INFOS.TOWER_ROQUEFORT.BASE_PRICE) {
+            placeTower(TOWER_INFOS.TOWER_ROQUEFORT.TYPE);
+        }
     });
 }
 
