@@ -139,7 +139,7 @@ export class Game {
                 new_rat = new ENEMIES.SteelRat();
                 break;
             default:
-                new_rat = new ENEMIES.SteelRat();
+                new_rat = new ENEMIES.Rat();
                 break;
         }
         await new_rat.loadAsset()
