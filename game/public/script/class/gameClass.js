@@ -3,6 +3,7 @@ import { gridManager } from "../gridManager.js";
 import { createPath } from "../pathManager.js";
 import { GAME_SETTINGS } from "../config.js";
 import { ENEMIES } from "./ennemies.js";
+import { Cell } from "./cell.js";
 
 export class Game {
     constructor(tilesPerRow, tilesPerCol, appWidth, appHeight, pdrPerRound) {
@@ -52,7 +53,7 @@ export class Game {
     generatePath() {
         const middle = Math.floor(this.tilesPerCol / 2); // Commence au milieu verticalement
         let currentCell = gridManager.findCell(0, middle, this.cellsList); // Commence à la première colonne
-        const path = [currentCell];
+        const path = [new Cell(-1, middle), currentCell];
         let blockedPaths = [];
         const directions = [
             [1, 0], // Droite
@@ -93,52 +94,50 @@ export class Game {
         if (currentCell.x !== this.tilesPerRow - 1 || path.length < maxNumberOfTiles - 10) {
             return this.generatePath(); // Relance la fonction si le chemin n'est pas complet
         }
-        console.log(path)
 
         return path;
     }
 
-    ratMoveOpportunity() {
-        this.ratMovementOpportunity = setInterval(() => {
-            this.totalEnnemies.forEach(element => {
-                element.moveEntity()
-                this.totalEnnemies.pop(element)
-                console.log(this.totalEnnemies);
-                
-            });
-        }, 1000)
+    async createRat() {
+        const new_rat = new ENEMIES.Rat();
+        await new_rat.loadAsset()
+        new_rat.render()
+        this.totalEnnemies.push(new_rat)
+        return new_rat
     }
 
     async startRound() {
         let i = 0
-        this.spawnEnnemies = setInterval(async () => {
+        
+        this.spawnEnnemiesInterval = setInterval(async () => {
             if (i === this.ennemySpawn) {
-                clearInterval(this.spawnEnnemies)
+                clearInterval(this.spawnEnnemiesInterval)
                 return
             }
             i++
-            const new_rat = new ENEMIES.Rat();
-            await new_rat.loadAsset();
-            new_rat.render();
-        }, 2001)
-        this.ratMoveOpportunity()
-        this.gameInterval = setInterval(() => {
+            const new_rat = await this.createRat()
+            new_rat.moveEntityInterval()
+        }, 1000)
+        setTimeout(() => {
+            this.checkIfRoundEnd()
+        }, 1000 * this.ennemySpawn)
+    }
+
+    checkIfRoundEnd() {
+        this.checkIfRoundEndInterval = setInterval(() => {         
+
             if (this.totalEnnemies.length === 0) {
-                console.log("oqzduiqcb");
-                this.endRound()
+                this.roundEnd()
+                
             }
-        },1000) 
+        }, 200)
     }
 
-    endRound() {
+    roundEnd() {
         clearInterval(this.gameInterval)
-        
+        clearInterval(this.spawnEnnemiesInterval)
+        clearInterval(this.checkIfRoundEndInterval)
     }
 
-    checkEndOfRound() {
-        if (this.totalEnnemies === 0) {
-            this.endRound()
-        }
-    }
 }
 
