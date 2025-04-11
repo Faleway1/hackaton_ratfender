@@ -57,6 +57,7 @@ class Tower {
         this.towerAttackInterval();
         this.initTowerSelect();
         game.towerTilesOccupied.push(this.towerCell());
+        this.towerCell().towers.push(this)
         this.increaseLevel()
     }
 
