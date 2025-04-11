@@ -173,6 +173,7 @@ class Ingredient {
                 } 
             })
         })
+        console.log(towers_nearby)
         this.applyBuffToTowers(towers_nearby)
         this.towers = towers_nearby
         
