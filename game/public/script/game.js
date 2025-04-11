@@ -7,6 +7,8 @@ import { ingredientManager } from "./ingredientManager.js";
 import { ENEMIES } from "./class/ennemies.js";
 import { gridManager } from "./gridManager.js";
 
+towerManager.activateButtons()
+
 const game = new Game(
   GAME_SETTINGS.TILES_PER_ROW,
   GAME_SETTINGS.TILES_PER_COL,
@@ -21,9 +23,6 @@ game.initGrid();
 game.initPath();
 await game.startRound()
 
-
-const new_tower = await towerManager.placeTower(TOWER_INFOS.TOWER_CHEVRE.TYPE)
-// const new_ingredient = await ingredientManager.placeIngredient(INGREDIENT_INFOS.INGREDIENT_JALAPENOS.TYPE)
 
 // const texture = await PIXI.Assets.load('normalRat');
 // const rat = new PIXI.Sprite(texture);
