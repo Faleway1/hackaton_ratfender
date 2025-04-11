@@ -18,6 +18,7 @@ class Tower {
         this.image = TOWER_INFOS.TOWER_TOME.IMAGE;
         this.imgUrl = TOWER_INFOS.TOWER_TOME.IMAGEURL;
         this.price = TOWER_INFOS.TOWER_TOME.BASE_PRICE;
+        this.rat_type = TOWER_INFOS.TOWER_TOME.RAT_TYPE;
 
         this.is_placed = false;
         this.asset = "";
@@ -250,12 +251,31 @@ class Tower {
                     this.enemies_in_range.pop(this.enemies_in_range[i]);
                     continue;
                 }
-                this.enemies_in_range[i].takeDamage(this.stats.attack);
-                this.attackSquash(100, 0.8);
+                if (this.attackEnemy(this.enemies_in_range[i]) === true) {
+                    this.enemies_in_range[i].takeDamage(this.stats.attack * this.multiplier);
+                    this.attackSquash(100, 0.8);
+                } else {
+                    continue
+                }
             }
         }
     }
 
+    attackEnemy(enemy) {
+        console.log(enemy, this.rat_type)
+        if (enemy.type === "camo" && !this.rat_type.includes("camo")) {
+            return false
+        } if (enemy.type === "rainbow" && !this.rat_type.includes("rainbow")) {
+            this.multiplier = 0.5;
+            return true
+        } if (enemy.type === "steel" && !this.rat_type.includes("steel")) {
+            this.multiplier = 0
+            return true
+        } else {
+            this.multiplier = 1;
+            return true
+        }
+    }
 
     towerAttackInterval() {
         this.attackInterval = setInterval(() => {
@@ -306,17 +326,25 @@ class Tower {
     }
 
     updateBuffs() {
-        console.log(this.stats)
+        console.log(this.stats, this.type)
+        console.log(this.buffs)
         this.buffs.forEach((buff) => {
-            if (buff.type === "attack") {
+            if (buff.typebuff === "attack") {
                 this.stats.attack += buff.value;
-            } else if (buff.type === "shot_speed") {
+            } else if (buff.typebuff === "shot_speed") {
                 this.stats.shot_speed += buff.value;
-            } else if (buff.type === "range") {
+            } else if (buff.typebuff === "range") {
                 this.stats.range += buff.value;
+            } else if (buff.typebuff === "camo") {
+                this.type.push("camo")
+            } else if (buff.typebuff === "rainbow") {
+                this.type.push("rainbow")
+            } else if (buff.typebuff === "steel") {
+                this.type.push("steel")
             }
+            
         });
-        console.log(this.stats)
+        console.log(this.stats, this.type)
 
     }
 
@@ -335,6 +363,8 @@ class ComteTower extends Tower {
             nb_shots: TOWER_INFOS.TOWER_COMTE.BASE_NB_SHOTS,
         };
         this.type = TOWER_INFOS.TOWER_COMTE.TYPE;
+        this.rat_type = TOWER_INFOS.TOWER_COMTE.RAT_TYPE;
+
         this.image = TOWER_INFOS.TOWER_COMTE.IMAGE;
         this.imgUrl = TOWER_INFOS.TOWER_COMTE.IMAGEURL;
         this.price = TOWER_INFOS.TOWER_COMTE.BASE_PRICE;
@@ -351,6 +381,8 @@ class ChevreTower extends Tower {
             nb_shots: TOWER_INFOS.TOWER_CHEVRE.BASE_NB_SHOTS,
         };
         this.type = TOWER_INFOS.TOWER_CHEVRE.TYPE;
+        this.rat_type = TOWER_INFOS.TOWER_CHEVRE.RAT_TYPE;
+
         this.image = TOWER_INFOS.TOWER_CHEVRE.IMAGE;
         this.imgUrl = TOWER_INFOS.TOWER_CHEVRE.IMAGEURL;
         this.price = TOWER_INFOS.TOWER_CHEVRE.BASE_PRICE;
@@ -382,6 +414,8 @@ class RoquefortTower extends Tower {
             nb_shots: TOWER_INFOS.TOWER_ROQUEFORT.BASE_NB_SHOTS,
         };
         this.type = TOWER_INFOS.TOWER_ROQUEFORT.TYPE;
+        this.rat_type = TOWER_INFOS.TOWER_ROQUEFORT.RAT_TYPE;
+
         this.image = TOWER_INFOS.TOWER_ROQUEFORT.IMAGE;
         this.imgUrl = TOWER_INFOS.TOWER_ROQUEFORT.IMAGEURL;
         this.price = TOWER_INFOS.TOWER_ROQUEFORT.BASE_PRICE;

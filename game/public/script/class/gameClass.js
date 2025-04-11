@@ -114,13 +114,13 @@ export class Game {
         if (this.round > 0) {
             ennemyTypes.push(ENEMY_INFOS.NORMAL_RAT)
         }
-        if (this.round > 5) {
+        if (this.round > 4) {
             ennemyTypes.push(ENEMY_INFOS.CAMO_RAT)
         }
-        if (this.round > 10) {
+        if (this.round > 9) {
             ennemyTypes.push(ENEMY_INFOS.RAINBOW_RAT)
         }
-        if (this.round > 15) {
+        if (this.round > 14) {
             ennemyTypes.push(ENEMY_INFOS.STEEL_RAT)
         }
         return ennemyTypes
@@ -139,7 +139,7 @@ export class Game {
                 new_rat = new ENEMIES.SteelRat();
                 break;
             default:
-                new_rat = new ENEMIES.Rat();
+                new_rat = new ENEMIES.SteelRat();
                 break;
         }
         await new_rat.loadAsset()

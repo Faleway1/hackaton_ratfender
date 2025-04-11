@@ -32,7 +32,7 @@ const GAME_SETTINGS = {
 const NORMAL_RAT = {
   BASE_HP: 20,
   BASE_MONEY: 3,
-  TYPE: "Normal",
+  TYPE: "normal",
   DAMAGE: 5,
   IMAGE: "normalRat",
   DEATH_IMAGE: "sfx"
@@ -40,21 +40,21 @@ const NORMAL_RAT = {
 const CAMO_RAT = {
   BASE_HP: 12,
   BASE_MONEY: 5,
-  TYPE: "Camo",
+  TYPE: "camo",
   DAMAGE: 7,
     IMAGE: "camoRat"
 };
 const STEEL_RAT = {
   BASE_HP: 20,
   BASE_MONEY: 8,
-  TYPE: "Steel",
+  TYPE: "steel",
   DAMAGE: 7,
   IMAGE: "steelRat"
 };
 const RAINBOW_RAT = {
   BASE_HP: 50,
   BASE_MONEY: 10,
-  TYPE: "Rainbow",
+  TYPE: "rainbow",
   DAMAGE: 9,
   IMAGE: "rainbowRat"
 };
@@ -74,7 +74,7 @@ const TOWER_TOME = {
   BASE_RANGE: 2,
   BASE_NB_SHOTS: 1,
   BASE_PRICE: 50,
-  RAT_TYPE: "Normal",
+  RAT_TYPE: ["normal"],
   IMAGE: "tomeFromage",
   IMAGEURL : "../public/assets/tomeFromage.png",
 };
@@ -85,7 +85,7 @@ const TOWER_COMTE = {
   BASE_RANGE: 2,
   BASE_NB_SHOTS: 1,
   BASE_PRICE: 100,
-  RAT_TYPE: "Camo",
+  RAT_TYPE: ["normal","camo"],
   IMAGE: "comteFromage",
   IMAGEURL : "../public/assets/comteFromage.png"
 };
@@ -96,7 +96,7 @@ const TOWER_CHEVRE = {
   BASE_RANGE: 2,
   BASE_NB_SHOTS: 1,
   BASE_PRICE: 100,
-  RAT_TYPE: "Rainbow",
+  RAT_TYPE: ["normal","rainbow"],
   IMAGE: "chevreFromage",
   IMAGEURL : "../public/assets/chevreFromage.png"
 };
@@ -107,7 +107,7 @@ const TOWER_ROQUEFORT = {
   BASE_RANGE: 3,
   BASE_NB_SHOTS: 1,
   BASE_PRICE: 100,
-  RAT_TYPE: "Steel",
+  RAT_TYPE: ["normal","steel"],
   IMAGE: "roquefortFromage",
   IMAGEURL : "../public/assets/roquefortFromage.png"
 };
@@ -122,7 +122,7 @@ const TOWER_INFOS = {
 // INGREDIENT INFOS
 const INGREDIENT_MILK = {
   TYPE : "INGREDIENT_MILK",
-  TYPE_BUFF: "range",
+  TYPE_BUFF: "attack",
   CURRENT_BUFF: 10,
   BASE_BUFF: 10,
   BASE_RANGE: 2,
@@ -133,7 +133,7 @@ const INGREDIENT_MILK = {
 };
 const INGREDIENT_PEPPER = {
   TYPE : "INGREDIENT_PEPPER",
-  TYPE_BUFF: "range",
+  TYPE_BUFF: "rainbow",
   CURRENT_BUFF: 10,
   BASE_BUFF: 10,
   BASE_RANGE: 2,
@@ -155,7 +155,7 @@ const INGREDIENT_FIGUE = {
 };
 const INGREDIENT_HERBE = {
   TYPE : "INGREDIENT_HERBE",
-  TYPE_BUFF: "range",
+  TYPE_BUFF: "shot_speed",
   CURRENT_BUFF: 10,
   BASE_BUFF: 10,
   BASE_RANGE: 2,
@@ -166,7 +166,7 @@ const INGREDIENT_HERBE = {
 };
 const INGREDIENT_JALAPENOS = {
   TYPE : "INGREDIENT_JALAPENOS",
-  TYPE_BUFF: "range",
+  TYPE_BUFF: "steel",
   CURRENT_BUFF: 10,
   BASE_BUFF: 10,
   BASE_RANGE: 2,
@@ -177,7 +177,7 @@ const INGREDIENT_JALAPENOS = {
 };
 const INGREDIENT_ONION = {
   TYPE : "INGREDIENT_ONION",
-  TYPE_BUFF: "range",
+  TYPE_BUFF: "camo",
   CURRENT_BUFF: 10,
   BASE_BUFF: 10,
   BASE_RANGE: 2,

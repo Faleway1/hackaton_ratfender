@@ -1,6 +1,7 @@
 import { game } from "../game.js";
 import { uuidv4 } from '../idManager.js';
 import { GAME_SETTINGS, ENEMY_INFOS } from "../config.js";
+import { gridManager } from "../gridManager.js";
 
 let ratId = 0;
 
@@ -80,8 +81,37 @@ class Rat {
     }
 
     kill() {
+        if( this.sprite ) gsap.killTweensOf(this.sprite);
+        PIXI.Assets.load(ENEMY_INFOS.NORMAL_RAT.DEATH_IMAGE)
+                .then((asset) => {
+                    this.sprite.texture = asset;
+                    
+                })
+                .catch((error) => {
+                    console.error("Error loading asset:", error);
+                });
+        
+        this.cell_position.ennemies.pop(this)
+        clearInterval(this.moveInterval)
+        this.isKilled = true
+        game.pdr += this.money
+        game.totalEnnemies.pop(this)
+
+        setTimeout(() => {
+            if (this.sprite) {
+                game.app.stage.removeChild(this.sprite);
+                this.sprite.destroy();
+                this.sprite = null;
+            }
+        }, 500);
+
+
+
+    }
+
+    finishPath() {
+        if( this.sprite ) gsap.killTweensOf(this.sprite);
         if (this.sprite) {
-            gsap.killTweensOf(this.sprite);
             game.app.stage.removeChild(this.sprite);
             this.sprite.destroy();
             this.sprite = null;
@@ -89,21 +119,6 @@ class Rat {
         this.cell_position.ennemies.pop(this)
         clearInterval(this.moveInterval)
         this.isKilled = true
-        game.pdr += this.money
-        game.totalEnnemies.pop(this)
-
-
-
-    }
-
-    finishPath() {
-        if (this.sprite) {
-            game.app.stage.removeChild(this.sprite);
-            this.sprite.destroy();
-            this.sprite = null;
-        }
-        this.cell_position.ennemies.pop(this)
-        clearInterval(this.moveInterval)
         game.life -= this.damage
 
     }
@@ -132,7 +147,9 @@ class Rat {
         this.hp -= damage;
         this.checkHealth();
         if (this.isKilled) return;
-        this.sprite.tint = 0xff0000; // Change color to red when taking damage
+        if (damage > 0) this.sprite.tint = 0xff0000
+        console.log(this.hp)
+
         setTimeout(() => {
             if (this.sprite) {
                 this.sprite.tint = 0xffffff; // Reset color to white after a short delay
@@ -142,16 +159,7 @@ class Rat {
 
     checkHealth() {
         if (this.hp <= 0) {
-            PIXI.Assets.load(ENEMY_INFOS.NORMAL_RAT.DEATH_IMAGE)
-                .then((asset) => {
-                    this.sprite.asset = asset;
-                    console.log("Asset loaded:", asset);
-                })
-                .catch((error) => {
-                    console.error("Error loading asset:", error);
-                });
-            
-            setTimeout(() => this.kill(), 100)
+            this.kill()
         }
     }
 
