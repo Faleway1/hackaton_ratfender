@@ -23,11 +23,16 @@ export class Cell {
         return { x: this.x, y: this.y, xmax: this.xmax, ymax: this.ymax };
     }
 
-    highlight(color) {
-        const cell = new PIXI.Graphics();
-        cell.rect(this.xmin, this.ymin, GAME_SETTINGS.TILE_WIDTH, GAME_SETTINGS.TILE_HEIGHT);
-        cell.fill(color);
-        cell.stroke({ width: 2, color: 0xfeeb77 });
+    highlight(texture, tint = 0xFFFFFF) {
+        const cell = new PIXI.Sprite(texture);
+        cell.anchor.set(0.5);
+        cell.width = GAME_SETTINGS.TILE_WIDTH;
+        cell.height = GAME_SETTINGS.TILE_HEIGHT;
+        cell.x = this.xmin + (GAME_SETTINGS.TILE_WIDTH / 2);
+        cell.y = this.ymin + (GAME_SETTINGS.TILE_HEIGHT / 2);
+        cell.tint = tint;
+        // cell.rect(this.xmin, this.ymin, GAME_SETTINGS.TILE_WIDTH, GAME_SETTINGS.TILE_HEIGHT);
+        // cell.fill(color);
         cell.name = `cell-${this.x}-${this.y}`;
         game.app.stage.addChild(cell);
     }
