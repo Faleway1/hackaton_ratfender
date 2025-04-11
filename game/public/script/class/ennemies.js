@@ -90,6 +90,7 @@ class Rat {
         clearInterval(this.moveInterval)
         this.isKilled = true
         game.pdr += this.money
+        game.money.textContent = game.pdr
         game.totalEnnemies.pop(this)
 
 
