@@ -19,7 +19,7 @@ export class Game {
         this.towerTilesOccupied = [];
         this.totalEnnemies = []
         this.path = [];
-        this.pdr = 0;
+        this.pdr = 300;
         this.round = 0;
         this.life = 100
         this.ennemySpawn = 5 + (2*this.round)

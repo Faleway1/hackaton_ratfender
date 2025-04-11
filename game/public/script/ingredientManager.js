@@ -89,22 +89,34 @@ function activateButtons() {
     const figue = document.querySelector(".ingredient_figue");
 
     milk.addEventListener("click", () => {
-        placeIngredient(INGREDIENT_INFOS.INGREDIENT_MILK.TYPE);
+        if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_MILK.TYPE) {
+            placeIngredient(INGREDIENT_INFOS.INGREDIENT_MILK.TYPE);
+        }
     });
     pepper.addEventListener("click", () => {
-        placeIngredient(INGREDIENT_INFOS.INGREDIENT_PEPPER.TYPE);
+        if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_PEPPER.TYPE) {
+            placeIngredient(INGREDIENT_INFOS.INGREDIENT_PEPPER.TYPE);
+        }
     });
     jalapenos.addEventListener("click", () => {
-        placeIngredient(INGREDIENT_INFOS.INGREDIENT_JALAPENOS.TYPE);
+        if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_JALAPENOS.TYPE) {
+            placeIngredient(INGREDIENT_INFOS.INGREDIENT_JALAPENOS.TYPE);
+        }
     });
     onion.addEventListener("click", () => {
-        placeIngredient(INGREDIENT_INFOS.INGREDIENT_ONION.TYPE);
+        if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_ONION.TYPE) {
+            placeIngredient(INGREDIENT_INFOS.INGREDIENT_ONION.TYPE);
+        }
     });
     herbe.addEventListener("click", () => {
-        placeIngredient(INGREDIENT_INFOS.INGREDIENT_HERBE.TYPE);
+        if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_HERBE.TYPE) {
+            placeIngredient(INGREDIENT_INFOS.INGREDIENT_HERBE.TYPE);
+        }
     });
     figue.addEventListener("click", () => {
-        placeIngredient(INGREDIENT_INFOS.INGREDIENT_FIGUE.TYPE);
+        if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_FIGUE.TYPE) {
+            placeIngredient(INGREDIENT_INFOS.INGREDIENT_FIGUE.TYPE);
+        }
     });
 }
 
