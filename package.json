@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./game/public/api/server.js"
+    "start": "nodemon ./api/server.js"
   },
   "repository": {
     "type": "git",

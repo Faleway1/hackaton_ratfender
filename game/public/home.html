@@ -1,14 +1,28 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ratfender-accueil</title>
-    <link rel="stylesheet" href="./style/home.css">
-    <script src="./script/ingredients.js" type="module" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ratfender - Accueil</title>
+  <link rel="stylesheet" href="./style/home.css" />
 </head>
 <body>
-    <h1>Rat-Fender</h1>
+  <div class="container">
+
+    <div class="top-right">
+      <button class="leaderboard-button" onclick="window.location.href='./leaderboard.html'">
+        Leaderboard
+      </button>
+    </div>
+
+    <h1 class="title">Rat-fender</h1>
+
+    <div class="button">
+      <button class="play-button" onclick="window.location.href='./game.html'">
+        Jouer
+      </button>
+    </div>
+    
+  </div>
 </body>
 </html>
