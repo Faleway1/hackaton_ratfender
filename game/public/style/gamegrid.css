@@ -2,11 +2,12 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-image: url('../assets/background.png');
     display: flex;
     justify-content: start;
     align-items: start;
     height: 100vh;
+    overflow: hidden;
 }
 
 main {
@@ -17,12 +18,79 @@ main {
 .top {
     display: flex;
     flex-direction: row;
+    margin-top: 10px;
+}
+
+.money {
+    background-color: bisque;
+    border: 1px solid burlywood;
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.info {
+    background-color: antiquewhite;
+    border: 1px solid brown;
+    border-radius: 10px;
+    margin-top: 15px;
+    height: 65vh;
+    width: 28vw;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 15px;
+    overflow: hidden;
+}
+
+.cheeseName {
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.imgContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.imgContainer img {
+    max-width: 100%;
+    max-height: 80px;
+    object-fit: contain;
+}
+
+.upgrades {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.upgrade {
+    border: 1px solid #999;
+    border-radius: 8px;
+    padding: 8px 12px;
+    background-color: #fff;
+    text-align: center;
+    width: 80%;
 }
 
 #game {
     padding: 0;
-    margin-top: 0;
-    width: 80vw;
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-right: 10px;
+    width: 70vw;
     aspect-ratio: 30 / 16;
     display: flex;
     flex-direction: column;
@@ -46,31 +114,40 @@ main {
 .units {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 15px;
 }
 
 .placer {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     list-style: none;
-    padding-top: 0px²;
-    padding-right: 150px;
+    padding: 0;
+    margin: 10px;
+    max-width: 100%;
 }
 
 .placer img {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
 }
 
 .placer li {
-    padding: 10px 15px;
-    margin: 0px 10px;
+    padding: 8px;
     border: brown 2px solid;
+    background-color: red;
     border-radius: 15px;
+    text-align: center;
+    flex-shrink: 0;
 }
 
 .price {
     border: #000 1px solid;
     border-radius: 15px;
-    padding: 5px, 3px;
+    margin-top: 5px;
+    padding: 3px;
+    font-size: 0.8rem;
+    background-color: white;
 }
-
