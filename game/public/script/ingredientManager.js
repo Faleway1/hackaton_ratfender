@@ -80,10 +80,39 @@ function hideUpgrades() {
     modal.style.display = "none";
 }
 
+function activateButtons() {
+    const milk = document.querySelector(".ingredient_milk");
+    const pepper = document.querySelector(".ingredient_pepper");
+    const jalapenos = document.querySelector(".ingredient_jalapenos");
+    const onion = document.querySelector(".ingredient_onion");
+    const herbe = document.querySelector(".ingredient_herbe");
+    const figue = document.querySelector(".ingredient_figue");
+
+    milk.addEventListener("click", () => {
+        placeIngredient(INGREDIENT_INFOS.INGREDIENT_MILK.TYPE);
+    });
+    pepper.addEventListener("click", () => {
+        placeIngredient(INGREDIENT_INFOS.INGREDIENT_PEPPER.TYPE);
+    });
+    jalapenos.addEventListener("click", () => {
+        placeIngredient(INGREDIENT_INFOS.INGREDIENT_JALAPENOS.TYPE);
+    });
+    onion.addEventListener("click", () => {
+        placeIngredient(INGREDIENT_INFOS.INGREDIENT_ONION.TYPE);
+    });
+    herbe.addEventListener("click", () => {
+        placeIngredient(INGREDIENT_INFOS.INGREDIENT_HERBE.TYPE);
+    });
+    figue.addEventListener("click", () => {
+        placeIngredient(INGREDIENT_INFOS.INGREDIENT_FIGUE.TYPE);
+    });
+}
+
 const ingredientManager = {
     placeIngredient,
     showUpgrades,
     hideUpgrades,
+    activateButtons,
 };
 
 export { ingredientManager };

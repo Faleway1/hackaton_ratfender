@@ -61,14 +61,10 @@ function showUpgrades(tower) {
     modal.style.display = "flex";
     const ratName = document.querySelector(".cheeseName");
     const image = document.querySelector("#cheesePic");
-    const upgrade_name_elements = document.querySelectorAll(".upgrade .upgradeName");
     const upgrade_price_elements = document.querySelectorAll(".upgrade .upgradePrice");
 
     ratName.innerHTML = tower.type;
     image.src = tower.imgUrl;
-    upgrade_name_elements.forEach(name => {
-        name.innerHTML = "Upgrade "; // A COMPLETER AVEC LE NOM DE L'UPGRADE
-    });
     upgrade_price_elements.forEach(price => {
         price.innerHTML = "5"; // A COMPLETER AVEC LE PRIX DE L'UPGRADE
     })
