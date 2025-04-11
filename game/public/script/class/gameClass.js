@@ -38,6 +38,7 @@ export class Game {
         await this.initCanva();
         await this.initGrid();
         await this.initPath();
+        this.money.textContent = this.pdr
     }
     
     async initCanva() {
