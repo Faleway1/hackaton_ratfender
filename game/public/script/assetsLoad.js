@@ -18,3 +18,5 @@ PIXI.Assets.add({ alias: 'pepperIngredient', src: '../public/assets/pepperIngred
 PIXI.Assets.add({ alias: 'jalapenosIngredient', src: '../public/assets/jalapenosIngredient.png' });
 PIXI.Assets.add({ alias: 'figueIngredient', src: '../public/assets/figueIngredient.png' });
 PIXI.Assets.add({ alias: 'herbeIngredient', src: '../public/assets/herbeIngredient.png' });
+
+PIXI.Assets.add({ alias: 'sfx', src: '../public/assets/sfxDeath.png' });
