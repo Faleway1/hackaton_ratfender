@@ -28,6 +28,8 @@ class Tower {
         this.paths_in_range = [];
         this.enemies_in_range = [];
 
+        this.buffs = []
+
         this.level = {
             path1: 0,
             path2: 0,
@@ -301,6 +303,21 @@ class Tower {
                 path3Price.textContent = this.upgradePrice.path3Upgradecost
             }
         })
+    }
+
+    updateBuffs() {
+        console.log(this.stats)
+        this.buffs.forEach((buff) => {
+            if (buff.type === "attack") {
+                this.stats.attack += buff.value;
+            } else if (buff.type === "shot_speed") {
+                this.stats.shot_speed += buff.value;
+            } else if (buff.type === "range") {
+                this.stats.range += buff.value;
+            }
+        });
+        console.log(this.stats)
+
     }
 
 
