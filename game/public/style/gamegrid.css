@@ -215,3 +215,8 @@ main {
     width: 10vw;
     height: 10vh;
 }
+
+.upgrade-card,
+.upgrade-card-ingredient {
+    display: none;
+}
