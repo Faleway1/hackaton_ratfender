@@ -19,9 +19,7 @@ const game = new Game(
   GAME_SETTINGS.TILE_HEIGHT,
   GAME_SETTINGS.PDR_PER_ROUND
 );
-game.initCanva();
-game.initGrid();
-game.initPath();
+await game.initGame()
 await game.startRound()
 
 

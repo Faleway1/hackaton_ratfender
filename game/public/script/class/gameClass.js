@@ -36,8 +36,8 @@ export class Game {
 
     async initGame() {
         await this.initCanva();
-        this.initGrid();
-        this.initPath();
+        await this.initGrid();
+        await this.initPath();
     }
     
     async initCanva() {
@@ -45,13 +45,13 @@ export class Game {
         document.querySelector("#game").appendChild(this.app.view);
     }
 
-    initGrid() {
-        this.cellsList = gridManager.createGrid(this.tilesPerRow, this.tilesPerCol);
+    async initGrid() {
+        this.cellsList = await gridManager.createGrid(this.tilesPerRow, this.tilesPerCol);
     }
 
-    initPath() {
+    async initPath() {
         this.path = this.generatePath(this.path);
-        const path = createPath(this.path);
+        const path = await createPath(this.path);
         this.app.stage.addChild(path);
     }
 
@@ -80,8 +80,8 @@ export class Game {
             if (possibleDirections.length === 0) {
                 break;
             }
-            // const currentDirection = possibleDirections[Math.floor(Math.random() * possibleDirections.length)]; // Choisit une direction aléatoire
-            const currentDirection = possibleDirections[Math.floor(this.rng() * possibleDirections.length)];
+            const currentDirection = possibleDirections[Math.floor(Math.random() * possibleDirections.length)]; // Choisit une direction aléatoire
+            // const currentDirection = possibleDirections[Math.floor(this.rng() * possibleDirections.length)];
 
             if (currentDirection[0] === 0) {
                 blockedPaths.push(gridManager.findCell(currentCell.x + 1, currentCell.y, this.cellsList)); // Ajoute la cellule suivante aux chemins bloqués
