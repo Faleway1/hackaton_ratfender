@@ -79,10 +79,31 @@ function hideUpgrades() {
     modal.style.display = "none";
 }
 
+function activateButtons() {
+    const tome = document.querySelector(".tower_tome");
+    const comte = document.querySelector(".tower_comte");
+    const chevre = document.querySelector(".tower_chevre");
+    const roquefort = document.querySelector(".tower_roquefort");
+
+    tome.addEventListener("click", () => {
+        placeTower(TOWER_INFOS.TOWER_TOME.TYPE);
+    });
+    comte.addEventListener("click", () => {
+        placeTower(TOWER_INFOS.TOWER_COMTE.TYPE);
+    });
+    chevre.addEventListener("click", () => {
+        placeTower(TOWER_INFOS.TOWER_CHEVRE.TYPE);
+    });
+    roquefort.addEventListener("click", () => {
+        placeTower(TOWER_INFOS.TOWER_ROQUEFORT.TYPE);
+    });
+}
+
 const towerManager = {
     placeTower,
     showUpgrades,
     hideUpgrades,
+    activateButtons
 };
 
 export { towerManager };

@@ -104,7 +104,7 @@ const TOWER_ROQUEFORT = {
   BASE_ATK: 10,
   BASE_SHOT_SPEED: 4000,
   BASE_RANGE: 3,
-  BASE_NB_SHOTS: 2,
+  BASE_NB_SHOTS: 1,
   BASE_PRICE: 100,
   RAT_TYPE: "Steel",
   IMAGE: "roquefortFromage",

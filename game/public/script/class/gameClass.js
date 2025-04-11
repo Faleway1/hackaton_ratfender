@@ -115,7 +115,7 @@ export class Game {
                 return
             }
             i++
-            const new_rat = await this.createRat()
+            let new_rat = await this.createRat()
             new_rat.moveEntityInterval()
         }, 1000)
         setTimeout(() => {
