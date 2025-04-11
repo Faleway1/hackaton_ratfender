@@ -40,12 +40,17 @@ class Rat{
             x: this.cell_position.xmin + (GAME_SETTINGS.TILE_WIDTH / 2),
             y: this.cell_position.ymin + (GAME_SETTINGS.TILE_HEIGHT / 2),
         };
-        this.sprite.x = middleOfTile.x; 
-        this.sprite.y = middleOfTile.y;
+        gsap.to(this.sprite, {
+            duration: 1,
+            x: middleOfTile.x,
+            y: middleOfTile.y,
+            onUpdate: () => {
+                if (!this.sprite) {
+                    gsap.killTweensOf(this.sprite);
+                }
+            },
+        });
         game.app.stage.addChild(this.sprite);
-        game.totalEnnemies.push(this)
-        
-        
     }
     
     kill() {
@@ -54,7 +59,9 @@ class Rat{
             this.sprite.destroy();
             this.sprite = null;
         }
+        this.moveInterval = clearInterval(this.moveInterval)
         
+        console.log("rat killed");
         
         game.pdr += this.money
         game.totalEnnemies.pop(this)
@@ -65,12 +72,13 @@ class Rat{
 
     finishPath() {
         if (this.sprite) {
+            game.totalEnnemies.pop(this)
             game.app.stage.removeChild(this.sprite);
             this.sprite.destroy();
             this.sprite = null;
         }
+        this.moveInterval = clearInterval(this.moveInterval)
         game.life -= this.damage
-        console.log(game.life);
         
     }
 
@@ -79,12 +87,18 @@ class Rat{
         this.position += 1
 
         if (this.position >= game.path.length - 1) {
-            console.log("End of path reached.");
             this.finishPath();
             return;
         }
         this.render();
+        
         this.cell_position.ennemies.push(this)
+    }
+
+    moveEntityInterval() {
+        this.moveInterval = setInterval(() => {           
+            this.moveEntity();
+        }, 1000);
     }
 
     takeDamage(damage) {
