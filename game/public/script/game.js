@@ -18,10 +18,7 @@ const game = new Game(
 game.initCanva();
 game.initGrid();
 game.initPath();
-
-const new_rat = new ENEMIES.RainbowRat();
-await new_rat.loadAsset();
-new_rat.render();
+await game.startRound()
 
 
 const new_tower = await placeTower(TOWER_INFOS.TOWER_CHEVRE.TYPE)

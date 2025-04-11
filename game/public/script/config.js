@@ -33,21 +33,29 @@ const NORMAL_RAT = {
   BASE_HP: 20,
   BASE_MONEY: 3,
   TYPE: "Normal",
+  DAMAGE: 5,
+  IMAGE: "normalRat"
 };
 const CAMO_RAT = {
   BASE_HP: 12,
   BASE_MONEY: 5,
   TYPE: "Camo",
+  DAMAGE: 7,
+    IMAGE: "camoRat"
 };
 const STEEL_RAT = {
   BASE_HP: 20,
   BASE_MONEY: 8,
   TYPE: "Steel",
+  DAMAGE: 7,
+  IMAGE: "steelRat"
 };
 const RAINBOW_RAT = {
   BASE_HP: 50,
   BASE_MONEY: 10,
   TYPE: "Rainbow",
+  DAMAGE: 9,
+  IMAGE: "rainbowRat"
 };
 
 const ENEMY_INFOS = {
