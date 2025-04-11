@@ -21,16 +21,6 @@ main {
     margin-top: 10px;
 }
 
-.money {
-    background-color: bisque;
-    border: 1px solid burlywood;
-    border-radius: 10px;
-    text-align: center;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    font-size: 1rem;
-}
 
 .info {
     background-color: antiquewhite;
@@ -209,6 +199,24 @@ main {
     padding: 3px;
     font-size: 0.8rem;
     background-color: white;
+}
+
+.moneyBar {
+    display: flex;
+    flex-direction: row;
+    background-color: bisque;
+    border: 1px solid burlywood;
+    border-radius: 10px;
+    text-align: center;
+    width: 12%;
+    padding: 0px 10px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.img-container {
+    display: flex;
+    align-items: center;
 }
 
 #ratSkin{

@@ -23,6 +23,8 @@ export class Game {
         this.round = 0;
         this.life = 100
         this.ennemySpawn = 5 + (2*this.round)
+        const hp = document.querySelector(".hp")
+        hp.textContent = `Vie : ${this.life}`
 
         this.rng = new Math.seedrandom('efrei');
         // this.rng = Math.random;

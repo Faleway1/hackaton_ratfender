@@ -106,6 +106,8 @@ class Rat {
         this.cell_position.ennemies.pop(this)
         clearInterval(this.moveInterval)
         game.life -= this.damage
+        const hp = document.querySelector(".hp")
+        hp.textContent = `Vie : ${game.life}`
 
     }
 
