@@ -2,7 +2,7 @@ import { game } from "../game.js";
 import { uuidv4 } from '../idManager.js';
 import { GAME_SETTINGS, ENEMY_INFOS } from "../config.js";
 
-class Rat{
+class Rat {
     constructor() {
         this.id = uuidv4();
         this.type = ENEMY_INFOS.NORMAL_RAT.TYPE;
@@ -33,53 +33,56 @@ class Rat{
             this.sprite.name = this.id;
             this.sprite.width = GAME_SETTINGS.TILE_WIDTH;
             this.sprite.height = GAME_SETTINGS.TILE_HEIGHT;
-        } else {
+        } else if (!this.isKilled) {
             this.updateCellPosition()
         }
-        const middleOfTile = {
-            x: this.cell_position.xmin + (GAME_SETTINGS.TILE_WIDTH / 2),
-            y: this.cell_position.ymin + (GAME_SETTINGS.TILE_HEIGHT / 2),
-        };
-        gsap.to(this.sprite, {
-            duration: 1,
-            x: middleOfTile.x,
-            y: middleOfTile.y,
-            onUpdate: () => {
-                if (!this.sprite) {
-                    gsap.killTweensOf(this.sprite);
-                }
-            },
-        });
-        game.app.stage.addChild(this.sprite);
+
+        if (!this.isKilled) {
+            const middleOfTile = {
+                x: this.cell_position.xmin + (GAME_SETTINGS.TILE_WIDTH / 2),
+                y: this.cell_position.ymin + (GAME_SETTINGS.TILE_HEIGHT / 2),
+            };
+
+            gsap.to(this.sprite, {
+                duration: 1,
+                x: middleOfTile.x,
+                y: middleOfTile.y,
+                onUpdate: () => {
+                    if (!this.sprite) {
+                        gsap.killTweensOf(this.sprite);
+                    }
+                },
+            });
+            game.app.stage.addChild(this.sprite);
+        }
     }
-    
+
     kill() {
         if (this.sprite) {
             game.app.stage.removeChild(this.sprite);
             this.sprite.destroy();
             this.sprite = null;
         }
-        this.moveInterval = clearInterval(this.moveInterval)
-        
-        console.log("rat killed");
-        
+        this.cell_position.ennemies.pop(this)
+        clearInterval(this.moveInterval)
+        this.isKilled = true
         game.pdr += this.money
         game.totalEnnemies.pop(this)
-        
-        
-        
+
+
+
     }
 
     finishPath() {
         if (this.sprite) {
-            game.totalEnnemies.pop(this)
             game.app.stage.removeChild(this.sprite);
             this.sprite.destroy();
             this.sprite = null;
         }
-        this.moveInterval = clearInterval(this.moveInterval)
+        this.cell_position.ennemies.pop(this)
+        clearInterval(this.moveInterval)
         game.life -= this.damage
-        
+
     }
 
     moveEntity() {
@@ -91,12 +94,12 @@ class Rat{
             return;
         }
         this.render();
-        
+
         this.cell_position.ennemies.push(this)
     }
 
     moveEntityInterval() {
-        this.moveInterval = setInterval(() => {           
+        this.moveInterval = setInterval(() => {
             this.moveEntity();
         }, 1000);
     }
@@ -104,17 +107,23 @@ class Rat{
     takeDamage(damage) {
         this.hp -= damage;
         this.checkHealth();
+        this.sprite.tint = 0xff0000; // Change color to red when taking damage
+        setTimeout(() => {
+            if (this.sprite) {
+                this.sprite.tint = 0xffffff; // Reset color to white after a short delay
+            }
+        }, 300);
     }
-    
+
     checkHealth() {
         if (this.hp <= 0) {
             this.kill();
         }
     }
-    
+
 }
 
-class CamoRat extends Rat{
+class CamoRat extends Rat {
     constructor() {
         super()
         this.type = ENEMY_INFOS.CAMO_RAT.TYPE;
@@ -132,7 +141,7 @@ class CamoRat extends Rat{
         this.asset = await PIXI.Assets.load(this.image);
     }
 }
-class SteelRat extends Rat{
+class SteelRat extends Rat {
     constructor() {
         super()
         this.type = ENEMY_INFOS.STEEL_RAT.TYPE;
@@ -150,7 +159,7 @@ class SteelRat extends Rat{
         this.asset = await PIXI.Assets.load(this.image);
     }
 }
-class RainbowRat extends Rat{
+class RainbowRat extends Rat {
     constructor() {
         super()
         this.type = ENEMY_INFOS.RAINBOW_RAT.TYPE;
