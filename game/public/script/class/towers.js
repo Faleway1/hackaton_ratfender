@@ -13,6 +13,9 @@ class Tower {
             shot_speed: TOWER_INFOS.TOWER_TOME.BASE_SHOT_SPEED,
             range: TOWER_INFOS.TOWER_TOME.BASE_RANGE,
             nb_shots: TOWER_INFOS.TOWER_TOME.BASE_NB_SHOTS,
+            base_attack: TOWER_INFOS.TOWER_TOME.BASE_ATK,
+            base_shot_speed: TOWER_INFOS.TOWER_TOME.BASE_SHOT_SPEED,
+            base_range: TOWER_INFOS.TOWER_TOME.BASE_RANGE,
         };
         this.type = TOWER_INFOS.TOWER_TOME.TYPE;
         this.image = TOWER_INFOS.TOWER_TOME.IMAGE;
@@ -337,26 +340,23 @@ class Tower {
     }
 
     updateBuffs() {
-        console.log(this.stats, this.type)
-        console.log(this.buffs)
         this.buffs.forEach((buff) => {
             if (buff.typebuff === "attack") {
-                this.stats.attack += buff.value;
+                this.stats.attack = this.stats.base_attack + buff.current_buff;
             } else if (buff.typebuff === "shot_speed") {
-                this.stats.shot_speed += buff.value;
+                this.stats.shot_speed = this.stats.base_shot_speed - buff.current_buff;
             } else if (buff.typebuff === "range") {
-                this.stats.range += buff.value;
+                this.stats.range += this.stats.base_range + buff.current_buff;
             } else if (buff.typebuff === "camo") {
-                this.type.push("camo")
+                this.rat_type.push("camo")
             } else if (buff.typebuff === "rainbow") {
-                this.type.push("rainbow")
+                this.rat_type.push("rainbow")
             } else if (buff.typebuff === "steel") {
-                this.type.push("steel")
+                this.rat_type.push("steel")
             }
             
         });
-        console.log(this.stats, this.type)
-
+        console.log(this.stats)
     }
 
 
@@ -372,6 +372,9 @@ class ComteTower extends Tower {
             shot_speed: TOWER_INFOS.TOWER_COMTE.BASE_SHOT_SPEED,
             range: TOWER_INFOS.TOWER_COMTE.BASE_RANGE,
             nb_shots: TOWER_INFOS.TOWER_COMTE.BASE_NB_SHOTS,
+            base_attack: TOWER_INFOS.TOWER_COMTE.BASE_ATK,
+            base_shot_speed: TOWER_INFOS.TOWER_COMTE.BASE_SHOT_SPEED,
+            base_range: TOWER_INFOS.TOWER_COMTE.BASE_RANGE,
         };
         this.type = TOWER_INFOS.TOWER_COMTE.TYPE;
         this.rat_type = TOWER_INFOS.TOWER_COMTE.RAT_TYPE;
@@ -379,6 +382,7 @@ class ComteTower extends Tower {
         this.image = TOWER_INFOS.TOWER_COMTE.IMAGE;
         this.imgUrl = TOWER_INFOS.TOWER_COMTE.IMAGEURL;
         this.price = TOWER_INFOS.TOWER_COMTE.BASE_PRICE;
+        
     }
 }
 class ChevreTower extends Tower {
@@ -390,6 +394,9 @@ class ChevreTower extends Tower {
             shot_speed: TOWER_INFOS.TOWER_CHEVRE.BASE_SHOT_SPEED,
             range: TOWER_INFOS.TOWER_CHEVRE.BASE_RANGE,
             nb_shots: TOWER_INFOS.TOWER_CHEVRE.BASE_NB_SHOTS,
+            base_attack: TOWER_INFOS.TOWER_CHEVRE.BASE_ATK,
+            base_shot_speed: TOWER_INFOS.TOWER_CHEVRE.BASE_SHOT_SPEED,
+            base_range: TOWER_INFOS.TOWER_CHEVRE.BASE_RANGE,
         };
         this.type = TOWER_INFOS.TOWER_CHEVRE.TYPE;
         this.rat_type = TOWER_INFOS.TOWER_CHEVRE.RAT_TYPE;
@@ -423,6 +430,9 @@ class RoquefortTower extends Tower {
             shot_speed: TOWER_INFOS.TOWER_ROQUEFORT.BASE_SHOT_SPEED,
             range: TOWER_INFOS.TOWER_ROQUEFORT.BASE_RANGE,
             nb_shots: TOWER_INFOS.TOWER_ROQUEFORT.BASE_NB_SHOTS,
+            base_attack: TOWER_INFOS.TOWER_ROQUEFORT.BASE_ATK,
+            base_shot_speed: TOWER_INFOS.TOWER_ROQUEFORT.BASE_SHOT_SPEED,
+            base_range: TOWER_INFOS.TOWER_ROQUEFORT.BASE_RANGE,
         };
         this.type = TOWER_INFOS.TOWER_ROQUEFORT.TYPE;
         this.rat_type = TOWER_INFOS.TOWER_ROQUEFORT.RAT_TYPE;
