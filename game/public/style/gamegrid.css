@@ -49,40 +49,49 @@ main {
     overflow: hidden;
 }
 
-.cheeseName {
-    font-weight: bold;
-    font-size: 1.2rem;
-    text-align: center;
-}
-
-.imgContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-.imgContainer img {
-    max-width: 100%;
-    max-height: 80px;
-    object-fit: contain;
-}
-
-.upgrades {
+.upgrade-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
+}
+
+.upgrade-card .cheeseName {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.upgrade-card .imgContainer {
+    width: 40%;
+    text-align: center;
+}
+
+.upgrade-card .imgContainer img {
+    max-width: 100%;
+    max-height: 100px;
+    object-fit: contain;
+}
+
+/* Les cartes d'upgrade sont maintenant alignées horizontalement */
+.upgrade-card .upgrades {
     width: 100%;
+    display: flex;
+    flex-direction: row; /* ligne au lieu de colonne */
+    justify-content: center;
+    gap: 10px;
+    align-items: start;
 }
 
 .upgrade {
     border: 1px solid #999;
     border-radius: 8px;
-    padding: 8px 12px;
+    padding: 12px 10px;
     background-color: #fff;
     text-align: center;
-    width: 80%;
+    width: 100%;
+    max-width: 120px;
 }
 
 #game {
@@ -151,3 +160,4 @@ main {
     font-size: 0.8rem;
     background-color: white;
 }
+
