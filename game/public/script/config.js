@@ -34,7 +34,8 @@ const NORMAL_RAT = {
   BASE_MONEY: 3,
   TYPE: "Normal",
   DAMAGE: 5,
-  IMAGE: "normalRat"
+  IMAGE: "normalRat",
+  DEATH_IMAGE: "sfx"
 };
 const CAMO_RAT = {
   BASE_HP: 12,
