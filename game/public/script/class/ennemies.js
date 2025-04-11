@@ -81,8 +81,7 @@ class Rat {
 
     kill() {
         if (this.sprite) {
-            gsap.killTweensOf(this.sprite); 
-
+            gsap.killTweensOf(this.sprite);
             game.app.stage.removeChild(this.sprite);
             this.sprite.destroy();
             this.sprite = null;
@@ -143,7 +142,16 @@ class Rat {
 
     checkHealth() {
         if (this.hp <= 0) {
-            this.kill();
+            PIXI.Assets.load(ENEMY_INFOS.NORMAL_RAT.DEATH_IMAGE)
+                .then((asset) => {
+                    this.sprite.asset = asset;
+                    console.log("Asset loaded:", asset);
+                })
+                .catch((error) => {
+                    console.error("Error loading asset:", error);
+                });
+            
+            setTimeout(() => this.kill(), 100)
         }
     }
 

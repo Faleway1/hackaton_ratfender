@@ -27,6 +27,7 @@ export class Game {
         this.rng = new Math.seedrandom('efrei');
         // this.rng = Math.random;
         this.isPaused = false;
+        this.isPlaying = false;
 
         this.money = document.querySelector(".money")
         this.money.textContent = this.pdr
@@ -148,6 +149,7 @@ export class Game {
     }
 
     async startRound() {
+        if (this.isPlaying) return
         let i = 0
         this.defineEnnemyAmount()
         const possible_enemies = this.checkPossibleEnnemies()
