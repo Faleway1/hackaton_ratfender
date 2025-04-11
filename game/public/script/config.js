@@ -31,7 +31,7 @@ const GAME_SETTINGS = {
 // ENEMIES INFOS
 const NORMAL_RAT = {
   BASE_HP: 20,
-  BASE_MONEY: 3,
+  BASE_MONEY: 10,
   TYPE: "Normal",
   DAMAGE: 5,
   IMAGE: "normalRat",
@@ -39,21 +39,21 @@ const NORMAL_RAT = {
 };
 const CAMO_RAT = {
   BASE_HP: 12,
-  BASE_MONEY: 5,
+  BASE_MONEY: 10,
   TYPE: "Camo",
   DAMAGE: 7,
     IMAGE: "camoRat"
 };
 const STEEL_RAT = {
   BASE_HP: 20,
-  BASE_MONEY: 8,
+  BASE_MONEY: 15,
   TYPE: "Steel",
   DAMAGE: 7,
   IMAGE: "steelRat"
 };
 const RAINBOW_RAT = {
   BASE_HP: 50,
-  BASE_MONEY: 10,
+  BASE_MONEY: 20,
   TYPE: "Rainbow",
   DAMAGE: 9,
   IMAGE: "rainbowRat"
