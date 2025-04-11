@@ -16,7 +16,7 @@ class Ingredient {
         this.imgUrl = INGREDIENT_INFOS.INGREDIENT_MILK.IMAGEURL
         this.type = INGREDIENT_INFOS.INGREDIENT_MILK.TYPE;
         this.towers = []
-        this.price = INGREDIENT_INFOS.INGREDIENT_MILK.PRICE;
+        this.price = INGREDIENT_INFOS.INGREDIENT_MILK.BASE_PRICE;
 
         this.is_placed = false;
         this.asset = ""
@@ -29,11 +29,25 @@ class Ingredient {
     }
 
     increaseBuff() {
-        if (this.buffs.level >= 5) {
-            return false
-        }
-        this.buffs.level += 1
-        this.buffs.current_buff = this.buffs.base_buff * this.buffs.level
+        const priceHtml = document.querySelector(".ingredientUp")
+        const priceIngre = document.querySelector(".priceIngre")
+        console.log(this.price);
+        
+        priceHtml.addEventListener("click", () => {
+            if (this.price <= game.pdr) {
+                if (this.buffs.level >= 5) {
+                    return false
+                }
+                console.log(this.price);
+                
+                game.pdr = game.pdr - this.price
+                game.money.textContent = game.pdr
+                this.buffs.level += 1
+                this.buffs.current_buff = this.buffs.base_buff * this.buffs.level
+                this.price = this.price + (20 * this.buffs.level)
+                priceIngre.textContent = this.price
+            }
+        })
     }
 
     async loadAsset() {
@@ -52,6 +66,7 @@ class Ingredient {
         this.detectTowersInterval()
         this.initIngredientSelect()
         game.towerTilesOccupied.push(this.ingredientCell())
+        this.increaseBuff()
     }
 
     ingredientSelect() {
@@ -245,7 +260,7 @@ class PepperIngredient extends Ingredient{
         this.imgUrl = INGREDIENT_INFOS.INGREDIENT_PEPPER.IMAGEURL
         this.type = INGREDIENT_INFOS.INGREDIENT_PEPPER.TYPE;
 
-        this.price =INGREDIENT_INFOS.INGREDIENT_PEPPER.PRICE
+        this.price =INGREDIENT_INFOS.INGREDIENT_PEPPER.BASE_PRICE
     }
 }
 class FigueIngredient extends Ingredient{
@@ -263,7 +278,7 @@ class FigueIngredient extends Ingredient{
         this.imgUrl = INGREDIENT_INFOS.INGREDIENT_FIGUE.IMAGEURL
         this.type = INGREDIENT_INFOS.INGREDIENT_FIGUE.TYPE;
 
-        this.price = INGREDIENT_INFOS.INGREDIENT_FIGUE.PRICE;
+        this.price = INGREDIENT_INFOS.INGREDIENT_FIGUE.BASE_PRICE;
     }
 }
 class HerbeIngredient extends Ingredient{
@@ -281,7 +296,7 @@ class HerbeIngredient extends Ingredient{
         this.imgUrl = INGREDIENT_INFOS.INGREDIENT_HERBE.IMAGEURL
         this.type = INGREDIENT_INFOS.INGREDIENT_HERBE.TYPE;
 
-        this.price = INGREDIENT_INFOS.INGREDIENT_HERBE.PRICE;
+        this.price = INGREDIENT_INFOS.INGREDIENT_HERBE.BASE_PRICE;
     }
 }
 class JalapenosIngredient extends Ingredient{
@@ -299,7 +314,7 @@ class JalapenosIngredient extends Ingredient{
         this.imgUrl = INGREDIENT_INFOS.INGREDIENT_JALAPENOS.IMAGEURL
         this.type = INGREDIENT_INFOS.INGREDIENT_JALAPENOS.TYPE;
 
-        this.price = INGREDIENT_INFOS.INGREDIENT_JALAPENOS.PRICE;
+        this.price = INGREDIENT_INFOS.INGREDIENT_JALAPENOS.BASE_PRICE;
     }
 }
 class OnionIngredient extends Ingredient{
@@ -317,7 +332,7 @@ class OnionIngredient extends Ingredient{
         this.imgUrl = INGREDIENT_INFOS.INGREDIENT_ONION.IMAGEURL
         this.type = INGREDIENT_INFOS.INGREDIENT_ONION.TYPE;
 
-        this.price = INGREDIENT_INFOS.INGREDIENT_ONION.PRICE;
+        this.price = INGREDIENT_INFOS.INGREDIENT_ONION.BASE_PRICE;
     }
 }
 

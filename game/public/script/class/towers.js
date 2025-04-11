@@ -296,31 +296,42 @@ class Tower {
                 return
             } else {
 
-                this.stats.attack = this.stats.attack * 1.50
+              if (this.upgradePrice.path1Upgradecost <= game.pdr) {
+                this.stats.attack = this.stats.attack + 5
                 this.level.path1++
+                game.pdr = game.pdr - this.upgradePrice.path1Upgradecost
+                game.money.textContent = game.pdr
                 this.upgradePrice.path1Upgradecost = this.upgradePrice.path1Upgradecost + (20 * this.level.path1)
-
                 path1Price.textContent = this.upgradePrice.path1Upgradecost
+              }
             }
         })
         path2.addEventListener("click", () => {
             if (this.level.path2 === 3) {
                 return
             } else {
-                this.stats.shot_speed = this.stats.shot_speed * 0.8
-                this.level.path2++
-                this.upgradePrice.path2Upgradecost = this.upgradePrice.path2Upgradecost + (20 * this.level.path2)
-                path2Price.textContent = this.upgradePrice.path2Upgradecost
+                if (this.upgradePrice.path2Upgradecost <= game.pdr) {
+                  this.stats.shot_speed = this.stats.shot_speed * 0.8
+                  this.level.path2++
+                  game.pdr = game.pdr - this.upgradePrice.path2Upgradecost
+                  game.money.textContent = game.pdr
+                  this.upgradePrice.path2Upgradecost = this.upgradePrice.path2Upgradecost + (20 * this.level.path2)
+                  path2Price.textContent = this.upgradePrice.path2Upgradecost
+                }
             }
         })
         path3.addEventListener("click", () => {
             if (this.level.path3 === 3) {
                 return
             } else {
-                this.stats.range += 0.5
+              if (this.upgradePrice.path3Upgradecost <= game.pdr) {
+                this.stats.range = this.stats.range +0.5
                 this.level.path3++
+                game.pdr = game.pdr - this.upgradePrice.path3Upgradecost
+                game.money.textContent = game.pdr
                 this.upgradePrice.path3Upgradecost = this.upgradePrice.path3Upgradecost + (20 * this.level.path3)
                 path3Price.textContent = this.upgradePrice.path3Upgradecost
+              }
             }
         })
     }
