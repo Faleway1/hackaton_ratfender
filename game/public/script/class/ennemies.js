@@ -2,14 +2,14 @@ import { game } from "../game.js";
 import { uuidv4 } from '../idManager.js';
 import { GAME_SETTINGS, ENEMY_INFOS } from "../config.js";
 
-
 class Rat{
     constructor() {
         this.id = uuidv4();
         this.type = ENEMY_INFOS.NORMAL_RAT.TYPE;
         this.hp = ENEMY_INFOS.NORMAL_RAT.BASE_HP;
         this.money = ENEMY_INFOS.NORMAL_RAT.BASE_MONEY;
-
+        this.damage = ENEMY_INFOS.NORMAL_RAT.DAMAGE
+        this.image = ENEMY_INFOS.NORMAL_RAT.IMAGE
         this.asset = "";
         this.position = 0;
         this.sprite = null;
@@ -23,7 +23,7 @@ class Rat{
     }
 
     async loadAsset() {
-        this.asset = await PIXI.Assets.load(this.type);
+        this.asset = await PIXI.Assets.load(this.image);
     }
 
     render() {
@@ -43,6 +43,9 @@ class Rat{
         this.sprite.x = middleOfTile.x; 
         this.sprite.y = middleOfTile.y;
         game.app.stage.addChild(this.sprite);
+        game.totalEnnemies.push(this)
+        
+        
     }
     
     kill() {
@@ -51,7 +54,13 @@ class Rat{
             this.sprite.destroy();
             this.sprite = null;
         }
-        //DONNER LES SOUS AU JOUEUR
+        
+        
+        game.pdr += this.money
+        game.totalEnnemies.pop(this)
+        
+        
+        
     }
 
     finishPath() {
@@ -60,7 +69,9 @@ class Rat{
             this.sprite.destroy();
             this.sprite = null;
         }
-        //ENLEVER DE LA VIE AU JOUEUR
+        game.life -= this.damage
+        console.log(game.life);
+        
     }
 
     moveEntity() {
@@ -95,7 +106,8 @@ class CamoRat extends Rat{
         this.type = ENEMY_INFOS.CAMO_RAT.TYPE;
         this.hp = ENEMY_INFOS.CAMO_RAT.BASE_HP;
         this.money = ENEMY_INFOS.CAMO_RAT.BASE_MONEY;
-
+        this.damage = ENEMY_INFOS.CAMO_RAT.DAMAGE
+        this.image = ENEMY_INFOS.CAMO_RAT.IMAGE
         this.asset = "";
         this.position = 0;
         this.sprite = null;
@@ -103,7 +115,7 @@ class CamoRat extends Rat{
     }
 
     async loadAsset() {
-        this.asset = await PIXI.Assets.load('camoRat');
+        this.asset = await PIXI.Assets.load(this.image);
     }
 }
 class SteelRat extends Rat{
@@ -112,7 +124,8 @@ class SteelRat extends Rat{
         this.type = ENEMY_INFOS.STEEL_RAT.TYPE;
         this.hp = ENEMY_INFOS.STEEL_RAT.BASE_HP;
         this.money = ENEMY_INFOS.STEEL_RAT.BASE_MONEY;
-
+        this.damage = ENEMY_INFOS.STEEL_RAT.DAMAGE
+        this.image = ENEMY_INFOS.STEEL_RAT.IMAGE
         this.asset = "";
         this.position = 0;
         this.sprite = null;
@@ -120,7 +133,7 @@ class SteelRat extends Rat{
     }
 
     async loadAsset() {
-        this.asset = await PIXI.Assets.load('steelRat');
+        this.asset = await PIXI.Assets.load(this.image);
     }
 }
 class RainbowRat extends Rat{
@@ -129,7 +142,8 @@ class RainbowRat extends Rat{
         this.type = ENEMY_INFOS.RAINBOW_RAT.TYPE;
         this.hp = ENEMY_INFOS.RAINBOW_RAT.BASE_HP;
         this.money = ENEMY_INFOS.RAINBOW_RAT.BASE_MONEY;
-
+        this.damage = ENEMY_INFOS.RAINBOW_RAT.DAMAGE
+        this.image = ENEMY_INFOS.RAINBOW_RAT.IMAGE
         this.asset = "";
         this.position = 0;
         this.sprite = null;
@@ -137,7 +151,7 @@ class RainbowRat extends Rat{
     }
 
     async loadAsset() {
-        this.asset = await PIXI.Assets.load('rainbowRat');
+        this.asset = await PIXI.Assets.load(this.image);
     }
 }
 

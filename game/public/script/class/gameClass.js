@@ -1,6 +1,8 @@
 import { roundEndPdr } from "../pdrManager.js";
 import { gridManager } from "../gridManager.js";
 import { createPath } from "../pathManager.js";
+import { GAME_SETTINGS } from "../config.js";
+import { ENEMIES } from "./ennemies.js";
 
 export class Game {
     constructor(tilesPerRow, tilesPerCol, appWidth, appHeight, pdrPerRound) {
@@ -12,12 +14,14 @@ export class Game {
         this.tilewidth = appWidth / tilesPerRow;
         this.tileheight = appHeight / tilesPerCol;
         this.cellsList = [];
-        console.log(this.money);
         
         this.towerTilesOccupied = [];
+        this.totalEnnemies = []
         this.path = [];
         this.pdr = 0;
         this.round = 0;
+        this.life = 100
+        this.ennemySpawn = 5 + (2*this.round)
 
         this.money = document.querySelector(".money")
         this.money.textContent = this.pdr
@@ -94,17 +98,47 @@ export class Game {
         return path;
     }
 
-    startRound() {
-        console.log("Debut de round")
-        // A FAIRE : lancer les vagues d'ennemis
+    ratMoveOpportunity() {
+        this.ratMovementOpportunity = setInterval(() => {
+            this.totalEnnemies.forEach(element => {
+                element.moveEntity()
+                this.totalEnnemies.pop(element)
+                console.log(this.totalEnnemies);
+                
+            });
+        }, 1000)
+    }
+
+    async startRound() {
+        let i = 0
+        this.spawnEnnemies = setInterval(async () => {
+            if (i === this.ennemySpawn) {
+                clearInterval(this.spawnEnnemies)
+                return
+            }
+            i++
+            const new_rat = new ENEMIES.Rat();
+            await new_rat.loadAsset();
+            new_rat.render();
+        }, 2001)
+        this.ratMoveOpportunity()
+        this.gameInterval = setInterval(() => {
+            if (this.totalEnnemies.length === 0) {
+                console.log("oqzduiqcb");
+                this.endRound()
+            }
+        },1000) 
     }
 
     endRound() {
-        console.log("Fin de round")
-        this.pdr += roundEndPdr(this.round, this.pdrPerRound);
-        this.round += 1;
-        this.money.textContent = this.pdr
-        // A FAIRE : stoper le jeu si bouton pause pressé/ relancer le jeu sinon
+        clearInterval(this.gameInterval)
+        
+    }
+
+    checkEndOfRound() {
+        if (this.totalEnnemies === 0) {
+            this.endRound()
+        }
     }
 }
 
