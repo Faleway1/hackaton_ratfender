@@ -57,6 +57,7 @@ class Tower {
         this.towerAttackInterval();
         this.initTowerSelect();
         game.towerTilesOccupied.push(this.towerCell());
+        this.towerCell().towers.push(this)
         this.increaseLevel()
     }
 
@@ -153,7 +154,6 @@ class Tower {
             });
         });
         this.enemies_in_range = enemies_nearby;
-        console.log("enemies_in_range", this.enemies_in_range);
     }
 
     detectEnemisInterval() {

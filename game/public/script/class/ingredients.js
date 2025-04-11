@@ -45,7 +45,9 @@ class Ingredient {
         this.freeCellsInRange()
         this.sprite.tint = 0xFFFFFF; // Blanc
         this.hideRange()
+        this.detectTowersInterval()
         this.initIngredientSelect()
+        game.towerTilesOccupied.push(this.ingredientCell())
     }
 
     ingredientSelect() {
@@ -126,6 +128,29 @@ class Ingredient {
             }
         }
         this.cells_in_range = freeCells;
+        console.log(this.cells_in_range);
+        
+    }
+
+    detectNearbyTowers() {
+        const towers_nearby = []
+        this.cells_in_range.forEach((cell) => {
+            cell.towers.forEach((tower) => {
+                console.log(tower);
+                
+                if (!towers_nearby.includes(tower)) {
+                    towers_nearby.push(tower)
+                }
+            })
+        })
+        console.log(towers_nearby);
+        
+    }
+
+    detectTowersInterval() {
+        this.detectingTowers = setInterval(() => {
+            this.detectNearbyTowers();
+        }, 200);
     }
 
 
@@ -144,6 +169,16 @@ class Ingredient {
             y: y,
         };
     }
+
+    ingredientCell() {
+        const cell = gridManager.findOnGrid(
+            this.position.x,
+            this.position.y,
+            game.cellsList
+        );
+        return cell;
+    }
+
 
     render(x, y, placeIt) {
         if (this.is_placed) {
