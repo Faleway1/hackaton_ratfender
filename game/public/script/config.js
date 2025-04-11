@@ -67,6 +67,7 @@ const TOWER_TOME = {
   BASE_PRICE: 50,
   RAT_TYPE: "Normal",
   IMAGE: "tomeFromage",
+  IMAGEURL : "../public/assets/tomeFromage.png",
 };
 const TOWER_COMTE = {
   TYPE: "TOWER_COMTE",
@@ -77,6 +78,7 @@ const TOWER_COMTE = {
   BASE_PRICE: 100,
   RAT_TYPE: "Camo",
   IMAGE: "comteFromage",
+  IMAGEURL : "../public/assets/comteFromage.png"
 };
 const TOWER_CHEVRE = {
   TYPE: "TOWER_CHEVRE",
@@ -87,6 +89,7 @@ const TOWER_CHEVRE = {
   BASE_PRICE: 100,
   RAT_TYPE: "Rainbow",
   IMAGE: "chevreFromage",
+  IMAGEURL : "../public/assets/chevreFromage.png"
 };
 const TOWER_ROQUEFORT = {
   TYPE: "TOWER_ROQUEFORT",
@@ -97,6 +100,7 @@ const TOWER_ROQUEFORT = {
   BASE_PRICE: 100,
   RAT_TYPE: "Steel",
   IMAGE: "roquefortFromage",
+  IMAGEURL : "../public/assets/roquefortFromage.png"
 };
 
 const TOWER_INFOS = {   
@@ -108,6 +112,7 @@ const TOWER_INFOS = {
 
 // INGREDIENT INFOS
 const INGREDIENT_MILK = {
+  TYPE : "INGREDIENT_MILK",
   TYPE_BUFF: "range",
   CURRENT_BUFF: 10,
   BASE_BUFF: 10,
@@ -115,8 +120,10 @@ const INGREDIENT_MILK = {
   BASE_PRICE: 50,
   BASE_LEVEL: 0,
   IMAGE: "milkIngredient",
+  IMAGEURL : "../public/assets/milkIngredient.png",
 };
 const INGREDIENT_PEPPER = {
+  TYPE : "INGREDIENT_PEPPER",
   TYPE_BUFF: "range",
   CURRENT_BUFF: 10,
   BASE_BUFF: 10,
@@ -124,8 +131,10 @@ const INGREDIENT_PEPPER = {
   BASE_PRICE: 50,
   BASE_LEVEL: 0,
   IMAGE: "pepperIngredient",
+  IMAGEURL : "../public/assets/pepperIngredient.png",
 };
 const INGREDIENT_FIGUE = {
+  TYPE : "INGREDIENT_FIGUE",
   TYPE_BUFF: "range",
   CURRENT_BUFF: 10,
   BASE_BUFF: 10,
@@ -133,8 +142,10 @@ const INGREDIENT_FIGUE = {
   BASE_PRICE: 50,
   BASE_LEVEL: 0,
   IMAGE: "figueIngredient",
+  IMAGEURL : "../public/assets/figueIngredient.png",
 };
 const INGREDIENT_HERBE = {
+  TYPE : "INGREDIENT_HERBE",
   TYPE_BUFF: "range",
   CURRENT_BUFF: 10,
   BASE_BUFF: 10,
@@ -142,8 +153,10 @@ const INGREDIENT_HERBE = {
   BASE_PRICE: 50,
   BASE_LEVEL: 0,
   IMAGE: "herbeIngredient",
+  IMAGEURL : "../public/assets/herbeIngredient.png",
 };
 const INGREDIENT_JALAPENOS = {
+  TYPE : "INGREDIENT_JALAPENOS",
   TYPE_BUFF: "range",
   CURRENT_BUFF: 10,
   BASE_BUFF: 10,
@@ -151,8 +164,10 @@ const INGREDIENT_JALAPENOS = {
   BASE_PRICE: 50,
   BASE_LEVEL: 0,
   IMAGE: "jalapenosIngredient",
+  IMAGEURL : "../public/assets/jalapenosIngredient.png",
 };
 const INGREDIENT_ONION = {
+  TYPE : "INGREDIENT_ONION",
   TYPE_BUFF: "range",
   CURRENT_BUFF: 10,
   BASE_BUFF: 10,
@@ -160,6 +175,7 @@ const INGREDIENT_ONION = {
   BASE_PRICE: 50,
   BASE_LEVEL: 0,
   IMAGE: "onionIngredient",
+  IMAGEURL : "../public/assets/onionIngredient.png",
 };
 
 const INGREDIENT_INFOS = {

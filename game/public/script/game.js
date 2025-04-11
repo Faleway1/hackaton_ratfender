@@ -1,8 +1,9 @@
-import { GAME_SETTINGS, TOWER_INFOS } from "./config.js";
+import { GAME_SETTINGS, TOWER_INFOS, INGREDIENT_INFOS } from "./config.js";
 import { Game } from "./class/gameClass.js";
 import { TOWERS } from "./class/towers.js";
-import { placeTower } from "./towerManager.js";
+import { towerManager } from "./towerManager.js";
 import { INGREDIENTS } from "./class/ingredients.js";
+import { ingredientManager } from "./ingredientManager.js";
 import { ENEMIES } from "./class/ennemies.js";
 import { gridManager } from "./gridManager.js";
 
@@ -24,8 +25,8 @@ await new_rat.loadAsset();
 new_rat.render();
 
 
-const new_tower = await placeTower(TOWER_INFOS.TOWER_CHEVRE.TYPE)
-
+// const new_tower = await towerManager.placeTower(TOWER_INFOS.TOWER_CHEVRE.TYPE)
+const new_ingredient = await ingredientManager.placeIngredient(INGREDIENT_INFOS.INGREDIENT_JALAPENOS.TYPE)
 
 // const texture = await PIXI.Assets.load('normalRat');
 // const rat = new PIXI.Sprite(texture);

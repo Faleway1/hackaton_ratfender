@@ -1,6 +1,7 @@
 import { INGREDIENT_INFOS } from "../config.js";
 import { game } from "../game.js"
 import { gridManager } from "../gridManager.js";
+import { ingredientManager } from "../ingredientManager.js";
 
 class Ingredient {
     constructor() {
@@ -12,6 +13,8 @@ class Ingredient {
         }
         this.rng = INGREDIENT_INFOS.INGREDIENT_MILK.BASE_RANGE;
         this.image = INGREDIENT_INFOS.INGREDIENT_MILK.IMAGE
+        this.imgUrl = INGREDIENT_INFOS.INGREDIENT_MILK.IMAGEURL
+        this.type = INGREDIENT_INFOS.INGREDIENT_MILK.TYPE;
         this.towers = []
         this.price = INGREDIENT_INFOS.INGREDIENT_MILK.PRICE;
 
@@ -21,7 +24,7 @@ class Ingredient {
         this.sprite = null;
         this.range_circle = null;
 
-        this.paths_in_range = []
+        this.cells_in_range = []
         this.enemies_in_range = []
     }
 
@@ -33,16 +36,56 @@ class Ingredient {
         this.asset = await PIXI.Assets.load(this.image);
     }
 
-
     async initBeforePlacement() {
         await this.loadAsset()
         this.initRangeVisual()
     }
 
     initAfterPlacement() {
-        this.pathsInRange()
+        this.freeCellsInRange()
         this.sprite.tint = 0xFFFFFF; // Blanc
         this.hideRange()
+        this.initIngredientSelect()
+    }
+
+    ingredientSelect() {
+        console.log("ingredient select")
+        ingredientManager.showUpgrades(this);
+        this.showRange()
+    }
+
+    ingredientUnselect() {
+        console.log("ingredient unselect")
+        ingredientManager.hideUpgrades(this);
+        this.hideRange()
+    }
+
+    initIngredientSelect() {
+        console.log("init ingredient select");
+        this.sprite.interactive = true;
+        this.sprite.buttonMode = true;
+    
+        this.is_selected = false;
+        this.sprite.on("click", (e) => {
+          if (this.is_selected) {
+            return;
+          }
+          const handleClick = (event) => {
+            if (!this.is_selected) {
+              return;
+            }
+            this.ingredientUnselect();
+            this.is_selected = false;
+            game.app.view.removeEventListener("click", handleClick);
+          };
+    
+          game.app.view.addEventListener("click", handleClick);
+    
+          setTimeout(() => {
+            this.is_selected = true;
+            this.ingredientSelect();
+          }, 10);
+        });
     }
 
     initRangeVisual() {
@@ -67,7 +110,7 @@ class Ingredient {
 
     freeCellsInRange() {
         const freeCells = []
-        const cell = findOnGrid(this.position.x, this.position.y, game.cellsList);
+        const cell = gridManager.findOnGrid(this.position.x, this.position.y, game.cellsList);
         const startCol = Math.floor((cell.x - this.rng));
         const endCol = Math.floor((cell.x + this.rng));
         const startRow = Math.floor((cell.y - this.rng));
@@ -75,7 +118,7 @@ class Ingredient {
 
         for (let col = startCol; col <= endCol; col++) {
             for (let row = startRow; row <= endRow; row++) {
-                const cell = findCell(col, row, game.cellsList);
+                const cell = gridManager.findCell(col, row, game.cellsList);
                 if (!cell) continue;
                 if (!game.path.includes(cell)) {
                     freeCells.push(cell)
@@ -87,8 +130,8 @@ class Ingredient {
 
 
     ableToPlace(x, y) {
-        const cell_position = findOnGrid(x, y);
-        const cell = findCell(cell_position.x, cell_position.y, game.cellsList);
+        const cell_position = gridManager.findOnGrid(x, y);
+        const cell = gridManager.findCell(cell_position.x, cell_position.y, game.cellsList);
         if (game.path.includes(cell) || game.towerTilesOccupied.includes(cell)) {
             return false
         }
@@ -148,6 +191,9 @@ class PepperIngredient extends Ingredient{
 
         this.rng = INGREDIENT_INFOS.INGREDIENT_PEPPER.BASE_RANGE;
         this.image = INGREDIENT_INFOS.INGREDIENT_PEPPER.IMAGE;
+        this.imgUrl = INGREDIENT_INFOS.INGREDIENT_PEPPER.IMAGEURL
+        this.type = INGREDIENT_INFOS.INGREDIENT_PEPPER.TYPE;
+
         this.price =INGREDIENT_INFOS.INGREDIENT_PEPPER.PRICE
     }
 }
@@ -163,6 +209,9 @@ class FigueIngredient extends Ingredient{
         }
         this.rng = INGREDIENT_INFOS.INGREDIENT_FIGUE.BASE_RANGE;
         this.image = INGREDIENT_INFOS.INGREDIENT_FIGUE.IMAGE
+        this.imgUrl = INGREDIENT_INFOS.INGREDIENT_FIGUE.IMAGEURL
+        this.type = INGREDIENT_INFOS.INGREDIENT_FIGUE.TYPE;
+
         this.price = INGREDIENT_INFOS.INGREDIENT_FIGUE.PRICE;
     }
 }
@@ -178,6 +227,9 @@ class HerbeIngredient extends Ingredient{
         }
         this.rng = INGREDIENT_INFOS.INGREDIENT_HERBE.BASE_RANGE;
         this.image = INGREDIENT_INFOS.INGREDIENT_HERBE.IMAGE
+        this.imgUrl = INGREDIENT_INFOS.INGREDIENT_HERBE.IMAGEURL
+        this.type = INGREDIENT_INFOS.INGREDIENT_HERBE.TYPE;
+
         this.price = INGREDIENT_INFOS.INGREDIENT_HERBE.PRICE;
     }
 }
@@ -193,6 +245,9 @@ class JalapenosIngredient extends Ingredient{
         }
         this.rng = INGREDIENT_INFOS.INGREDIENT_JALAPENOS.BASE_RANGE;
         this.image = INGREDIENT_INFOS.INGREDIENT_JALAPENOS.IMAGE
+        this.imgUrl = INGREDIENT_INFOS.INGREDIENT_JALAPENOS.IMAGEURL
+        this.type = INGREDIENT_INFOS.INGREDIENT_JALAPENOS.TYPE;
+
         this.price = INGREDIENT_INFOS.INGREDIENT_JALAPENOS.PRICE;
     }
 }
@@ -208,6 +263,9 @@ class OnionIngredient extends Ingredient{
         }
         this.rng = INGREDIENT_INFOS.INGREDIENT_ONION.BASE_RANGE;
         this.image = INGREDIENT_INFOS.INGREDIENT_ONION.IMAGE
+        this.imgUrl = INGREDIENT_INFOS.INGREDIENT_ONION.IMAGEURL
+        this.type = INGREDIENT_INFOS.INGREDIENT_ONION.TYPE;
+
         this.price = INGREDIENT_INFOS.INGREDIENT_ONION.PRICE;
     }
 }
