@@ -33,6 +33,11 @@ class Tower {
             path2: 0,
             path3: 0,
         };
+        this.upgradePrice = {
+          path1Upgradecost: 50,
+          path2Upgradecost: 50,
+          path3Upgradecost: 50,
+        }
     }
 
     async loadAsset() {
@@ -52,6 +57,7 @@ class Tower {
         this.towerAttackInterval();
         this.initTowerSelect();
         game.towerTilesOccupied.push(this.towerCell());
+        this.increaseLevel()
     }
 
     towerSelect() {
@@ -66,33 +72,32 @@ class Tower {
         this.hideRange();
         towerManager.hideUpgrades(this);
     }
-
+  
     initTowerSelect() {
-        console.log("init tower select");
-        this.sprite.interactive = true;
-        this.sprite.buttonMode = true;
+      console.log("init tower select");
+      this.sprite.interactive = true;
+      this.sprite.buttonMode = true;
+      this.is_selected = false;
+      this.sprite.on("click", (e) => {
+          if (this.is_selected) {
+              return;
+          }
+          const handleClick = (event) => {
+              if (!this.is_selected) {
+                  return;
+              }
+              this.towerUnselect();
+              this.is_selected = false;
+              game.app.view.removeEventListener("click", handleClick);
+          };
 
-        this.is_selected = false;
-        this.sprite.on("click", (e) => {
-            if (this.is_selected) {
-                return;
-            }
-            const handleClick = (event) => {
-                if (!this.is_selected) {
-                    return;
-                }
-                this.towerUnselect();
-                this.is_selected = false;
-                game.app.view.removeEventListener("click", handleClick);
-            };
+          game.app.view.addEventListener("click", handleClick);
 
-            game.app.view.addEventListener("click", handleClick);
-
-            setTimeout(() => {
-                this.is_selected = true;
-                this.towerSelect();
-            }, 10);
-        });
+          setTimeout(() => {
+              this.is_selected = true;
+              this.towerSelect();
+          }, 10);
+      });
     }
 
     initRangeVisual() {
@@ -218,33 +223,6 @@ class Tower {
         }
     }
 
-    increaseLevel(id_upgrade) {
-        if (id_upgrade === 1) {
-            if (this.level.path1 === 3) {
-                console.log("deja niv max");
-            } else {
-                this.level.path1 += 1;
-                this.stats.attack += 5;
-            }
-        }
-        if (id_upgrade === 2) {
-            if (this.level.path2 === 3) {
-                console.log("deja niv max");
-            } else {
-                this.level.path2 += 1;
-                this.stats.shot_speed -= 500;
-            }
-        }
-        if (id_upgrade === 3) {
-            if (this.level.path3 === 3) {
-                console.log("deja niv max");
-            } else {
-                this.level.path3 += 1;
-                this.stats.range += 1;
-            }
-        }
-    }
-
     attackSquash(duration = 100, scaleFactor = 0.7) {
         const originalScaleY = this.sprite.scale.y;
         console.log(originalScaleY)
@@ -280,7 +258,8 @@ class Tower {
                 this.attackSquash(100,0.8);
             }
             console.log(this.enemies_in_range);
-        }
+          }
+       }
     }
 
     towerAttackInterval() {
@@ -288,6 +267,53 @@ class Tower {
             this.towerAttack();
         }, this.stats.shot_speed);
     }
+
+  increaseLevel() {
+    const path1 = document.querySelector(".path1")
+    const path2 = document.querySelector(".path2")
+    const path3 = document.querySelector(".path3")
+    const path1Price = document.querySelector(".path1Price")
+    const path2Price = document.querySelector(".path2Price")
+    const path3Price = document.querySelector(".path3Price")
+    
+    path1.addEventListener("click", () => {
+        if (this.level.path1 === 3) {
+            return
+        } else {
+            console.log("fswdvwscdfbdsvsddgvfdqscdsfgfvd");
+            
+            this.stats.attack = this.stats.attack * 1.50
+            this.level.path1 ++
+            console.log(this.upgradePrice.path1Upgradecost);
+            this.upgradePrice.path1Upgradecost = this.upgradePrice.path1Upgradecost + (20 * this.level.path1)
+            
+            path1Price.textContent = this.upgradePrice.path1Upgradecost
+        }
+    })
+    path2.addEventListener("click", () => {
+        if (this.level.path2 === 3) {
+            return
+        } else {
+            this.stats.shot_speed = this.stats.shot_speed * 0.8
+            this.level.path2 ++
+            this.upgradePrice.path2Upgradecost = this.upgradePrice.path2Upgradecost + (20 * this.level.path2)
+            path2Price.textContent = this.upgradePrice.path2Upgradecost
+        }
+    })
+    path3.addEventListener("click", () => {
+        if (this.level.path3 === 3) {
+            return
+        } else {
+            this.stats.range += 0.5
+            this.level.path3 ++
+            this.upgradePrice.path3Upgradecost = this.upgradePrice.path3Upgradecost + (20 * this.level.path3)
+            path3Price.textContent = this.upgradePrice.path3Upgradecost
+        }
+    })
+  }
+
+  
+   
 }
 
 class ComteTower extends Tower {
