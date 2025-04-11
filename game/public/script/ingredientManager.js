@@ -70,8 +70,6 @@ function showUpgrades(ingredient) {
 
     ratName.innerHTML = ingredient.type;
     image.src = ingredient.imgUrl;
-    upgrade_name_elements.innerHTML = ingredient.buffs.typebuff;
-    upgrade_price_elements.innerHTML = "5"; // A COMPLETER AVEC LE PRIX DE L'UPGRADE
     
 }
 

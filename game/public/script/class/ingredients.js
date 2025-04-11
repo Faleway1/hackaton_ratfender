@@ -11,12 +11,12 @@ class Ingredient {
             base_buff: INGREDIENT_INFOS.INGREDIENT_MILK.BASE_BUFF,
             level: INGREDIENT_INFOS.INGREDIENT_MILK.BASE_LEVEL
         }
-        this.rng = INGREDIENT_INFOS.INGREDIENT_MILK.BASE_RANGE;
+        this.range = INGREDIENT_INFOS.INGREDIENT_MILK.BASE_RANGE;
         this.image = INGREDIENT_INFOS.INGREDIENT_MILK.IMAGE
         this.imgUrl = INGREDIENT_INFOS.INGREDIENT_MILK.IMAGEURL
         this.type = INGREDIENT_INFOS.INGREDIENT_MILK.TYPE;
         this.towers = []
-        this.price = INGREDIENT_INFOS.INGREDIENT_MILK.PRICE;
+        this.price = INGREDIENT_INFOS.INGREDIENT_MILK.BASE_PRICE;
 
         this.is_placed = false;
         this.asset = ""
@@ -28,8 +28,26 @@ class Ingredient {
         this.enemies_in_range = []
     }
 
-    IncreaseBuff() {
-        this.buffs.current_buff += this.buffs.base_buff
+    increaseBuff() {
+        const priceHtml = document.querySelector(".ingredientUp")
+        const priceIngre = document.querySelector(".priceIngre")
+        console.log(this.price);
+        
+        priceHtml.addEventListener("click", () => {
+            if (this.price <= game.pdr) {
+                if (this.buffs.level >= 5) {
+                    return false
+                }
+                console.log(this.price);
+                
+                game.pdr = game.pdr - this.price
+                game.money.textContent = game.pdr
+                this.buffs.level += 1
+                this.buffs.current_buff = this.buffs.base_buff * this.buffs.level
+                this.price = this.price + (20 * this.buffs.level)
+                priceIngre.textContent = this.price
+            }
+        })
     }
 
     async loadAsset() {
@@ -48,22 +66,20 @@ class Ingredient {
         this.detectTowersInterval()
         this.initIngredientSelect()
         game.towerTilesOccupied.push(this.ingredientCell())
+        this.increaseBuff()
     }
 
     ingredientSelect() {
-        console.log("ingredient select")
         ingredientManager.showUpgrades(this);
         this.showRange()
     }
 
     ingredientUnselect() {
-        console.log("ingredient unselect")
         ingredientManager.hideUpgrades(this);
         this.hideRange()
     }
 
     initIngredientSelect() {
-        console.log("init ingredient select");
         this.sprite.interactive = true;
         this.sprite.buttonMode = true;
     
@@ -92,7 +108,7 @@ class Ingredient {
 
     initRangeVisual() {
         this.rangeGraphic = new PIXI.Graphics();
-        this.rangeGraphic.circle(0, 0, this.rng * game.tilewidth);
+        this.rangeGraphic.circle(0, 0, this.range * game.tilewidth);
         this.rangeGraphic.beginFill(0x00FF00, 0.5); // Vert avec opacité
         game.app.stage.addChild(this.rangeGraphic)
         this.rangeGraphic.stroke({ width: 2, color: 0xfeeb77 });
@@ -113,10 +129,11 @@ class Ingredient {
     freeCellsInRange() {
         const freeCells = []
         const cell = gridManager.findOnGrid(this.position.x, this.position.y, game.cellsList);
-        const startCol = Math.floor((cell.x - this.rng));
-        const endCol = Math.floor((cell.x + this.rng));
-        const startRow = Math.floor((cell.y - this.rng));
-        const endRow = Math.floor((cell.y + this.rng));
+        const startCol = Math.floor((cell.x - this.range));
+        const endCol = Math.floor((cell.x + this.range));
+        const startRow = Math.floor((cell.y - this.range));
+        const endRow = Math.floor((cell.y + this.range));
+
 
         for (let col = startCol; col <= endCol; col++) {
             for (let row = startRow; row <= endRow; row++) {
@@ -127,23 +144,37 @@ class Ingredient {
                 }
             }
         }
-        this.cells_in_range = freeCells;
-        console.log(this.cells_in_range);
-        
+        this.cells_in_range = freeCells;        
     }
+
+    applyBuffToTower(tower) {
+        const tower_buff = tower.buffs.filter((buff) => buff.typebuff === this.buffs.typebuff)
+        if (tower_buff.length > 0) {
+            tower.buffs.pop(tower_buff[0])
+        }
+        tower.buffs.push(this.buffs)
+        tower.updateBuffs()
+    }
+
+    applyBuffToTowers(list_of_towers) {
+        list_of_towers.forEach((tower) => {
+            this.applyBuffToTower(tower)
+        })
+    }
+            
+
 
     detectNearbyTowers() {
         const towers_nearby = []
         this.cells_in_range.forEach((cell) => {
             cell.towers.forEach((tower) => {
-                console.log(tower);
-                
-                if (!towers_nearby.includes(tower)) {
+                if (tower.is_placed && !towers_nearby.includes(tower)) {     
                     towers_nearby.push(tower)
-                }
+                } 
             })
         })
-        console.log(towers_nearby);
+        this.applyBuffToTowers(towers_nearby)
+        this.towers = towers_nearby
         
     }
 
@@ -224,12 +255,12 @@ class PepperIngredient extends Ingredient{
             level: INGREDIENT_INFOS.INGREDIENT_PEPPER.BASE_LEVEL
         }
 
-        this.rng = INGREDIENT_INFOS.INGREDIENT_PEPPER.BASE_RANGE;
+        this.range = INGREDIENT_INFOS.INGREDIENT_PEPPER.BASE_RANGE;
         this.image = INGREDIENT_INFOS.INGREDIENT_PEPPER.IMAGE;
         this.imgUrl = INGREDIENT_INFOS.INGREDIENT_PEPPER.IMAGEURL
         this.type = INGREDIENT_INFOS.INGREDIENT_PEPPER.TYPE;
 
-        this.price =INGREDIENT_INFOS.INGREDIENT_PEPPER.PRICE
+        this.price =INGREDIENT_INFOS.INGREDIENT_PEPPER.BASE_PRICE
     }
 }
 class FigueIngredient extends Ingredient{
@@ -242,12 +273,12 @@ class FigueIngredient extends Ingredient{
             base_buff: INGREDIENT_INFOS.INGREDIENT_FIGUE.BASE_BUFF,
             level: INGREDIENT_INFOS.INGREDIENT_FIGUE.BASE_LEVEL
         }
-        this.rng = INGREDIENT_INFOS.INGREDIENT_FIGUE.BASE_RANGE;
+        this.range = INGREDIENT_INFOS.INGREDIENT_FIGUE.BASE_RANGE;
         this.image = INGREDIENT_INFOS.INGREDIENT_FIGUE.IMAGE
         this.imgUrl = INGREDIENT_INFOS.INGREDIENT_FIGUE.IMAGEURL
         this.type = INGREDIENT_INFOS.INGREDIENT_FIGUE.TYPE;
 
-        this.price = INGREDIENT_INFOS.INGREDIENT_FIGUE.PRICE;
+        this.price = INGREDIENT_INFOS.INGREDIENT_FIGUE.BASE_PRICE;
     }
 }
 class HerbeIngredient extends Ingredient{
@@ -260,12 +291,12 @@ class HerbeIngredient extends Ingredient{
             base_buff: INGREDIENT_INFOS.INGREDIENT_HERBE.BASE_BUFF,
             level: INGREDIENT_INFOS.INGREDIENT_HERBE.BASE_LEVEL
         }
-        this.rng = INGREDIENT_INFOS.INGREDIENT_HERBE.BASE_RANGE;
+        this.range = INGREDIENT_INFOS.INGREDIENT_HERBE.BASE_RANGE;
         this.image = INGREDIENT_INFOS.INGREDIENT_HERBE.IMAGE
         this.imgUrl = INGREDIENT_INFOS.INGREDIENT_HERBE.IMAGEURL
         this.type = INGREDIENT_INFOS.INGREDIENT_HERBE.TYPE;
 
-        this.price = INGREDIENT_INFOS.INGREDIENT_HERBE.PRICE;
+        this.price = INGREDIENT_INFOS.INGREDIENT_HERBE.BASE_PRICE;
     }
 }
 class JalapenosIngredient extends Ingredient{
@@ -278,12 +309,12 @@ class JalapenosIngredient extends Ingredient{
             base_buff: INGREDIENT_INFOS.INGREDIENT_JALAPENOS.BASE_BUFF,
             level: INGREDIENT_INFOS.INGREDIENT_JALAPENOS.BASE_LEVEL
         }
-        this.rng = INGREDIENT_INFOS.INGREDIENT_JALAPENOS.BASE_RANGE;
+        this.range = INGREDIENT_INFOS.INGREDIENT_JALAPENOS.BASE_RANGE;
         this.image = INGREDIENT_INFOS.INGREDIENT_JALAPENOS.IMAGE
         this.imgUrl = INGREDIENT_INFOS.INGREDIENT_JALAPENOS.IMAGEURL
         this.type = INGREDIENT_INFOS.INGREDIENT_JALAPENOS.TYPE;
 
-        this.price = INGREDIENT_INFOS.INGREDIENT_JALAPENOS.PRICE;
+        this.price = INGREDIENT_INFOS.INGREDIENT_JALAPENOS.BASE_PRICE;
     }
 }
 class OnionIngredient extends Ingredient{
@@ -296,12 +327,12 @@ class OnionIngredient extends Ingredient{
             base_buff: INGREDIENT_INFOS.INGREDIENT_ONION.BASE_BUFF,
             level: INGREDIENT_INFOS.INGREDIENT_ONION.BASE_LEVEL
         }
-        this.rng = INGREDIENT_INFOS.INGREDIENT_ONION.BASE_RANGE;
+        this.range = INGREDIENT_INFOS.INGREDIENT_ONION.BASE_RANGE;
         this.image = INGREDIENT_INFOS.INGREDIENT_ONION.IMAGE
         this.imgUrl = INGREDIENT_INFOS.INGREDIENT_ONION.IMAGEURL
         this.type = INGREDIENT_INFOS.INGREDIENT_ONION.TYPE;
 
-        this.price = INGREDIENT_INFOS.INGREDIENT_ONION.PRICE;
+        this.price = INGREDIENT_INFOS.INGREDIENT_ONION.BASE_PRICE;
     }
 }
 
