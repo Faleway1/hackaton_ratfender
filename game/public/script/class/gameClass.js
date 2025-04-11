@@ -112,7 +112,7 @@ export class Game {
     async startRound() {
         let i = 0
         this.spawnEnnemies = setInterval(async () => {
-            if (i === this.ennemySpawn) {
+            if (i === 2) {
                 clearInterval(this.spawnEnnemies)
                 return
             }
@@ -132,6 +132,9 @@ export class Game {
 
     endRound() {
         clearInterval(this.gameInterval)
+        this.pdr += roundEndPdr(this.round, this.pdrPerRound)
+        this.round += 1
+        this.startRound()
         
     }
 

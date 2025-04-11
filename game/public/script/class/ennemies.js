@@ -80,8 +80,11 @@ class Rat{
 
         if (this.position >= game.path.length - 1) {
             console.log("End of path reached.");
+            game.totalEnnemies.pop(this)
             this.finishPath();
-            return;
+            if (game.totalEnnemies.length === 0) {
+                return
+            }
         }
         this.render();
         this.cell_position.ennemies.push(this)
