@@ -8,6 +8,7 @@ import { ENEMIES } from "./class/ennemies.js";
 import { gridManager } from "./gridManager.js";
 
 towerManager.activateButtons()
+ingredientManager.activateButtons()
 
 const game = new Game(
   GAME_SETTINGS.TILES_PER_ROW,
