@@ -1,7 +1,7 @@
 import { roundEndPdr } from "../pdrManager.js";
 import { gridManager } from "../gridManager.js";
 import { createPath } from "../pathManager.js";
-import { GAME_SETTINGS } from "../config.js";
+import { ENEMY_INFOS, GAME_SETTINGS } from "../config.js";
 import { ENEMIES } from "./ennemies.js";
 import { Cell } from "./cell.js";
 
@@ -24,6 +24,11 @@ export class Game {
         this.life = 100
         this.ennemySpawn = 5 + (2*this.round)
 
+        this.rng = new Math.seedrandom('efrei');
+        // this.rng = Math.random;
+        this.isPaused = false;
+        this.isPlaying = false;
+
         this.money = document.querySelector(".money")
         this.money.textContent = this.pdr
         this.app = new PIXI.Application();
@@ -31,8 +36,9 @@ export class Game {
 
     async initGame() {
         await this.initCanva();
-        this.initGrid();
-        this.initPath();
+        await this.initGrid();
+        await this.initPath();
+        this.money.textContent = this.pdr
     }
     
     async initCanva() {
@@ -40,13 +46,13 @@ export class Game {
         document.querySelector("#game").appendChild(this.app.view);
     }
 
-    initGrid() {
-        this.cellsList = gridManager.createGrid(this.tilesPerRow, this.tilesPerCol);
+    async initGrid() {
+        this.cellsList = await gridManager.createGrid(this.tilesPerRow, this.tilesPerCol);
     }
 
-    initPath() {
+    async initPath() {
         this.path = this.generatePath(this.path);
-        const path = createPath(this.path);
+        const path = await createPath(this.path);
         this.app.stage.addChild(path);
     }
 
@@ -76,6 +82,8 @@ export class Game {
                 break;
             }
             const currentDirection = possibleDirections[Math.floor(Math.random() * possibleDirections.length)]; // Choisit une direction aléatoire
+            // const currentDirection = possibleDirections[Math.floor(this.rng() * possibleDirections.length)];
+
             if (currentDirection[0] === 0) {
                 blockedPaths.push(gridManager.findCell(currentCell.x + 1, currentCell.y, this.cellsList)); // Ajoute la cellule suivante aux chemins bloqués
                 blockedPaths.push(gridManager.findCell(currentCell.x - 1, currentCell.y, this.cellsList)); // Ajoute la cellule suivante aux chemins bloqués
@@ -98,8 +106,43 @@ export class Game {
         return path;
     }
 
-    async createRat() {
-        const new_rat = new ENEMIES.Rat();
+    defineEnnemyAmount() {
+        this.ennemySpawn = 5 + (2 * this.round)
+    }
+
+    checkPossibleEnnemies() {
+        const ennemyTypes = []
+        if (this.round > 0) {
+            ennemyTypes.push(ENEMY_INFOS.NORMAL_RAT)
+        }
+        if (this.round > 5) {
+            ennemyTypes.push(ENEMY_INFOS.CAMO_RAT)
+        }
+        if (this.round > 10) {
+            ennemyTypes.push(ENEMY_INFOS.RAINBOW_RAT)
+        }
+        if (this.round > 15) {
+            ennemyTypes.push(ENEMY_INFOS.STEEL_RAT)
+        }
+        return ennemyTypes
+    }
+
+    async createRat(ratType) {
+        let new_rat = null;
+        switch (ratType) {
+            case ENEMY_INFOS.CAMO_RAT:
+                new_rat = new ENEMIES.CamoRat();
+                break;
+            case ENEMY_INFOS.RAINBOW_RAT:
+                new_rat = new ENEMIES.RainbowRat();
+                break;
+            case ENEMY_INFOS.STEEL_RAT:
+                new_rat = new ENEMIES.SteelRat();
+                break;
+            default:
+                new_rat = new ENEMIES.Rat();
+                break;
+        }
         await new_rat.loadAsset()
         new_rat.render()
         this.totalEnnemies.push(new_rat)
@@ -107,7 +150,10 @@ export class Game {
     }
 
     async startRound() {
+        if (this.isPlaying) return
         let i = 0
+        this.defineEnnemyAmount()
+        const possible_enemies = this.checkPossibleEnnemies()
         
         this.spawnEnnemiesInterval = setInterval(async () => {
             if (i === this.ennemySpawn) {
@@ -115,7 +161,7 @@ export class Game {
                 return
             }
             i++
-            let new_rat = await this.createRat()
+            let new_rat = await this.createRat(possible_enemies[Math.floor(this.rng() * possible_enemies.length)])
             new_rat.moveEntityInterval()
         }, 1000)
         setTimeout(() => {
@@ -134,9 +180,16 @@ export class Game {
     }
 
     roundEnd() {
+        
         clearInterval(this.gameInterval)
         clearInterval(this.spawnEnnemiesInterval)
         clearInterval(this.checkIfRoundEndInterval)
+        this.round++
+        console.log(this.round)
+        if (this.isPaused) return
+        else {
+            this.startRound()
+        }
     }
 
 }

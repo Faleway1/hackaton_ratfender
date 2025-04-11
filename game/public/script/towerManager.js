@@ -4,7 +4,6 @@ import { game } from "./game.js";
 
 async function placeTower(towerType) {
     let new_tower = null
-    console.log(towerType);
     
     switch (towerType) {
         case TOWER_INFOS.TOWER_TOME.TYPE:
@@ -85,23 +84,29 @@ function activateButtons() {
         if (game.pdr >= TOWER_INFOS.TOWER_TOME.BASE_PRICE) {
             placeTower(TOWER_INFOS.TOWER_TOME.TYPE);
             game.pdr = game.pdr - TOWER_INFOS.TOWER_TOME.BASE_PRICE
-            console.log(game.pdr);
+            game.money.textContent = game.pdr
             
         }
     });
     comte.addEventListener("click", () => {
         if (game.pdr >= TOWER_INFOS.TOWER_COMTE.BASE_PRICE) {
             placeTower(TOWER_INFOS.TOWER_COMTE.TYPE);
+            game.pdr = game.pdr - TOWER_INFOS.TOWER_COMTE.BASE_PRICE
+            game.money.textContent = game.pdr
         }
     });
     chevre.addEventListener("click", () => {
         if (game.pdr >= TOWER_INFOS.TOWER_CHEVRE.BASE_PRICE) {
             placeTower(TOWER_INFOS.TOWER_CHEVRE.TYPE);
+            game.pdr = game.pdr - TOWER_INFOS.TOWER_CHEVRE.BASE_PRICE
+            game.money.textContent = game.pdr
         }
     });
     roquefort.addEventListener("click", () => {
         if (game.pdr >= TOWER_INFOS.TOWER_ROQUEFORT.BASE_PRICE) {
             placeTower(TOWER_INFOS.TOWER_ROQUEFORT.TYPE);
+            game.pdr = game.pdr - TOWER_INFOS.TOWER_ROQUEFORT.BASE_PRICE
+            game.money.textContent = game.pdr
         }
     });
 }

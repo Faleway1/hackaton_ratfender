@@ -2,12 +2,14 @@ import { Cell } from "./class/cell.js";
 import { game } from "./game.js";
 import { GAME_SETTINGS } from "./config.js";
 
-function createGrid(width, height) {
+async function createGrid(width, height) {
     let cellsList = [];
+    const texture = await PIXI.Assets.load('tileBg')
     for (let x = 0; x < width; x++) {
         for (let y = 0; y < height; y++) {
             const cell = new Cell(x, y);
             cellsList.push(cell);
+            cell.highlight(texture)
         }
     }
     return cellsList

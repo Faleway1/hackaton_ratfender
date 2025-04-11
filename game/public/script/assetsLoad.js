@@ -20,3 +20,4 @@ PIXI.Assets.add({ alias: 'figueIngredient', src: '../public/assets/figueIngredie
 PIXI.Assets.add({ alias: 'herbeIngredient', src: '../public/assets/herbeIngredient.png' });
 
 PIXI.Assets.add({ alias: 'sfx', src: '../public/assets/sfxDeath.png' });
+PIXI.Assets.add({ alias: 'tileBg', src: '../public/assets/tileBg.png' });

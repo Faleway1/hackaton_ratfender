@@ -89,33 +89,45 @@ function activateButtons() {
     const figue = document.querySelector(".ingredient_figue");
 
     milk.addEventListener("click", () => {
-        if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_MILK.TYPE) {
+        if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_MILK.BASE_PRICE) {
             placeIngredient(INGREDIENT_INFOS.INGREDIENT_MILK.TYPE);
+            game.pdr = game.pdr - INGREDIENT_INFOS.INGREDIENT_MILK.BASE_PRICE
+            game.money.textContent = game.pdr
         }
     });
     pepper.addEventListener("click", () => {
-        if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_PEPPER.TYPE) {
+        if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_PEPPER.BASE_PRICE) {
             placeIngredient(INGREDIENT_INFOS.INGREDIENT_PEPPER.TYPE);
+            game.pdr = game.pdr - INGREDIENT_INFOS.INGREDIENT_PEPPER.BASE_PRICE
+            game.money.textContent = game.pdr
         }
     });
     jalapenos.addEventListener("click", () => {
-        if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_JALAPENOS.TYPE) {
+        if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_JALAPENOS.BASE_PRICE) {
             placeIngredient(INGREDIENT_INFOS.INGREDIENT_JALAPENOS.TYPE);
+            game.pdr = game.pdr - INGREDIENT_INFOS.INGREDIENT_JALAPENOS.BASE_PRICE
+            game.money.textContent = game.pdr
         }
     });
     onion.addEventListener("click", () => {
-        if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_ONION.TYPE) {
+        if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_ONION.BASE_PRICE) {
             placeIngredient(INGREDIENT_INFOS.INGREDIENT_ONION.TYPE);
+            game.pdr = game.pdr - INGREDIENT_INFOS.INGREDIENT_ONION.BASE_PRICE
+            game.money.textContent = game.pdr
         }
     });
     herbe.addEventListener("click", () => {
-        if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_HERBE.TYPE) {
+        if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_HERBE.BASE_PRICE) {
             placeIngredient(INGREDIENT_INFOS.INGREDIENT_HERBE.TYPE);
+            game.pdr = game.pdr - INGREDIENT_INFOS.INGREDIENT_HERBE.BASE_PRICE
+            game.money.textContent = game.pdr
         }
     });
     figue.addEventListener("click", () => {
-        if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_FIGUE.TYPE) {
+        if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_FIGUE.BASE_PRICE) {
             placeIngredient(INGREDIENT_INFOS.INGREDIENT_FIGUE.TYPE);
+            game.pdr = game.pdr - INGREDIENT_INFOS.INGREDIENT_FIGUE.BASE_PRICE
+            game.money.textContent = game.pdr
         }
     });
 }
