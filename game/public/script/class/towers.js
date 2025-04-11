@@ -61,20 +61,17 @@ class Tower {
     }
 
     towerSelect() {
-        console.log("tower select");
         towerManager.showUpgrades(this);
 
         this.showRange();
     }
 
     towerUnselect() {
-        console.log("tower unselect");
         this.hideRange();
         towerManager.hideUpgrades(this);
     }
 
     initTowerSelect() {
-        console.log("init tower select");
         this.sprite.interactive = true;
         this.sprite.buttonMode = true;
         this.is_selected = false;
@@ -152,8 +149,9 @@ class Tower {
                 }
             });
         });
+        enemies_nearby.sort((a, b) => a.id - b.id);
+
         this.enemies_in_range = enemies_nearby;
-        console.log("enemies_in_range", this.enemies_in_range);
     }
 
     detectEnemisInterval() {
@@ -225,7 +223,6 @@ class Tower {
 
     attackSquash(duration = 100, scaleFactor = 0.7) {
         const originalScaleY = this.sprite.scale.y;
-        console.log(originalScaleY)
 
         // Applatir verticalement
         this.sprite.scale.y = originalScaleY * scaleFactor;
@@ -240,24 +237,19 @@ class Tower {
         this.detectNearbyEnemies();
 
         if (!this.enemies_in_range.length) {
-            console.log("no rat in range")
             return;
         } else {
             for (let i = 0; i < this.stats.nb_shots; i++) {
-                console.log("trying to shoot")
                 if (
                     this.enemies_in_range[i] === undefined ||
                     this.enemies_in_range[i].hp <= 0
                 ) {
-                    console.log("enemy already dead")
                     this.enemies_in_range.pop(this.enemies_in_range[i]);
                     continue;
                 }
-                console.log("attacking enemy")
                 this.enemies_in_range[i].takeDamage(this.stats.attack);
                 this.attackSquash(100, 0.8);
             }
-            console.log(this.enemies_in_range);
         }
     }
 
@@ -280,11 +272,9 @@ class Tower {
             if (this.level.path1 === 3) {
                 return
             } else {
-                console.log("fswdvwscdfbdsvsddgvfdqscdsfgfvd");
 
                 this.stats.attack = this.stats.attack * 1.50
                 this.level.path1++
-                console.log(this.upgradePrice.path1Upgradecost);
                 this.upgradePrice.path1Upgradecost = this.upgradePrice.path1Upgradecost + (20 * this.level.path1)
 
                 path1Price.textContent = this.upgradePrice.path1Upgradecost

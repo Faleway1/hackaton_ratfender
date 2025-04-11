@@ -4,7 +4,6 @@ import { game } from "./game.js";
 
 async function placeTower(towerType) {
     let new_tower = null
-    console.log(towerType);
     
     switch (towerType) {
         case TOWER_INFOS.TOWER_TOME.TYPE:
