@@ -2,9 +2,15 @@ import { TOWER_INFOS } from "./config.js";
 import { TOWERS } from "./class/towers.js";
 import { game } from "./game.js";
 
-async function placeTower(towerType) {
+async function placeTower(towerType, card) {
+    if (game.isTowerBeignPlaced) {
+        return
+    }
+    game.isTowerBeignPlaced = true
     let new_tower = null
-    
+    document.querySelector(".black-flag").style.display = "flex"
+    card.style.opacity = "0.6"
+
     switch (towerType) {
         case TOWER_INFOS.TOWER_TOME.TYPE:
             new_tower = new TOWERS.Tower()
@@ -48,6 +54,9 @@ async function placeTower(towerType) {
         const mouseY = (event.clientY - rect.top) * scaleY;
 
         new_tower.render(mouseX, mouseY, true);
+        game.isTowerBeignPlaced = false
+        document.querySelector(".black-flag").style.display = "none"
+        card.style.opacity = "1"
     }
     game.app.view.addEventListener("mousemove", handleMouseMove);
     game.app.view.addEventListener("click", handleMouseClick);
@@ -82,40 +91,70 @@ function activateButtons() {
 
     tome.addEventListener("click", () => {
         if (game.pdr >= TOWER_INFOS.TOWER_TOME.BASE_PRICE) {
-            placeTower(TOWER_INFOS.TOWER_TOME.TYPE);
-            game.pdr = game.pdr - TOWER_INFOS.TOWER_TOME.BASE_PRICE
-            game.money.textContent = game.pdr
+            placeTower(TOWER_INFOS.TOWER_TOME.TYPE, tome);
+            const substract = game.substractPdr.bind(game);
+            substract(TOWER_INFOS.TOWER_TOME.BASE_PRICE)
             
         }
     });
     comte.addEventListener("click", () => {
         if (game.pdr >= TOWER_INFOS.TOWER_COMTE.BASE_PRICE) {
-            placeTower(TOWER_INFOS.TOWER_COMTE.TYPE);
-            game.pdr = game.pdr - TOWER_INFOS.TOWER_COMTE.BASE_PRICE
-            game.money.textContent = game.pdr
+            placeTower(TOWER_INFOS.TOWER_COMTE.TYPE, comte);
+            const substract = game.substractPdr.bind(game);
+            substract(TOWER_INFOS.TOWER_COMTE.BASE_PRICE)
         }
     });
     chevre.addEventListener("click", () => {
         if (game.pdr >= TOWER_INFOS.TOWER_CHEVRE.BASE_PRICE) {
-            placeTower(TOWER_INFOS.TOWER_CHEVRE.TYPE);
-            game.pdr = game.pdr - TOWER_INFOS.TOWER_CHEVRE.BASE_PRICE
-            game.money.textContent = game.pdr
+            placeTower(TOWER_INFOS.TOWER_CHEVRE.TYPE, chevre);
+            const substract = game.substractPdr.bind(game);
+            substract(TOWER_INFOS.TOWER_CHEVRE.BASE_PRICE)
         }
     });
     roquefort.addEventListener("click", () => {
         if (game.pdr >= TOWER_INFOS.TOWER_ROQUEFORT.BASE_PRICE) {
-            placeTower(TOWER_INFOS.TOWER_ROQUEFORT.TYPE);
-            game.pdr = game.pdr - TOWER_INFOS.TOWER_ROQUEFORT.BASE_PRICE
-            game.money.textContent = game.pdr
+            placeTower(TOWER_INFOS.TOWER_ROQUEFORT.TYPE, roquefort);
+            const substract = game.substractPdr.bind(game);
+            substract(TOWER_INFOS.TOWER_ROQUEFORT.BASE_PRICE)
         }
     });
+}
+
+function updateCardsColor () {
+    const tome = document.querySelector(".tower_tome");
+    const comte = document.querySelector(".tower_comte");
+    const chevre = document.querySelector(".tower_chevre");
+    const roquefort = document.querySelector(".tower_roquefort");
+
+    const cards = [
+        [TOWER_INFOS.TOWER_TOME, tome],
+        [TOWER_INFOS.TOWER_COMTE, comte],
+        [TOWER_INFOS.TOWER_CHEVRE, chevre],
+        [TOWER_INFOS.TOWER_ROQUEFORT, roquefort],
+    ]
+
+    cards.forEach(card => {
+        console.log(card);
+        
+        if (game.pdr >= card[0].BASE_PRICE) {
+            card[1].style.backgroundColor = "green"
+            card[1].style.border = "darkgreen 2px solid"
+
+        } else {
+            card[1].style.backgroundColor = "red"
+            card[1].style.border = "brown 2px solid"
+        }
+    });
+    
+
 }
 
 const towerManager = {
     placeTower,
     showUpgrades,
     hideUpgrades,
-    activateButtons
+    activateButtons,
+    updateCardsColor
 };
 
 export { towerManager };

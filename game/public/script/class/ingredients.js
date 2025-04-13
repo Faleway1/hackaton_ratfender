@@ -31,16 +31,14 @@ class Ingredient {
     increaseBuff() {
         const priceHtml = document.querySelector(".ingredientUp")
         const priceIngre = document.querySelector(".priceIngre")
-        console.log(this.price);
         
         priceHtml.addEventListener("click", () => {
             if (this.price <= game.pdr) {
                 if (this.buffs.level >= 5) {
                     return false
                 }
-                console.log(this.price);
                 
-                game.pdr = game.pdr - this.price
+                game.game.substractPdr(this.price)
                 game.money.textContent = game.pdr
                 this.buffs.level += 1
                 this.buffs.current_buff = this.buffs.base_buff * this.buffs.level
@@ -173,7 +171,6 @@ class Ingredient {
                 } 
             })
         })
-        console.log(towers_nearby)
         this.applyBuffToTowers(towers_nearby)
         this.towers = towers_nearby
         

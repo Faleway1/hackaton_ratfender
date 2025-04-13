@@ -33,6 +33,7 @@ class Tower {
         this.enemies_in_range = [];
 
         this.buffs = []
+        this.multiplier = 1;
 
         this.level = {
             path1: 0,
@@ -150,8 +151,8 @@ class Tower {
     detectNearbyEnemies() {
         const enemies_nearby = [];
         this.paths_in_range.forEach((cell) => {
-            cell.ennemies.forEach((enemy) => {
-                if (!enemies_nearby.includes(enemy)) {
+            cell.ennemies.forEach((enemy) => {                
+                if (!enemies_nearby.includes(enemy) && this.canAttackEnemy(enemy)) {
                     enemies_nearby.push(enemy);
                 }
             });
@@ -159,6 +160,7 @@ class Tower {
         enemies_nearby.sort((a, b) => a.id - b.id);
 
         this.enemies_in_range = enemies_nearby;
+        
     }
 
     detectEnemisInterval() {
@@ -254,7 +256,7 @@ class Tower {
                     this.enemies_in_range.pop(this.enemies_in_range[i]);
                     continue;
                 }
-                if (this.attackEnemy(this.enemies_in_range[i]) === true) {
+                if (this.canAttackEnemy(this.enemies_in_range[i]) === true) {
                     this.enemies_in_range[i].takeDamage(this.stats.attack * this.multiplier);
                     this.attackSquash(100, 0.8);
                 } else {
@@ -264,8 +266,7 @@ class Tower {
         }
     }
 
-    attackEnemy(enemy) {
-        console.log(enemy, this.rat_type)
+    canAttackEnemy(enemy) {
         if (enemy.type === "camo" && !this.rat_type.includes("camo")) {
             return false
         } if (enemy.type === "rainbow" && !this.rat_type.includes("rainbow")) {
@@ -302,7 +303,7 @@ class Tower {
               if (this.upgradePrice.path1Upgradecost <= game.pdr) {
                 this.stats.attack = this.stats.attack + 5
                 this.level.path1++
-                game.pdr = game.pdr - this.upgradePrice.path1Upgradecost
+                game.pdr = game.substractPdr(this.upgradePrice.path1Upgradecost)
                 game.money.textContent = game.pdr
                 this.upgradePrice.path1Upgradecost = this.upgradePrice.path1Upgradecost + (20 * this.level.path1)
                 path1Price.textContent = this.upgradePrice.path1Upgradecost
@@ -316,7 +317,7 @@ class Tower {
                 if (this.upgradePrice.path2Upgradecost <= game.pdr) {
                   this.stats.shot_speed = this.stats.shot_speed * 0.8
                   this.level.path2++
-                  game.pdr = game.pdr - this.upgradePrice.path2Upgradecost
+                  game.pdr = game.substractPdr(this.upgradePrice.path2Upgradecost)
                   game.money.textContent = game.pdr
                   this.upgradePrice.path2Upgradecost = this.upgradePrice.path2Upgradecost + (20 * this.level.path2)
                   path2Price.textContent = this.upgradePrice.path2Upgradecost
@@ -330,7 +331,7 @@ class Tower {
               if (this.upgradePrice.path3Upgradecost <= game.pdr) {
                 this.stats.range = this.stats.range +0.5
                 this.level.path3++
-                game.pdr = game.pdr - this.upgradePrice.path3Upgradecost
+                game.pdr = game.substractPdr(this.upgradePrice.path3Upgradecost)
                 game.money.textContent = game.pdr
                 this.upgradePrice.path3Upgradecost = this.upgradePrice.path3Upgradecost + (20 * this.level.path3)
                 path3Price.textContent = this.upgradePrice.path3Upgradecost
@@ -356,7 +357,6 @@ class Tower {
             }
             
         });
-        console.log(this.stats)
     }
 
 

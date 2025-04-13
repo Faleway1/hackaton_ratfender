@@ -2,8 +2,15 @@ import { INGREDIENT_INFOS } from "./config.js";
 import { INGREDIENTS } from "./class/ingredients.js";
 import { game } from "./game.js";
 
-async function placeIngredient(ingredientType) {
+async function placeIngredient(ingredientType, card) {
+    if (game.isTowerBeignPlaced) {
+        return
+    }
+    game.isTowerBeignPlaced = true
     let new_ingredient = null   
+    document.querySelector(".black-flag").style.display = "flex"
+    card.style.opacity = "0.6"
+
     switch (ingredientType) {
         case INGREDIENT_INFOS.INGREDIENT_MILK.TYPE:
             new_ingredient = new INGREDIENTS.Ingredient()
@@ -27,6 +34,7 @@ async function placeIngredient(ingredientType) {
             console.error("Unknown tower type:", ingredientType);
             return null;        
     }
+    
     await new_ingredient.initBeforePlacement()
 
     const handleMouseMove = (event) => {
@@ -53,6 +61,10 @@ async function placeIngredient(ingredientType) {
         const mouseY = (event.clientY - rect.top) * scaleY;
 
         new_ingredient.render(mouseX, mouseY, true);
+        game.isTowerBeignPlaced = false
+        document.querySelector(".black-flag").style.display = "none"
+        card.style.opacity = "1"
+
     }
     game.app.view.addEventListener("mousemove", handleMouseMove);
     game.app.view.addEventListener("click", handleMouseClick);
@@ -86,48 +98,81 @@ function activateButtons() {
     const herbe = document.querySelector(".ingredient_herbe");
     const figue = document.querySelector(".ingredient_figue");
 
-    milk.addEventListener("click", () => {
+    milk.addEventListener("click", () => {        
+        console.log(game);
+        
         if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_MILK.BASE_PRICE) {
-            placeIngredient(INGREDIENT_INFOS.INGREDIENT_MILK.TYPE);
-            game.pdr = game.pdr - INGREDIENT_INFOS.INGREDIENT_MILK.BASE_PRICE
-            game.money.textContent = game.pdr
+            placeIngredient(INGREDIENT_INFOS.INGREDIENT_MILK.TYPE, milk);
+            const substract = game.substractPdr.bind(game);
+            substract(INGREDIENT_INFOS.INGREDIENT_MILK.BASE_PRICE)
         }
     });
     pepper.addEventListener("click", () => {
         if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_PEPPER.BASE_PRICE) {
-            placeIngredient(INGREDIENT_INFOS.INGREDIENT_PEPPER.TYPE);
-            game.pdr = game.pdr - INGREDIENT_INFOS.INGREDIENT_PEPPER.BASE_PRICE
-            game.money.textContent = game.pdr
+            placeIngredient(INGREDIENT_INFOS.INGREDIENT_PEPPER.TYPE, pepper);
+            const substract = game.substractPdr.bind(game);
+            substract(INGREDIENT_INFOS.INGREDIENT_PEPPER.BASE_PRICE)
         }
     });
     jalapenos.addEventListener("click", () => {
         if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_JALAPENOS.BASE_PRICE) {
-            placeIngredient(INGREDIENT_INFOS.INGREDIENT_JALAPENOS.TYPE);
-            game.pdr = game.pdr - INGREDIENT_INFOS.INGREDIENT_JALAPENOS.BASE_PRICE
-            game.money.textContent = game.pdr
+            placeIngredient(INGREDIENT_INFOS.INGREDIENT_JALAPENOS.TYPE, jalapenos);
+            const substract = game.substractPdr.bind(game);
+            substract(INGREDIENT_INFOS.INGREDIENT_JALAPENOS.BASE_PRICE)
         }
     });
     onion.addEventListener("click", () => {
         if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_ONION.BASE_PRICE) {
-            placeIngredient(INGREDIENT_INFOS.INGREDIENT_ONION.TYPE);
-            game.pdr = game.pdr - INGREDIENT_INFOS.INGREDIENT_ONION.BASE_PRICE
-            game.money.textContent = game.pdr
+            placeIngredient(INGREDIENT_INFOS.INGREDIENT_ONION.TYPE, onion);
+            const substract = game.substractPdr.bind(game);
+            substract(INGREDIENT_INFOS.INGREDIENT_ONION.BASE_PRICE)
         }
     });
     herbe.addEventListener("click", () => {
         if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_HERBE.BASE_PRICE) {
-            placeIngredient(INGREDIENT_INFOS.INGREDIENT_HERBE.TYPE);
-            game.pdr = game.pdr - INGREDIENT_INFOS.INGREDIENT_HERBE.BASE_PRICE
-            game.money.textContent = game.pdr
+            placeIngredient(INGREDIENT_INFOS.INGREDIENT_HERBE.TYPE, herbe);
+            const substract = game.substractPdr.bind(game);
+            substract(INGREDIENT_INFOS.INGREDIENT_HERBE.BASE_PRICE)
         }
     });
     figue.addEventListener("click", () => {
         if (game.pdr >= INGREDIENT_INFOS.INGREDIENT_FIGUE.BASE_PRICE) {
-            placeIngredient(INGREDIENT_INFOS.INGREDIENT_FIGUE.TYPE);
-            game.pdr = game.pdr - INGREDIENT_INFOS.INGREDIENT_FIGUE.BASE_PRICE
-            game.money.textContent = game.pdr
+            placeIngredient(INGREDIENT_INFOS.INGREDIENT_FIGUE.TYPE, figue);
+            const substract = game.substractPdr.bind(game);
+            substract(INGREDIENT_INFOS.INGREDIENT_FIGUE.BASE_PRICE)
         }
     });
+}
+
+function updateCardsColor () {
+    const milk = document.querySelector(".ingredient_milk");
+    const pepper = document.querySelector(".ingredient_pepper");
+    const jalapenos = document.querySelector(".ingredient_jalapenos");
+    const onion = document.querySelector(".ingredient_onion");
+    const herbe = document.querySelector(".ingredient_herbe");
+    const figue = document.querySelector(".ingredient_figue");
+
+    const cards = [
+        [INGREDIENT_INFOS.INGREDIENT_MILK, milk],
+        [INGREDIENT_INFOS.INGREDIENT_PEPPER, pepper],
+        [INGREDIENT_INFOS.INGREDIENT_JALAPENOS, jalapenos],
+        [INGREDIENT_INFOS.INGREDIENT_ONION, onion],
+        [INGREDIENT_INFOS.INGREDIENT_HERBE, herbe],
+        [INGREDIENT_INFOS.INGREDIENT_FIGUE, figue]
+    ]
+
+    cards.forEach(card => {
+        if (game.pdr >= card[0].BASE_PRICE) {
+            card[1].style.backgroundColor = "green"
+            card[1].style.border = "darkgreen 2px solid"
+
+        } else {
+            card[1].style.backgroundColor = "red"
+            card[1].style.border = "brown 2px solid"
+        }
+    });
+    
+
 }
 
 const ingredientManager = {
@@ -135,6 +180,7 @@ const ingredientManager = {
     showUpgrades,
     hideUpgrades,
     activateButtons,
+    updateCardsColor
 };
 
 export { ingredientManager };
