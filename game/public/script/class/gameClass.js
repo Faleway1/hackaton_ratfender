@@ -4,6 +4,8 @@ import { createPath } from "../pathManager.js";
 import { ENEMY_INFOS, GAME_SETTINGS } from "../config.js";
 import { ENEMIES } from "./ennemies.js";
 import { Cell } from "./cell.js";
+import { towerManager } from "../towerManager.js";
+import { ingredientManager } from "../ingredientManager.js";
 
 export class Game {
     constructor(tilesPerRow, tilesPerCol, appWidth, appHeight, pdrPerRound) {
@@ -15,6 +17,7 @@ export class Game {
         this.tilewidth = appWidth / tilesPerRow;
         this.tileheight = appHeight / tilesPerCol;
         this.cellsList = [];
+        this.isTowerBeignPlaced = false
         
         this.towerTilesOccupied = [];
         this.totalEnnemies = []
@@ -24,10 +27,10 @@ export class Game {
         this.life = 100
         this.ennemySpawn = 5 + (2*this.round)
         const hp = document.querySelector(".hp")
-        hp.textContent = `Vie : ${this.life}`
+        hp.textContent = `${this.life}`
 
-        this.rng = new Math.seedrandom('efrei');
-        // this.rng = Math.random;
+        // this.rng = new Math.seedrandom('efrei');
+        this.rng = Math.random;
         this.isPaused = false;
         this.isPlaying = false;
 
@@ -46,6 +49,8 @@ export class Game {
     async initCanva() {
         await this.app.init({ background: '#1099bb', width: this.appWidth, height: this.appHeight })
         document.querySelector("#game").appendChild(this.app.view);
+        towerManager.updateCardsColor()
+        ingredientManager.updateCardsColor()
     }
 
     async initGrid() {
@@ -56,6 +61,20 @@ export class Game {
         this.path = this.generatePath(this.path);
         const path = await createPath(this.path);
         this.app.stage.addChild(path);
+    }
+
+    substractPdr(amount) {        
+        this.pdr -= amount
+        this.money.textContent = this.pdr
+        ingredientManager.updateCardsColor()
+        towerManager.updateCardsColor()
+    }
+    
+    addPdr(amount) {
+        this.pdr += amount
+        this.money.textContent = this.pdr
+        ingredientManager.updateCardsColor()
+        towerManager.updateCardsColor()
     }
 
     generatePath() {
@@ -153,6 +172,7 @@ export class Game {
 
     async startRound() {
         if (this.isPlaying) return
+        this.isPlaying = true
         let i = 0
         this.defineEnnemyAmount()
         const possible_enemies = this.checkPossibleEnnemies()
@@ -163,7 +183,9 @@ export class Game {
                 return
             }
             i++
+            
             let new_rat = await this.createRat(possible_enemies[Math.floor(this.rng() * possible_enemies.length)])
+            
             new_rat.moveEntityInterval()
         }, 1000)
         setTimeout(() => {
@@ -174,20 +196,22 @@ export class Game {
     checkIfRoundEnd() {
         this.checkIfRoundEndInterval = setInterval(() => {         
 
+            if (this.life <= 0) {
+                window.location.href = "./leaderboard.html"
+            }
             if (this.totalEnnemies.length === 0) {
                 this.roundEnd()
-                
             }
         }, 200)
     }
 
     roundEnd() {
+        this.isPlaying = false
         
         clearInterval(this.gameInterval)
         clearInterval(this.spawnEnnemiesInterval)
         clearInterval(this.checkIfRoundEndInterval)
         this.round++
-        console.log(this.round)
         if (this.isPaused) return
         else {
             this.startRound()

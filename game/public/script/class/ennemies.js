@@ -94,8 +94,8 @@ class Rat {
         this.cell_position.ennemies.pop(this)
         clearInterval(this.moveInterval)
         this.isKilled = true
-        game.pdr += this.money
-        game.money.textContent = game.pdr
+        const add = game.addPdr.bind(game)
+        add(this.money)
         game.totalEnnemies.pop(this)
 
         setTimeout(() => {
@@ -121,8 +121,10 @@ class Rat {
         clearInterval(this.moveInterval)
         this.isKilled = true
         game.life -= this.damage
+        game.totalEnnemies.pop(this)
+
         const hp = document.querySelector(".hp")
-        hp.textContent = `Vie : ${game.life}`
+        hp.textContent = `${game.life}`
 
     }
 
@@ -151,7 +153,6 @@ class Rat {
         this.checkHealth();
         if (this.isKilled) return;
         if (damage > 0) this.sprite.tint = 0xff0000
-        console.log(this.hp)
 
         setTimeout(() => {
             if (this.sprite) {

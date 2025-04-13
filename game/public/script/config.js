@@ -32,7 +32,7 @@ const GAME_SETTINGS = {
 const NORMAL_RAT = {
   BASE_HP: 20,
   BASE_MONEY: 10,
-  TYPE: "Normal",
+  TYPE: "normal",
   DAMAGE: 5,
   IMAGE: "normalRat",
   DEATH_IMAGE: "sfx"
@@ -40,21 +40,21 @@ const NORMAL_RAT = {
 const CAMO_RAT = {
   BASE_HP: 12,
   BASE_MONEY: 10,
-  TYPE: "Camo",
+  TYPE: "camo",
   DAMAGE: 7,
     IMAGE: "camoRat"
 };
 const STEEL_RAT = {
   BASE_HP: 20,
   BASE_MONEY: 15,
-  TYPE: "Steel",
+  TYPE: "steel",
   DAMAGE: 7,
   IMAGE: "steelRat"
 };
 const RAINBOW_RAT = {
   BASE_HP: 50,
   BASE_MONEY: 20,
-  TYPE: "Rainbow",
+  TYPE: "rainbow",
   DAMAGE: 9,
   IMAGE: "rainbowRat"
 };
