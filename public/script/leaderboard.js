@@ -1,5 +1,5 @@
 function fetchTopPlayers() {
-    fetch('http://localhost:3000/api/v1/leaderboard/topPlayer')
+    fetch('https://hackaton-ratfender.onrender.com/api/v1/leaderboard/topPlayer')
     .then(res => res.json())
     .then(data => {
         const list = document.getElementById("leaderboard-list");
