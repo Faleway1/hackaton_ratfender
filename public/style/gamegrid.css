@@ -277,3 +277,16 @@ main {
   margin: 100px;
   font-size: xx-large;
 }
+
+#tooltip {
+    position: fixed;
+    background-color: #333;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    pointer-events: none;
+    display: none;
+    z-index: 1000;
+    white-space: nowrap;
+}

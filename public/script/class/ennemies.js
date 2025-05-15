@@ -42,9 +42,6 @@ class Rat {
         } else if (!this.isKilled) {
             this.updateCellPosition()
         }
-
-
-
         if (!this.isKilled) {
             const middleOfTile = {
                 x: this.cell_position.xmin + (GAME_SETTINGS.TILE_WIDTH / 2),

@@ -4,8 +4,7 @@ import { createPath } from "../pathManager.js";
 import { ENEMY_INFOS, GAME_SETTINGS } from "../config.js";
 import { ENEMIES } from "./ennemies.js";
 import { Cell } from "./cell.js";
-import { towerManager } from "../towerManager.js";
-import { ingredientManager } from "../ingredientManager.js";
+import { entityManager } from "../entityManager.js";
 
 export class Game {
     constructor(tilesPerRow, tilesPerCol, appWidth, appHeight, pdrPerRound) {
@@ -24,7 +23,7 @@ export class Game {
         this.path = [];
         this.pdr = 300;
         this.round = 0;
-        this.life = 100
+        this.life = 20
         this.ennemySpawn = 5 + (2*this.round)
         const hp = document.querySelector(".hp")
         hp.textContent = `${this.life}`
@@ -49,8 +48,7 @@ export class Game {
     async initCanva() {
         await this.app.init({ background: '#1099bb', width: this.appWidth, height: this.appHeight })
         document.querySelector("#game").appendChild(this.app.view);
-        towerManager.updateCardsColor()
-        ingredientManager.updateCardsColor()
+        entityManager.updateCardsColor()
     }
 
     async initGrid() {
@@ -66,15 +64,13 @@ export class Game {
     substractPdr(amount) {        
         this.pdr -= amount
         this.money.textContent = this.pdr
-        ingredientManager.updateCardsColor()
-        towerManager.updateCardsColor()
+        entityManager.updateCardsColor()
     }
     
     addPdr(amount) {
         this.pdr += amount
         this.money.textContent = this.pdr
-        ingredientManager.updateCardsColor()
-        towerManager.updateCardsColor()
+        entityManager.updateCardsColor()
     }
 
     generatePath() {

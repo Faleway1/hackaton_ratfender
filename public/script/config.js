@@ -27,36 +27,35 @@ const GAME_SETTINGS = {
   TILE_WIDTH,
 };
 
-
 // ENEMIES INFOS
 const NORMAL_RAT = {
-  BASE_HP: 20,
-  BASE_MONEY: 10,
+  BASE_HP: 15,
+  BASE_MONEY: 5,
   TYPE: "normal",
-  DAMAGE: 5,
+  DAMAGE: 1,
   IMAGE: "normalRat",
-  DEATH_IMAGE: "sfx"
+  DEATH_IMAGE: "sfx",
 };
 const CAMO_RAT = {
-  BASE_HP: 12,
-  BASE_MONEY: 10,
+  BASE_HP: 10,
+  BASE_MONEY: 5,
   TYPE: "camo",
-  DAMAGE: 7,
-    IMAGE: "camoRat"
+  DAMAGE: 1,
+  IMAGE: "camoRat",
 };
 const STEEL_RAT = {
-  BASE_HP: 20,
-  BASE_MONEY: 15,
+  BASE_HP: 40,
+  BASE_MONEY: 10,
   TYPE: "steel",
-  DAMAGE: 7,
-  IMAGE: "steelRat"
+  DAMAGE: 3,
+  IMAGE: "steelRat",
 };
 const RAINBOW_RAT = {
-  BASE_HP: 50,
-  BASE_MONEY: 20,
+  BASE_HP: 25,
+  BASE_MONEY: 10,
   TYPE: "rainbow",
-  DAMAGE: 9,
-  IMAGE: "rainbowRat"
+  DAMAGE: 2,
+  IMAGE: "rainbowRat",
 };
 
 const ENEMY_INFOS = {
@@ -69,50 +68,50 @@ const ENEMY_INFOS = {
 // TOWER INFOS
 const TOWER_TOME = {
   TYPE: "TOWER_TOME",
-  BASE_ATK: 30,
-  BASE_SHOT_SPEED: 3000,
-  BASE_RANGE: 2,
+  BASE_ATK: 10,
+  BASE_SHOT_SPEED: 1000,
+  BASE_RANGE: 1.5,
   BASE_NB_SHOTS: 1,
   BASE_PRICE: 50,
   RAT_TYPE: ["normal"],
   IMAGE: "tomeFromage",
-  IMAGEURL : "../public/assets/tomeFromage.png",
+  IMAGEURL: "../public/assets/tomeFromage.png",
 };
 const TOWER_COMTE = {
   TYPE: "TOWER_COMTE",
-  BASE_ATK: 30,
-  BASE_SHOT_SPEED: 3000,
+  BASE_ATK: 10,
+  BASE_SHOT_SPEED: 1000,
   BASE_RANGE: 2,
   BASE_NB_SHOTS: 1,
   BASE_PRICE: 100,
-  RAT_TYPE: ["normal","camo"],
+  RAT_TYPE: ["normal", "camo"],
   IMAGE: "comteFromage",
-  IMAGEURL : "../public/assets/comteFromage.png"
+  IMAGEURL: "../public/assets/comteFromage.png",
 };
 const TOWER_CHEVRE = {
   TYPE: "TOWER_CHEVRE",
-  BASE_ATK: 30,
-  BASE_SHOT_SPEED: 3000,
-  BASE_RANGE: 2,
+  BASE_ATK: 25,
+  BASE_SHOT_SPEED: 1500,
+  BASE_RANGE: 1.5,
   BASE_NB_SHOTS: 1,
-  BASE_PRICE: 100,
-  RAT_TYPE: ["normal","rainbow"],
+  BASE_PRICE: 175,
+  RAT_TYPE: ["normal", "rainbow"],
   IMAGE: "chevreFromage",
-  IMAGEURL : "../public/assets/chevreFromage.png"
+  IMAGEURL: "../public/assets/chevreFromage.png",
 };
 const TOWER_ROQUEFORT = {
   TYPE: "TOWER_ROQUEFORT",
-  BASE_ATK: 30,
+  BASE_ATK: 40,
   BASE_SHOT_SPEED: 4000,
   BASE_RANGE: 3,
   BASE_NB_SHOTS: 1,
-  BASE_PRICE: 100,
-  RAT_TYPE: ["normal","steel"],
+  BASE_PRICE: 350,
+  RAT_TYPE: ["normal", "steel"],
   IMAGE: "roquefortFromage",
-  IMAGEURL : "../public/assets/roquefortFromage.png"
+  IMAGEURL: "../public/assets/roquefortFromage.png",
 };
 
-const TOWER_INFOS = {   
+const TOWER_INFOS = {
   TOWER_TOME,
   TOWER_COMTE,
   TOWER_CHEVRE,
@@ -121,70 +120,100 @@ const TOWER_INFOS = {
 
 // INGREDIENT INFOS
 const INGREDIENT_MILK = {
-  TYPE : "INGREDIENT_MILK",
+  TYPE: "INGREDIENT_MILK",
   TYPE_BUFF: "attack",
-  CURRENT_BUFF: 10,
-  BASE_BUFF: 10,
+  CURRENT_BUFF: 1.1,
+  BASE_BUFF: 1.1,
   BASE_RANGE: 2,
-  BASE_PRICE: 50,
+  BASE_PRICE: 150,
   BASE_LEVEL: 0,
+  LEVEL_TWO_STATS: {
+    CURRENT_BUFF: 1.15,
+    BASE_PRICE: 250,
+    BASE_LEVEL: 1,
+  },
+  LEVEL_THREE_STATS: {
+    CURRENT_BUFF: 1.2,
+    BASE_PRICE: 400,
+    BASE_LEVEL: 2,
+  },
   IMAGE: "milkIngredient",
-  IMAGEURL : "../public/assets/milkIngredient.png",
+  IMAGEURL: "../public/assets/milkIngredient.png",
 };
 const INGREDIENT_PEPPER = {
-  TYPE : "INGREDIENT_PEPPER",
+  TYPE: "INGREDIENT_PEPPER",
   TYPE_BUFF: "rainbow",
   CURRENT_BUFF: 10,
   BASE_BUFF: 10,
   BASE_RANGE: 2,
-  BASE_PRICE: 50,
+  BASE_PRICE: 100,
   BASE_LEVEL: 0,
   IMAGE: "pepperIngredient",
-  IMAGEURL : "../public/assets/pepperIngredient.png",
+  IMAGEURL: "../public/assets/pepperIngredient.png",
 };
 const INGREDIENT_FIGUE = {
-  TYPE : "INGREDIENT_FIGUE",
+  TYPE: "INGREDIENT_FIGUE",
   TYPE_BUFF: "range",
-  CURRENT_BUFF: 10,
-  BASE_BUFF: 10,
+  CURRENT_BUFF: 0.5,
+  BASE_BUFF: 0.25,
   BASE_RANGE: 2,
-  BASE_PRICE: 50,
+  BASE_PRICE: 75,
   BASE_LEVEL: 0,
+  LEVEL_TWO_STATS: {
+    CURRENT_BUFF: 0.5,
+    BASE_PRICE: 125,
+    BASE_LEVEL: 1,
+  },
+  LEVEL_THREE_STATS: {
+    CURRENT_BUFF: 0.75,
+    BASE_PRICE: 200,
+    BASE_LEVEL: 2,
+  },
   IMAGE: "figueIngredient",
-  IMAGEURL : "../public/assets/figueIngredient.png",
+  IMAGEURL: "../public/assets/figueIngredient.png",
 };
 const INGREDIENT_HERBE = {
-  TYPE : "INGREDIENT_HERBE",
+  TYPE: "INGREDIENT_HERBE",
   TYPE_BUFF: "shot_speed",
-  CURRENT_BUFF: 10,
-  BASE_BUFF: 10,
+  CURRENT_BUFF: 150,
+  BASE_BUFF: 150,
   BASE_RANGE: 2,
-  BASE_PRICE: 50,
+  BASE_PRICE: 150,
   BASE_LEVEL: 0,
+  LEVEL_TWO_STATS: {
+    CURRENT_BUFF: 350,
+    BASE_PRICE: 250,
+    BASE_LEVEL: 1,
+  },
+  LEVEL_THREE_STATS: {
+    CURRENT_BUFF: 500,
+    BASE_PRICE: 400,
+    BASE_LEVEL: 2,
+  },
   IMAGE: "herbeIngredient",
-  IMAGEURL : "../public/assets/herbeIngredient.png",
+  IMAGEURL: "../public/assets/herbeIngredient.png",
 };
 const INGREDIENT_JALAPENOS = {
-  TYPE : "INGREDIENT_JALAPENOS",
+  TYPE: "INGREDIENT_JALAPENOS",
   TYPE_BUFF: "steel",
   CURRENT_BUFF: 10,
   BASE_BUFF: 10,
   BASE_RANGE: 2,
-  BASE_PRICE: 50,
+  BASE_PRICE: 100,
   BASE_LEVEL: 0,
   IMAGE: "jalapenosIngredient",
-  IMAGEURL : "../public/assets/jalapenosIngredient.png",
+  IMAGEURL: "../public/assets/jalapenosIngredient.png",
 };
 const INGREDIENT_ONION = {
-  TYPE : "INGREDIENT_ONION",
+  TYPE: "INGREDIENT_ONION",
   TYPE_BUFF: "camo",
   CURRENT_BUFF: 10,
   BASE_BUFF: 10,
   BASE_RANGE: 2,
-  BASE_PRICE: 50,
+  BASE_PRICE: 150,
   BASE_LEVEL: 0,
   IMAGE: "onionIngredient",
-  IMAGEURL : "../public/assets/onionIngredient.png",
+  IMAGEURL: "../public/assets/onionIngredient.png",
 };
 
 const INGREDIENT_INFOS = {
@@ -196,7 +225,4 @@ const INGREDIENT_INFOS = {
   INGREDIENT_ONION,
 };
 
-
 export { GAME_SETTINGS, ENEMY_INFOS, TOWER_INFOS, INGREDIENT_INFOS };
-
-
