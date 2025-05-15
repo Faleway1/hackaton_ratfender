@@ -1,7 +1,7 @@
 import { INGREDIENT_INFOS } from "../config.js";
 import { game } from "../game.js"
+import { GAME_SETTINGS } from "../config.js";
 import { gridManager } from "../gridManager.js";
-import { ingredientManager } from "../ingredientManager.js";
 
 class Ingredient {
     constructor() {
@@ -38,8 +38,7 @@ class Ingredient {
                     return false
                 }
                 
-                game.game.substractPdr(this.price)
-                game.money.textContent = game.pdr
+                game.substractPdr(this.price)
                 this.buffs.level += 1
                 this.buffs.current_buff = this.buffs.base_buff * this.buffs.level
                 this.price = this.price + (20 * this.buffs.level)
@@ -68,12 +67,10 @@ class Ingredient {
     }
 
     ingredientSelect() {
-        ingredientManager.showUpgrades(this);
         this.showRange()
     }
 
     ingredientUnselect() {
-        ingredientManager.hideUpgrades(this);
         this.hideRange()
     }
 
@@ -106,15 +103,22 @@ class Ingredient {
 
     initRangeVisual() {
         this.rangeGraphic = new PIXI.Graphics();
-        this.rangeGraphic.circle(0, 0, this.range * game.tilewidth);
+        this.rangeGraphic.circle(0, 0, (this.range + 0.5) * game.tilewidth);
         this.rangeGraphic.beginFill(0x00FF00, 0.5); // Vert avec opacité
         game.app.stage.addChild(this.rangeGraphic)
         this.rangeGraphic.stroke({ width: 2, color: 0xfeeb77 });
         this.rangeGraphic.visible = false;
 
     }
+    updateRangeVisual() {
+        game.app.stage.removeChild(this.rangeGraphic);
+        this.rangeGraphic.destroy();
+        this.rangeGraphic = null
+        this.initRangeVisual()
+    }
 
     showRange() {
+        this.updateRangeVisual()
         this.rangeGraphic.x = this.position.x;
         this.rangeGraphic.y = this.position.y;
         this.rangeGraphic.visible = true;
@@ -152,6 +156,7 @@ class Ingredient {
         }
         tower.buffs.push(this.buffs)
         tower.updateBuffs()
+        console.log(tower.buffs);
     }
 
     applyBuffToTowers(list_of_towers) {
@@ -213,9 +218,14 @@ class Ingredient {
         if (this.is_placed) {
             return
         }
-        this.position = {
-            x: x,
-            y: y,
+        const cell = gridManager.findOnGrid(
+            x,
+            y,
+            game.cellsList
+        );
+        const middleOfTile = {
+                x: cell.xmin + (GAME_SETTINGS.TILE_WIDTH / 2),
+                y: cell.ymin + (GAME_SETTINGS.TILE_HEIGHT / 2),
         };
         if (!this.sprite) {
             this.sprite = new PIXI.Sprite(this.asset);
@@ -224,6 +234,10 @@ class Ingredient {
             this.sprite.width = game.tilewidth;
             this.sprite.height = game.tileheight;
         }
+        this.position = {
+            x: middleOfTile.x,
+            y: middleOfTile.y,
+        };
         this.sprite.x = this.position.x;
         this.sprite.y = this.position.y;
         game.app.stage.addChild(this.sprite);

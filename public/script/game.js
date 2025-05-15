@@ -1,14 +1,8 @@
 import { GAME_SETTINGS, TOWER_INFOS, INGREDIENT_INFOS } from "./config.js";
 import { Game } from "./class/gameClass.js";
-import { TOWERS } from "./class/towers.js";
-import { towerManager } from "./towerManager.js";
-import { INGREDIENTS } from "./class/ingredients.js";
-import { ingredientManager } from "./ingredientManager.js";
-import { ENEMIES } from "./class/ennemies.js";
-import { gridManager } from "./gridManager.js";
+import { entityManager } from "./entityManager.js";
 
-towerManager.activateButtons()
-ingredientManager.activateButtons()
+entityManager.activateButtons()
 
 const game = new Game(
   GAME_SETTINGS.TILES_PER_ROW,
@@ -21,6 +15,26 @@ const game = new Game(
 );
 await game.initGame()
 await game.startRound()
+
+const tooltip = document.getElementById("tooltip");
+const allLis = document.querySelectorAll(".tower_list li, .ingredients_list li");
+
+allLis.forEach(li => {
+    li.addEventListener("mouseenter", (e) => {
+        
+        tooltip.innerHTML = li.dataset.tooltip.replace(/\\n/g, '<br>');
+        tooltip.style.display = "block";
+    });
+
+    li.addEventListener("mousemove", (e) => {
+        tooltip.style.left = e.pageX + 10 + "px";
+        tooltip.style.top = e.pageY + 10 + "px";
+    });
+
+    li.addEventListener("mouseleave", () => {
+        tooltip.style.display = "none";
+    });
+});
 
 
 const paused = document.querySelector(".pausePlayButton")
